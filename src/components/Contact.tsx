@@ -1,5 +1,106 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin } from "lucide-react";
+
+const ContactForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    const subject = encodeURIComponent(`Заявка от ${formData.name}`);
+    const body = encodeURIComponent(
+      `Имя: ${formData.name}\n` +
+      `Телефон: ${formData.phone}\n` +
+      `Email: ${formData.email}\n\n` +
+      `Сообщение:\n${formData.message}`
+    );
+    
+    // Открываем mailto с двумя адресами
+    window.location.href = `mailto:larisa_matsukova@tut.by,vashproekt.by@gmail.com?subject=${subject}&body=${body}`;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="grid md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">
+            Ваше имя
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
+            placeholder="Иван Иванов"
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-card-foreground mb-2">
+            Телефон
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
+            placeholder="+375 (XX) XXX-XX-XX"
+          />
+        </div>
+      </div>
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">
+          Email
+        </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
+          placeholder="your@email.com"
+        />
+      </div>
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-card-foreground mb-2">
+          Сообщение
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          rows={4}
+          required
+          className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300 resize-none"
+          placeholder="Расскажите о вашем проекте..."
+        />
+      </div>
+      <Button type="submit" size="lg" className="w-full">
+        Отправить заявку
+      </Button>
+    </form>
+  );
+};
 
 const Contact = () => {
   const contactInfo = [
@@ -60,61 +161,7 @@ const Contact = () => {
             <h3 className="font-serif text-2xl font-bold text-card-foreground mb-6 text-center">
               Оставьте заявку
             </h3>
-            <form className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">
-                    Ваше имя
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-                    placeholder="Иван Иванов"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-card-foreground mb-2">
-                    Телефон
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-                    placeholder="+375 (XX) XXX-XX-XX"
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-                  placeholder="your@email.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-card-foreground mb-2">
-                  Сообщение
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={4}
-                  className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300 resize-none"
-                  placeholder="Расскажите о вашем проекте..."
-                />
-              </div>
-              <Button type="submit" size="lg" className="w-full">
-                Отправить заявку
-              </Button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </div>
