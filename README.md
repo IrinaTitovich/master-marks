@@ -6,47 +6,17 @@
 
 Проект создан с использованием:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Vite** - сборщик и dev-сервер
+- **TypeScript** - типизированный JavaScript
+- **React** - библиотека для создания UI
+- **shadcn-ui** - компоненты интерфейса
+- **Tailwind CSS** - утилитарный CSS фреймворк
+- **React Router** - маршрутизация
 
-Follow these steps:
+## Требования
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- Node.js 18+ и npm
+- Рекомендуется использовать [nvm](https://github.com/nvm-sh/nvm#installing-and-updating) для управления версиями Node.js
 
 ## Разработка
 
@@ -54,18 +24,67 @@ This project is built with:
 
 ```sh
 # Установка зависимостей
-npm i
+npm install
 
-# Запуск dev-сервера
+# Запуск dev-сервера (порт 2000)
 npm run dev
 ```
 
-## Сборка
+Проект будет доступен по адресу: http://localhost:2000
+
+## Сборка для production
+
+Для создания production-версии:
 
 ```sh
 npm run build
 ```
 
-## Деплой
+После успешной сборки все файлы будут находиться в папке `dist/`.
 
-Собранные файлы находятся в папке `dist/` и могут быть развернуты на любом статическом хостинге.
+### Проверка сборки локально
+
+Перед загрузкой на хостинг можно проверить сборку:
+
+```sh
+npm run preview
+```
+
+## Развертывание на хостинг
+
+### Статический хостинг
+
+Проект готов для развертывания на любом статическом хостинге:
+
+1. **Netlify**: Перетащите папку `dist/` или подключите репозиторий
+2. **Vercel**: Подключите репозиторий, Vercel автоматически определит Vite
+3. **GitHub Pages**: Загрузите содержимое папки `dist/` в репозиторий
+4. **Обычный хостинг**: Загрузите все файлы из папки `dist/` на сервер через FTP/SFTP
+
+### Настройка сервера
+
+Для правильной работы SPA routing на сервере должен быть настроен redirect всех запросов на `index.html`.
+
+Файл `.htaccess` для Apache уже включен в проект и будет скопирован в `dist/` при сборке.
+
+Подробные инструкции по деплою см. в файле [DEPLOY.md](./DEPLOY.md)
+
+## Структура проекта
+
+```
+master-marks/
+├── public/          # Статические файлы
+├── src/            # Исходный код
+│   ├── components/ # React компоненты
+│   ├── pages/      # Страницы приложения
+│   └── assets/     # Изображения и другие ресурсы
+├── dist/           # Собранные файлы (создается после build)
+└── package.json    # Зависимости проекта
+```
+
+## Скрипты
+
+- `npm run dev` - запуск dev-сервера
+- `npm run build` - сборка для production
+- `npm run preview` - предпросмотр production сборки
+- `npm run lint` - проверка кода линтером
