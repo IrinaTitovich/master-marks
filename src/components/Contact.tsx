@@ -1,14 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin } from "lucide-react";
 
 const ContactForm = () => {
+  const location = useLocation();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     email: "",
     message: "",
   });
+
+  // Предзаполнение сообщения из location.state
+  useEffect(() => {
+    if (location.state?.prefillMessage) {
+      setFormData(prev => ({
+        ...prev,
+        message: location.state.prefillMessage,
+      }));
+    }
+  }, [location.state]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

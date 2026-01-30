@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Building2, Layers, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { projects } from "@/data/projects";
 
 const ProjectsCatalog = () => {
   const navigate = useNavigate();
@@ -40,15 +41,6 @@ const ProjectsCatalog = () => {
     },
   ];
 
-  // Пока что пустой массив проектов - будет заполнен позже
-  const projects: Array<{
-    id: string;
-    title: string;
-    category: string;
-    image?: string;
-    area?: string;
-    description?: string;
-  }> = [];
 
   const filteredProjects = selectedCategory
     ? projects.filter((p) => p.category === selectedCategory)
@@ -109,6 +101,7 @@ const ProjectsCatalog = () => {
             {filteredProjects.map((project) => (
               <div
                 key={project.id}
+                onClick={() => navigate(`/projects/${project.id}`)}
                 className="group bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 overflow-hidden cursor-pointer"
               >
                 {project.image && (
@@ -121,8 +114,13 @@ const ProjectsCatalog = () => {
                   </div>
                 )}
                 <div className="p-6">
+                  {project.projectNumber && (
+                    <span className="text-accent font-semibold text-xs mb-1 block">
+                      Проект №{project.projectNumber}
+                    </span>
+                  )}
                   {project.area && (
-                    <span className="text-accent font-semibold text-sm mb-2 block">
+                    <span className="text-muted-foreground text-xs mb-2 block">
                       {project.area}
                     </span>
                   )}
@@ -130,8 +128,13 @@ const ProjectsCatalog = () => {
                     {project.title}
                   </h3>
                   {project.description && (
-                    <p className="text-muted-foreground text-sm">
+                    <p className="text-muted-foreground text-sm mb-2">
                       {project.description}
+                    </p>
+                  )}
+                  {project.details && (
+                    <p className="text-muted-foreground text-xs line-clamp-3">
+                      {project.details}
                     </p>
                   )}
                 </div>
