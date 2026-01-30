@@ -4,7 +4,7 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
+  base: process.env.VITE_BASE_URL || (process.env.NODE_ENV === 'production' ? '/master-marks/' : './'),
   server: {
     host: "::",
     port: 2000,

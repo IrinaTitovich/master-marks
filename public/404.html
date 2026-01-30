@@ -10,14 +10,25 @@
       var path = window.location.pathname;
       var search = window.location.search;
       var hash = window.location.hash;
-      var newPath = '/index.html' + (path !== '/' ? '?p=' + encodeURIComponent(path + search + hash) : search + hash);
+
+      var basePath = "/master-marks";
+      var indexPath = basePath + "/index.html";
+
+      var newPath =
+        indexPath +
+        (path !== basePath + "/" && path !== basePath
+          ? "?p=" + encodeURIComponent(path + search + hash)
+          : search + hash);
       window.location.replace(newPath);
     </script>
   </head>
   <body>
-    <div style="padding: 20px; font-family: sans-serif; text-align: center;">
+    <div style="padding: 20px; font-family: sans-serif; text-align: center">
       <h1>Загрузка...</h1>
-      <p>Если страница не загрузилась, <a href="/index.html">перейдите на главную</a></p>
+      <p>
+        Если страница не загрузилась,
+        <a href="/master-marks/index.html">перейдите на главную</a>
+      </p>
     </div>
   </body>
 </html>
