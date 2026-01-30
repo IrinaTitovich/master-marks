@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 import { projects } from "@/data/projects";
+import WatermarkImage from "@/components/WatermarkImage";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -125,7 +126,7 @@ const ProjectDetail = () => {
                     onClick={() => setSelectedImage(img)}
                     className="aspect-[4/3] overflow-hidden rounded-lg shadow-[var(--shadow-soft)] cursor-pointer hover:shadow-[var(--shadow-elegant)] transition-all duration-300 group"
                   >
-                    <img
+                    <WatermarkImage
                       src={img}
                       alt={`${project.title} - изображение ${index + 1}`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -150,7 +151,7 @@ const ProjectDetail = () => {
                       <X className="h-5 w-5" />
                     </Button>
                   </DialogClose>
-                  <img
+                  <WatermarkImage
                     src={selectedImage}
                     alt={`${project.title} - увеличенное изображение`}
                     className="w-full h-auto max-h-[90vh] object-contain rounded-lg"

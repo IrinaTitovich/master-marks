@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import readyProject1 from "@/assets/ready-project-section-1.jpg";
 import readyProject2 from "@/assets/ready-project-section-2.jpg";
 import readyProject3 from "@/assets/ready-project-section-3.jpg";
+import WatermarkImage from "@/components/WatermarkImage";
 
 const ProjectExamples = () => {
   const navigate = useNavigate();
@@ -94,10 +95,11 @@ const ProjectExamples = () => {
                   className="group cursor-pointer bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2 overflow-hidden"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img
+                    <WatermarkImage
                       src={category.image}
                       alt={category.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      subtle={true}
                     />
                   </div>
                   <div className="p-6">

@@ -1,6 +1,7 @@
 import realProject1 from "@/assets/real-project-1.jpg";
 import realProject2 from "@/assets/real-project-2.jpg";
 import realProject3 from "@/assets/real-project-3.jpg";
+import WatermarkImage from "@/components/WatermarkImage";
 
 const RealProjects = () => {
   const projects = [
@@ -40,10 +41,11 @@ const RealProjects = () => {
               className="group relative overflow-hidden rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-500"
             >
               <div className="aspect-[4/3] overflow-hidden">
-                <img
+                <WatermarkImage
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  subtle={true}
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">

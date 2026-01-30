@@ -4,6 +4,7 @@ import { Home, Building2, Layers, ArrowLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
+import WatermarkImage from "@/components/WatermarkImage";
 
 const ProjectsCatalog = () => {
   const navigate = useNavigate();
@@ -145,7 +146,7 @@ const ProjectsCatalog = () => {
               >
                 {project.image && (
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img
+                    <WatermarkImage
                       src={project.image}
                       alt={project.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
