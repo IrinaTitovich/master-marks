@@ -21,6 +21,10 @@ import project307Image1 from "@/assets/ready-project-1.5-story-number-1.jpg";
 import project307Image2 from "@/assets/ready-project-1.5-story-number-1.2.jpg";
 import project307Image3 from "@/assets/ready-project-1.5-story-number-1.3.jpg";
 import project307Image4 from "@/assets/ready-project-1.5-story-number-1.4.jpg";
+import project282Image1 from "@/assets/ready-project-1.5-story-number-3.jpg";
+import project282Image2 from "@/assets/ready-project-1.5-story-number-3.1.jpg";
+import project282Image3 from "@/assets/ready-project-1.5-story-number-3.2.jpg";
+import project282Image4 from "@/assets/ready-project-1.5-story-number-3.3.jpg";
 
 export interface Project {
   id: string;
@@ -111,5 +115,16 @@ export const projects: Project[] = [
     area: "109,9 м² (1 этаж) + 80,4 м² (мансарда) + 67,8 м² (цокольный этаж) + 47,4 м² (гараж) + 29,0 м² (терраса) + 20,6 м² (баня)",
     description: "Проект №307. Дом мансардный с 4 спальнями, 2 санузлами, цокольным этажом, баней и террасой. Наружные стены – комбинированные с облицовкой кирпичом. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – сложная многоскатная с покрытием металлочерепицей.",
     details: "Площадь 1 этажа –109,9кв.м, мансарды – 80,4кв.м, цокольного этажа – 67,8кв.м, гаража – 47,4кв.м, террасы – 29,0кв.м, бани – 20,6кв.м.",
+  },
+  {
+    id: "project-282",
+    title: "Проект трехэтажного дома № 282",
+    category: "two-story",
+    projectNumber: "282",
+    image: project282Image1,
+    images: [project282Image1, project282Image2, project282Image3, project282Image4],
+    area: "123,1 м² (1 этаж) + 89,1 м² (2 этаж) + 86,7 м² (3 этаж) + 33,1 м² (веранда) + 92,7 м² (подвал)",
+    description: "Проект №282. Дом трехэтажный с 10 жилыми комнатами, 6 санузлами, подвалом и верандой. Наружные стены – блоки газосиликатные с последующей отделкой по системе утепления и частично из сруба. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – двускатная с покрытием металлочерепицей.",
+    details: "Площадь 1 этажа – 123,1кв.м, 2 этажа – 89,1кв.м, 3 этажа – 86,7кв.м; веранды – 33,1кв.м., подвала – 92,7кв.м.",
   },
 ];
