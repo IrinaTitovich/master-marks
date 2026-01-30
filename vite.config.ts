@@ -6,7 +6,7 @@ import path from "path";
 export default defineConfig({
   // Для GitHub Pages используем имя репозитория как base path
   // В GitHub Actions будет установлена переменная VITE_BASE_URL
-  base: process.env.VITE_BASE_URL || '/master-marks/',
+  base: process.env.VITE_BASE_URL || '/',
   server: {
     host: "::",
     port: 2000,

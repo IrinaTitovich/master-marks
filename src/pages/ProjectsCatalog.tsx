@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Building2, Layers, ArrowLeft } from "lucide-react";
+import { Home, Building2, Layers, ArrowLeft, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
@@ -72,24 +72,40 @@ const ProjectsCatalog = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-6 py-12">
-        {/* Заголовок и кнопка назад */}
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <Button
-              variant="ghost"
-              onClick={() => navigate("/")}
-              className="mb-4"
+        {/* Шапка с брендом и кнопкой назад */}
+        <div className="flex items-center justify-between mb-8">
+          <Button
+            variant="ghost"
+            onClick={() => navigate("/")}
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Назад на главную
+          </Button>
+          <div className="text-right">
+            <div className="font-serif text-xl font-bold text-foreground mb-1">
+              Ваш проект
+            </div>
+            <div className="text-sm text-muted-foreground mb-2">
+              Проектирование домов
+            </div>
+            <a 
+              href="tel:+375296745773"
+              className="text-accent hover:text-accent/80 font-semibold text-sm flex items-center justify-end gap-1 transition-colors"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Назад на главную
-            </Button>
-            <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
-              Готовые проекты
-            </h1>
-            <p className="text-xl text-muted-foreground mt-2">
-              Каталог готовых проектов домов
-            </p>
+              <Phone className="h-4 w-4" />
+              +375 (29) 674-57-73
+            </a>
           </div>
+        </div>
+
+        {/* Заголовок */}
+        <div className="mb-8">
+          <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
+            Готовые проекты
+          </h1>
+          <p className="text-xl text-muted-foreground mt-2">
+            Каталог готовых проектов домов
+          </p>
         </div>
 
         {/* Фильтры по категориям */}

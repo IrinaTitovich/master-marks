@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { Phone } from "lucide-react";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
@@ -34,10 +35,32 @@ const Index = () => {
       <Contact />
       
       <footer className="bg-primary text-primary-foreground py-8">
-        <div className="container mx-auto px-6 text-center">
-          <p className="text-sm">
-            © {new Date().getFullYear()} Архитектор-Конструктор. Все права защищены.
-          </p>
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-center md:text-left">
+              <div className="font-serif text-lg font-bold mb-1">
+                Ваш проект
+              </div>
+              <div className="text-sm text-primary-foreground/80 mb-2">
+                Проектирование домов
+              </div>
+              <a 
+                href="tel:+375296745773"
+                className="text-accent hover:text-accent/80 font-semibold text-sm flex items-center justify-center md:justify-start gap-1 transition-colors"
+              >
+                <Phone className="h-4 w-4" />
+                +375 (29) 674-57-73
+              </a>
+            </div>
+            <div className="text-center md:text-right">
+              <p className="text-sm">
+                © {new Date().getFullYear()} Все права защищены.
+              </p>
+              <p className="text-sm text-primary-foreground/70 mt-2">
+                ИП Мацукова Л.Е. УНП 790798662
+              </p>
+            </div>
+          </div>
         </div>
       </footer>
     </div>

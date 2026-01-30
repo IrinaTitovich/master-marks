@@ -1,12 +1,24 @@
-import { Award, Users, Building2, Target } from "lucide-react";
+import { useState } from "react";
+import { Award, Users, Building2, Target, ChevronDown, ChevronUp } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const About = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   const stats = [
     { icon: Building2, value: "150+", label: "Реализованных проектов" },
     { icon: Users, value: "20+", label: "Лет опыта" },
     { icon: Award, value: "50+", label: "Довольных клиентов" },
     { icon: Target, value: "100%", label: "Качество работы" },
   ];
+
+  const fullText = [
+    "Профессиональный архитектор-конструктор с более чем 20-летним опытом работы в области проектирования жилых домов и коттеджей.",
+    "Каждый проект — это уникальное решение, созданное с учетом индивидуальных пожеланий клиента, особенностей участка и современных строительных технологий.",
+    "Специализируюсь на создании функциональных, эстетичных и безопасных конструкций, которые становятся настоящим домом для их владельцев.",
+  ];
+
+  const shortText = fullText[0];
 
   return (
     <section id="about" className="py-24 bg-card">
@@ -17,15 +29,30 @@ const About = () => {
               Об архитекторе
             </h2>
             <div className="space-y-4 text-muted-foreground text-lg">
-              <p>
-                Профессиональный архитектор-конструктор с более чем 20-летним опытом работы в области проектирования жилых домов и коттеджей.
-              </p>
-              <p>
-                Каждый проект — это уникальное решение, созданное с учетом индивидуальных пожеланий клиента, особенностей участка и современных строительных технологий.
-              </p>
-              <p>
-                Специализируюсь на создании функциональных, эстетичных и безопасных конструкций, которые становятся настоящим домом для их владельцев.
-              </p>
+              <p>{shortText}</p>
+              {isExpanded && (
+                <div className="space-y-4 animate-in fade-in slide-in-from-top-2 duration-300">
+                  {fullText.slice(1).map((text, index) => (
+                    <p key={index}>{text}</p>
+                  ))}
+                </div>
+              )}
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="mt-4 text-accent hover:text-accent/80 font-semibold flex items-center gap-2 transition-colors hover:underline"
+              >
+                {isExpanded ? (
+                  <>
+                    Свернуть
+                    <ChevronUp className="h-4 w-4" />
+                  </>
+                ) : (
+                  <>
+                    Читать дальше
+                    <ChevronDown className="h-4 w-4" />
+                  </>
+                )}
+              </button>
             </div>
           </div>
 
