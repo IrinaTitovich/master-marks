@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-architecture.jpg";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+  const navigate = useNavigate();
+  
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -31,6 +34,9 @@ const Hero = () => {
             </Button>
             <Button variant="heroOutline" size="lg" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
               Посмотреть работы
+            </Button>
+            <Button variant="heroOutline" size="lg" onClick={() => navigate('/projects')}>
+              Готовые проекты
             </Button>
           </div>
         </div>
