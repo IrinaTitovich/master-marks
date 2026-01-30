@@ -12,13 +12,13 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "info@architect.ru",
-      href: "mailto:info@architect.ru",
+      value: "vashproekt.by@gmail.com",
+      href: "mailto:vashproekt.by@gmail.com",
     },
     {
       icon: MapPin,
       label: "Локация",
-      value: "Москва, Россия",
+      value: "Беларусь, Могилёв",
       href: "#",
     },
   ];
@@ -83,7 +83,7 @@ const Contact = () => {
                     id="phone"
                     name="phone"
                     className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-                    placeholder="+7 (XXX) XXX-XX-XX"
+                    placeholder="+375 (XX) XXX-XX-XX"
                   />
                 </div>
               </div>
@@ -96,7 +96,7 @@ const Contact = () => {
                   id="email"
                   name="email"
                   className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-                  placeholder="email@example.com"
+                  placeholder="larisa_matsukova@tut.by"
                 />
               </div>
               <div>
