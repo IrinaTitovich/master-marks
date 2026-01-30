@@ -20,12 +20,12 @@ import project321Image1 from "@/assets/projects/two-story/project-321/project-32
 import project321Image2 from "@/assets/projects/two-story/project-321/project-321-2.jpg";
 import project321Image3 from "@/assets/projects/two-story/project-321/project-321-3.jpg";
 import project321Image4 from "@/assets/projects/two-story/project-321/project-321-4.jpg";
-import project282Image1 from "@/assets/projects/two-story/project-282/project-282-1.jpg";
-import project282Image2 from "@/assets/projects/two-story/project-282/project-282-2.jpg";
-import project282Image3 from "@/assets/projects/two-story/project-282/project-282-3.jpg";
-import project282Image4 from "@/assets/projects/two-story/project-282/project-282-4.jpg";
-
 // Мансардные дома
+import project282Image1 from "@/assets/projects/mansard/project-282/project-282-1.jpg";
+import project282Image2 from "@/assets/projects/mansard/project-282/project-282-2.jpg";
+import project282Image3 from "@/assets/projects/mansard/project-282/project-282-3.jpg";
+import project282Image4 from "@/assets/projects/mansard/project-282/project-282-4.jpg";
+import project282Image5 from "@/assets/projects/mansard/project-282/project-282-5.jpg";
 import project307Image1 from "@/assets/projects/mansard/project-307/project-307-1.jpg";
 import project307Image2 from "@/assets/projects/mansard/project-307/project-307-2.jpg";
 import project307Image3 from "@/assets/projects/mansard/project-307/project-307-3.jpg";
@@ -123,11 +123,11 @@ export const projects: Project[] = [
   },
   {
     id: "project-282",
-    title: "Проект трехэтажного дома № 282",
-    category: "two-story",
+    title: "Проект трехэтажного мансардного дома № 282",
+    category: "mansard",
     projectNumber: "282",
     image: project282Image1,
-    images: [project282Image1, project282Image2, project282Image3, project282Image4],
+    images: [project282Image1, project282Image2, project282Image3, project282Image4, project282Image5],
     area: "123,1 м² (1 этаж) + 89,1 м² (2 этаж) + 86,7 м² (3 этаж) + 33,1 м² (веранда) + 92,7 м² (подвал)",
     description: "Проект №282. Дом трехэтажный с 10 жилыми комнатами, 6 санузлами, подвалом и верандой. Наружные стены – блоки газосиликатные с последующей отделкой по системе утепления и частично из сруба. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – двускатная с покрытием металлочерепицей.",
     details: "Площадь 1 этажа – 123,1кв.м, 2 этажа – 89,1кв.м, 3 этажа – 86,7кв.м; веранды – 33,1кв.м., подвала – 92,7кв.м.",
