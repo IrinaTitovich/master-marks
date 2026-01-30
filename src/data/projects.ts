@@ -17,6 +17,10 @@ import project321Image1 from "@/assets/ready-project-2-story-number-4.jpg";
 import project321Image2 from "@/assets/ready-project-2-story-number-4.2.jpg";
 import project321Image3 from "@/assets/ready-project-2-story-number-4.3.jpg";
 import project321Image4 from "@/assets/ready-project-2-story-number-4.4.jpg";
+import project307Image1 from "@/assets/ready-project-1.5-story-number-1.jpg";
+import project307Image2 from "@/assets/ready-project-1.5-story-number-1.2.jpg";
+import project307Image3 from "@/assets/ready-project-1.5-story-number-1.3.jpg";
+import project307Image4 from "@/assets/ready-project-1.5-story-number-1.4.jpg";
 
 export interface Project {
   id: string;
@@ -96,5 +100,16 @@ export const projects: Project[] = [
     area: "72,8 м² (1 этаж) + 68,3 м² (2 этаж) + 14,8 м² (терраса) + 24,8 м² (гараж) + 8,2 м² (подвал)",
     description: "Проект №321. Дом двухэтажный с 3 спальнями, кабинетом, 2 санузлами, гаражом, подвалом и террасой. Наружные стены – блоки газосиликатные с последующей отделкой по системе утепления. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – вальмовая с покрытием металлочерепицей.",
     details: "Площадь 1 этажа – 72,8кв.м, 2 этажа – 68,3кв.м, террасы –14,8кв.м., гаража – 24,8кв.м, подвала – 8,2кв.м.",
+  },
+  {
+    id: "project-307",
+    title: "Проект мансардного дома № 307",
+    category: "mansard",
+    projectNumber: "307",
+    image: project307Image1,
+    images: [project307Image1, project307Image2, project307Image3, project307Image4],
+    area: "109,9 м² (1 этаж) + 80,4 м² (мансарда) + 67,8 м² (цокольный этаж) + 47,4 м² (гараж) + 29,0 м² (терраса) + 20,6 м² (баня)",
+    description: "Проект №307. Дом мансардный с 4 спальнями, 2 санузлами, цокольным этажом, баней и террасой. Наружные стены – комбинированные с облицовкой кирпичом. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – сложная многоскатная с покрытием металлочерепицей.",
+    details: "Площадь 1 этажа –109,9кв.м, мансарды – 80,4кв.м, цокольного этажа – 67,8кв.м, гаража – 47,4кв.м, террасы – 29,0кв.м, бани – 20,6кв.м.",
   },
 ];
