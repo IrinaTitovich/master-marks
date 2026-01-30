@@ -96,7 +96,7 @@ const Contact = () => {
                   id="email"
                   name="email"
                   className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-                  placeholder="larisa_matsukova@tut.by"
+                  placeholder="your@email.com"
                 />
               </div>
               <div>
