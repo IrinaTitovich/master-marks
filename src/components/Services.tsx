@@ -1,4 +1,4 @@
-import { PenTool, Home, Ruler, FileText, Layers, Settings } from "lucide-react";
+import { PenTool, Home, Ruler, FileText, MessageCircle, Settings } from "lucide-react";
 
 const Services = () => {
   const services = [
@@ -23,9 +23,9 @@ const Services = () => {
       description: "Полный комплект чертежей и спецификаций для строительства и получения разрешений.",
     },
     {
-      icon: Layers,
-      title: "3D визуализация",
-      description: "Реалистичные визуализации проекта, позволяющие увидеть будущий дом до начала строительства.",
+      icon: MessageCircle,
+      title: "Консультации по проектированию",
+      description: "Профессиональные консультации на всех этапах: выбор проекта, адаптация под участок, оптимизация планировки и решение технических вопросов.",
     },
     {
       icon: Settings,
