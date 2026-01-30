@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Building2, Layers, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 
 const ProjectsCatalog = () => {
@@ -45,6 +46,28 @@ const ProjectsCatalog = () => {
   const filteredProjects = selectedCategory
     ? projects.filter((p) => p.category === selectedCategory)
     : projects;
+
+  // Парсим площади из area для badge'ов
+  const parseAreas = (areaString?: string) => {
+    if (!areaString) return [];
+    const areas: { label: string; value: string }[] = [];
+    
+    // Ищем площади в формате "99,4 м² (1 этаж)" и "23,4 м² (терраса)"
+    const matches = areaString.match(/(\d+[.,]\d+)\s*м²\s*\(([^)]+)\)/g);
+    if (matches) {
+      matches.forEach(match => {
+        const valueMatch = match.match(/(\d+[.,]\d+)\s*м²/);
+        const labelMatch = match.match(/\(([^)]+)\)/);
+        if (valueMatch && labelMatch) {
+          areas.push({
+            label: labelMatch[1],
+            value: valueMatch[1] + ' м²'
+          });
+        }
+      });
+    }
+    return areas;
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -115,18 +138,27 @@ const ProjectsCatalog = () => {
                 )}
                 <div className="p-6">
                   {project.projectNumber && (
-                    <span className="text-accent font-semibold text-xs mb-1 block">
+                    <span className="text-accent font-semibold text-xs mb-2 block">
                       Проект №{project.projectNumber}
-                    </span>
-                  )}
-                  {project.area && (
-                    <span className="text-muted-foreground text-xs mb-2 block">
-                      {project.area}
                     </span>
                   )}
                   <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
                     {project.title}
                   </h3>
+                  {project.area && parseAreas(project.area).length > 0 && (
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {parseAreas(project.area).map((area, index) => (
+                        <Badge 
+                          key={index}
+                          variant="outline"
+                          className="bg-accent/10 border-accent/30 text-foreground hover:bg-accent/20 px-2 py-0.5 text-xs font-medium"
+                        >
+                          <span className="text-muted-foreground mr-1 text-[10px]">{area.label}:</span>
+                          <span className="font-semibold">{area.value}</span>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
                   {project.description && (
                     <p className="text-muted-foreground text-sm mb-2">
                       {project.description}
