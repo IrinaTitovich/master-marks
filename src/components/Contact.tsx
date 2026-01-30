@@ -75,7 +75,6 @@ const ContactForm = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          required
           className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
           placeholder="your@email.com"
         />
@@ -90,7 +89,6 @@ const ContactForm = () => {
           value={formData.message}
           onChange={handleChange}
           rows={4}
-          required
           className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300 resize-none"
           placeholder="Расскажите о вашем проекте..."
         />
