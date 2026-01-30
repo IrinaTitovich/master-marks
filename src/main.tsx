@@ -2,6 +2,13 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
+// GitHub Pages 404.html workaround: handle redirect from 404.html
+const urlParams = new URLSearchParams(window.location.search);
+const redirectPath = urlParams.get('p');
+if (redirectPath) {
+  window.history.replaceState({}, '', redirectPath);
+}
+
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {

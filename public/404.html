@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Проектирование Домов | Архитектор-Конструктор</title>
+    <script>
+      // GitHub Pages 404.html workaround for SPA routing
+      // Redirect to index.html with the current path
+      var path = window.location.pathname;
+      var search = window.location.search;
+      var hash = window.location.hash;
+      var newPath = '/index.html' + (path !== '/' ? '?p=' + encodeURIComponent(path + search + hash) : search + hash);
+      window.location.replace(newPath);
+    </script>
+  </head>
+  <body>
+    <div style="padding: 20px; font-family: sans-serif; text-align: center;">
+      <h1>Загрузка...</h1>
+      <p>Если страница не загрузилась, <a href="/index.html">перейдите на главную</a></p>
+    </div>
+  </body>
+</html>
