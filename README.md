@@ -1,22 +1,10 @@
-# Welcome to your Lovable project
+# Архитектор-Конструктор | Проектирование Домов
 
-## Project info
+Веб-сайт портфолио архитектора-конструктора с информацией о проектировании жилых домов.
 
-**URL**: https://lovable.dev/projects/e52ae9ba-45e1-4f98-b74e-89a5f35633a0
+## Технологии
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/e52ae9ba-45e1-4f98-b74e-89a5f35633a0) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Проект создан с использованием:
 
 The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
@@ -60,14 +48,24 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## Разработка
 
-Simply open [Lovable](https://lovable.dev/projects/e52ae9ba-45e1-4f98-b74e-89a5f35633a0) and click on Share -> Publish.
+Для запуска проекта локально:
 
-## Can I connect a custom domain to my Lovable project?
+```sh
+# Установка зависимостей
+npm i
 
-Yes, you can!
+# Запуск dev-сервера
+npm run dev
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Сборка
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+```sh
+npm run build
+```
+
+## Деплой
+
+Собранные файлы находятся в папке `dist/` и могут быть развернуты на любом статическом хостинге.
