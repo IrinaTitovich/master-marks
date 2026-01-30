@@ -2,6 +2,10 @@ import project350Image1 from "@/assets/ready-project-1-story-number-1.jpg";
 import project350Image2 from "@/assets/ready-project-1-story-number-1.2.jpg";
 import project333Image1 from "@/assets/ready-project-1-story-number-2.jpg";
 import project333Image2 from "@/assets/ready-project-1-story-number-2.2.jpg";
+import project244Image1 from "@/assets/ready-project-2-story-number-2.jpg";
+import project244Image2 from "@/assets/ready-project-2-story-number-2.1.jpg";
+import project244Image3 from "@/assets/ready-project-2-story-number-2.2.jpg";
+import project244Image4 from "@/assets/ready-project-2-story-number-2.3.jpg";
 import project245Image1 from "@/assets/ready-project-2-story-number-1.jpg";
 import project245Image2 from "@/assets/ready-project-2-story-number-1.2.jpg";
 import project245Image3 from "@/assets/ready-project-2-story-number-1.3.jpg";
@@ -41,6 +45,17 @@ export const projects: Project[] = [
     area: "130,7 м² (1 этаж) + 27,5 м² (терраса)",
     description: "Проект №333. Дом одноэтажный с 3 спальнями, 2 санузлами и террасой. Площадь 1 этажа – 130,7 кв.м, террасы – 27,5 кв.м. Наружные стены – блоки газосиликатные с последующей отделкой. Перекрытия – деревянные балки. Кровля – вальмовая с покрытием стальными листами, закрепленными в фальц.",
     details: "",
+  },
+  {
+    id: "project-244",
+    title: "Проект двухэтажного дома № 244",
+    category: "two-story",
+    projectNumber: "244",
+    image: project244Image1,
+    images: [project244Image1, project244Image2, project244Image3, project244Image4],
+    area: "168,8 м² (1 этаж) + 154,4 м² (2 этаж) + 189,8 м² (цокольный этаж с гаражом) + 123,1 м² (балконы и террасы)",
+    description: "Проект №244. Дом двухэтажный с 5 спальнями, цокольным этажом, кабинетом, 5 санузлами, балконами, террасами и гаражом. Наружные стены – блок керамзитовый. Перекрытия межэтажные – монолитное армированное из бетона. Кровля – сложная многоскатная с покрытием композитной черепицей.",
+    details: "Площадь 1 этажа – 168,8кв.м, 2 этажа – 154,4кв.м, цокольного этажа с гаражом – 189,8кв.м., балконов и террас – 123,1кв.м.",
   },
   {
     id: "project-245",
