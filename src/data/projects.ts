@@ -13,6 +13,10 @@ import project245Image4 from "@/assets/ready-project-2-story-number-1.4.jpg";
 import project251Image1 from "@/assets/ready-project-2-story-number-3.jpg";
 import project251Image2 from "@/assets/ready-project-2-story-number-3.2.jpg";
 import project251Image3 from "@/assets/ready-project-2-story-number-3.3.jpg";
+import project321Image1 from "@/assets/ready-project-2-story-number-4.jpg";
+import project321Image2 from "@/assets/ready-project-2-story-number-4.2.jpg";
+import project321Image3 from "@/assets/ready-project-2-story-number-4.3.jpg";
+import project321Image4 from "@/assets/ready-project-2-story-number-4.4.jpg";
 
 export interface Project {
   id: string;
@@ -81,5 +85,16 @@ export const projects: Project[] = [
     area: "235,2 м² (1 этаж) + 147,8 м² (2 этаж) + 200,9 м² (цокольный этаж) + 55,5 м² (терраса) + 47,4 м² (гараж)",
     description: "Проект №251. Дом двухэтажный с 4 спальнями, цокольным этажом, 5 санузлами, бассейном, гаражом и террасой. Наружные стены – комбинированные с облицовкой керамическим кирпичом. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – сложная многоскатная с покрытием металлочерепицей.",
     details: "Площадь 1 этажа – 235,2кв.м, 2 этажа – 147,8кв.м, цокольного этажа – 200,9кв.м., террасы – 55,5кв.м, гаража – 47,4кв.м.",
+  },
+  {
+    id: "project-321",
+    title: "Проект двухэтажного дома № 321",
+    category: "two-story",
+    projectNumber: "321",
+    image: project321Image1,
+    images: [project321Image1, project321Image2, project321Image3, project321Image4],
+    area: "72,8 м² (1 этаж) + 68,3 м² (2 этаж) + 14,8 м² (терраса) + 24,8 м² (гараж) + 8,2 м² (подвал)",
+    description: "Проект №321. Дом двухэтажный с 3 спальнями, кабинетом, 2 санузлами, гаражом, подвалом и террасой. Наружные стены – блоки газосиликатные с последующей отделкой по системе утепления. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – вальмовая с покрытием металлочерепицей.",
+    details: "Площадь 1 этажа – 72,8кв.м, 2 этажа – 68,3кв.м, террасы –14,8кв.м., гаража – 24,8кв.м, подвала – 8,2кв.м.",
   },
 ];
