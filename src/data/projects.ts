@@ -1,30 +1,35 @@
-import project350Image1 from "@/assets/ready-project-1-story-number-1.jpg";
-import project350Image2 from "@/assets/ready-project-1-story-number-1.2.jpg";
-import project333Image1 from "@/assets/ready-project-1-story-number-2.jpg";
-import project333Image2 from "@/assets/ready-project-1-story-number-2.2.jpg";
-import project244Image1 from "@/assets/ready-project-2-story-number-2.jpg";
-import project244Image2 from "@/assets/ready-project-2-story-number-2.1.jpg";
-import project244Image3 from "@/assets/ready-project-2-story-number-2.2.jpg";
-import project244Image4 from "@/assets/ready-project-2-story-number-2.3.jpg";
-import project245Image1 from "@/assets/ready-project-2-story-number-1.jpg";
-import project245Image2 from "@/assets/ready-project-2-story-number-1.2.jpg";
-import project245Image3 from "@/assets/ready-project-2-story-number-1.3.jpg";
-import project245Image4 from "@/assets/ready-project-2-story-number-1.4.jpg";
-import project251Image1 from "@/assets/ready-project-2-story-number-3.jpg";
-import project251Image2 from "@/assets/ready-project-2-story-number-3.2.jpg";
-import project251Image3 from "@/assets/ready-project-2-story-number-3.3.jpg";
-import project321Image1 from "@/assets/ready-project-2-story-number-4.jpg";
-import project321Image2 from "@/assets/ready-project-2-story-number-4.2.jpg";
-import project321Image3 from "@/assets/ready-project-2-story-number-4.3.jpg";
-import project321Image4 from "@/assets/ready-project-2-story-number-4.4.jpg";
-import project307Image1 from "@/assets/ready-project-1.5-story-number-1.jpg";
-import project307Image2 from "@/assets/ready-project-1.5-story-number-1.2.jpg";
-import project307Image3 from "@/assets/ready-project-1.5-story-number-1.3.jpg";
-import project307Image4 from "@/assets/ready-project-1.5-story-number-1.4.jpg";
-import project282Image1 from "@/assets/ready-project-1.5-story-number-3.jpg";
-import project282Image2 from "@/assets/ready-project-1.5-story-number-3.1.jpg";
-import project282Image3 from "@/assets/ready-project-1.5-story-number-3.2.jpg";
-import project282Image4 from "@/assets/ready-project-1.5-story-number-3.3.jpg";
+// Одноэтажные дома
+import project350Image1 from "@/assets/projects/single-story/project-350/project-350-1.jpg";
+import project350Image2 from "@/assets/projects/single-story/project-350/project-350-2.jpg";
+import project333Image1 from "@/assets/projects/single-story/project-333/project-333-1.jpg";
+import project333Image2 from "@/assets/projects/single-story/project-333/project-333-2.jpg";
+
+// Двухэтажные дома
+import project244Image1 from "@/assets/projects/two-story/project-244/project-244-1.jpg";
+import project244Image2 from "@/assets/projects/two-story/project-244/project-244-2.jpg";
+import project244Image3 from "@/assets/projects/two-story/project-244/project-244-3.jpg";
+import project244Image4 from "@/assets/projects/two-story/project-244/project-244-4.jpg";
+import project245Image1 from "@/assets/projects/two-story/project-245/project-245-1.jpg";
+import project245Image2 from "@/assets/projects/two-story/project-245/project-245-2.jpg";
+import project245Image3 from "@/assets/projects/two-story/project-245/project-245-3.jpg";
+import project245Image4 from "@/assets/projects/two-story/project-245/project-245-4.jpg";
+import project251Image1 from "@/assets/projects/two-story/project-251/project-251-1.jpg";
+import project251Image2 from "@/assets/projects/two-story/project-251/project-251-2.jpg";
+import project251Image3 from "@/assets/projects/two-story/project-251/project-251-3.jpg";
+import project321Image1 from "@/assets/projects/two-story/project-321/project-321-1.jpg";
+import project321Image2 from "@/assets/projects/two-story/project-321/project-321-2.jpg";
+import project321Image3 from "@/assets/projects/two-story/project-321/project-321-3.jpg";
+import project321Image4 from "@/assets/projects/two-story/project-321/project-321-4.jpg";
+import project282Image1 from "@/assets/projects/two-story/project-282/project-282-1.jpg";
+import project282Image2 from "@/assets/projects/two-story/project-282/project-282-2.jpg";
+import project282Image3 from "@/assets/projects/two-story/project-282/project-282-3.jpg";
+import project282Image4 from "@/assets/projects/two-story/project-282/project-282-4.jpg";
+
+// Мансардные дома
+import project307Image1 from "@/assets/projects/mansard/project-307/project-307-1.jpg";
+import project307Image2 from "@/assets/projects/mansard/project-307/project-307-2.jpg";
+import project307Image3 from "@/assets/projects/mansard/project-307/project-307-3.jpg";
+import project307Image4 from "@/assets/projects/mansard/project-307/project-307-4.jpg";
 
 export interface Project {
   id: string;
