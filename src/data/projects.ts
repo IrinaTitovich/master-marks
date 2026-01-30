@@ -10,6 +10,9 @@ import project245Image1 from "@/assets/ready-project-2-story-number-1.jpg";
 import project245Image2 from "@/assets/ready-project-2-story-number-1.2.jpg";
 import project245Image3 from "@/assets/ready-project-2-story-number-1.3.jpg";
 import project245Image4 from "@/assets/ready-project-2-story-number-1.4.jpg";
+import project251Image1 from "@/assets/ready-project-2-story-number-3.jpg";
+import project251Image2 from "@/assets/ready-project-2-story-number-3.2.jpg";
+import project251Image3 from "@/assets/ready-project-2-story-number-3.3.jpg";
 
 export interface Project {
   id: string;
@@ -67,5 +70,16 @@ export const projects: Project[] = [
     area: "88,8 м² (1 этаж) + 89,3 м² (2 этаж) + 206,6 м² (цокольный этаж) + 48,0 м² (терраса) + 74,4 м² (гараж с тех.помещениями)",
     description: "Проект №245. Дом двухэтажный с 4 спальнями, цокольным этажом, 2 санузлами, гаражом и террасой. Наружные стены – комбинированные с облицовкой керамическим кирпичом. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – сложная многоскатная с покрытием битумной черепицей.",
     details: "Площадь 1 этажа – 88,8кв.м, 2 этажа – 89,3кв.м, цокольного этажа –206,6кв.м., террасы – 48,0кв.м, гаража с тех.помещениями – 74,4кв.м.",
+  },
+  {
+    id: "project-251",
+    title: "Проект двухэтажного дома № 251",
+    category: "two-story",
+    projectNumber: "251",
+    image: project251Image1,
+    images: [project251Image1, project251Image2, project251Image3],
+    area: "235,2 м² (1 этаж) + 147,8 м² (2 этаж) + 200,9 м² (цокольный этаж) + 55,5 м² (терраса) + 47,4 м² (гараж)",
+    description: "Проект №251. Дом двухэтажный с 4 спальнями, цокольным этажом, 5 санузлами, бассейном, гаражом и террасой. Наружные стены – комбинированные с облицовкой керамическим кирпичом. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – сложная многоскатная с покрытием металлочерепицей.",
+    details: "Площадь 1 этажа – 235,2кв.м, 2 этажа – 147,8кв.м, цокольного этажа – 200,9кв.м., террасы – 55,5кв.м, гаража – 47,4кв.м.",
   },
 ];
