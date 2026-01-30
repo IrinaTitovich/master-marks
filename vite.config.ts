@@ -4,7 +4,9 @@ import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.VITE_BASE_URL || (process.env.NODE_ENV === 'production' ? '/master-marks/' : './'),
+  // Для GitHub Pages используем имя репозитория как base path
+  // В GitHub Actions будет установлена переменная VITE_BASE_URL
+  base: process.env.VITE_BASE_URL || '/master-marks/',
   server: {
     host: "::",
     port: 2000,
@@ -14,5 +16,10 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    // Убеждаемся, что пути обрабатываются правильно
+    assetsDir: 'assets',
+    outDir: 'dist',
   },
 });
