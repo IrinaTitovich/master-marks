@@ -788,7 +788,7 @@ const ServicesPage = () => {
                 Оставить заявку
               </Button>
               <p className="text-sm text-muted-foreground mt-2 text-center sm:text-left">
-                Вы получите консультацию
+                Вы получите бесплатную консультацию
               </p>
             </div>
           </div>
