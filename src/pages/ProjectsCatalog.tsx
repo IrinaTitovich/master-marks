@@ -7,6 +7,7 @@ import { projects } from "@/data/projects";
 import WatermarkImage from "@/components/WatermarkImage";
 import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const ProjectsCatalog = () => {
   const navigate = useNavigate();
@@ -84,6 +85,14 @@ const ProjectsCatalog = () => {
     ? categories.find(c => c.id === selectedCategory)?.title || "Готовые проекты"
     : "Готовые проекты";
 
+  const seoTitle = selectedCategory
+    ? `${categoryTitle} в Могилеве | Каталог Проектов Домов`
+    : "Готовые Проекты Домов в Могилеве | Каталог";
+  
+  const seoDescription = selectedCategory
+    ? `Каталог готовых проектов ${categoryTitle.toLowerCase()} в Могилеве и Могилевской области. Выберите проект дома со скидкой или закажите индивидуальное проектирование.`
+    : "Каталог готовых проектов домов в Могилеве. Одноэтажные, двухэтажные и мансардные дома. Выберите проект со скидкой или закажите индивидуальное проектирование.";
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -127,26 +136,22 @@ const ProjectsCatalog = () => {
   return (
     <div className="min-h-screen bg-background">
       <PageNavigation />
+      <main id="main-content" role="main" tabIndex={-1}>
       <SEO
-        title={`${categoryTitle} - Каталог готовых проектов домов в Могилеве | Ваш проект`}
-        description={`Каталог готовых проектов домов в Могилеве, Могилевской области. ${selectedCategory ? categories.find(c => c.id === selectedCategory)?.description || "" : "Одноэтажные, двухэтажные и мансардные дома. Профессиональное проектирование."}`}
+        title={seoTitle}
+        description={seoDescription}
         keywords={`готовые проекты домов Могилев, ${categoryTitle.toLowerCase()} Могилев, каталог проектов Могилев, проекты домов Могилевская область, архитектурные проекты Могилев`}
         url="/projects"
         canonical="/projects"
         jsonLd={[jsonLd, breadcrumbJsonLd]}
       />
       <div className="container mx-auto px-6 py-12 pt-24">
-        {/* Кнопка назад на главную */}
-        <div className="mb-6">
-          <button
-            onClick={() => navigate("/")}
-            className="text-muted-foreground/70 hover:text-muted-foreground text-sm flex items-center gap-2 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <Home className="h-4 w-4" />
-            Назад на главную
-          </button>
-        </div>
+        {/* Breadcrumbs */}
+        <Breadcrumbs
+          items={[
+            { label: "Готовые проекты" }
+          ]}
+        />
 
         {/* Заголовок */}
         <div className="mb-8">
@@ -266,6 +271,7 @@ const ProjectsCatalog = () => {
           </div>
         )}
       </div>
+      </main>
     </div>
   );
 };

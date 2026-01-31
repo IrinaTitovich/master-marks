@@ -15,6 +15,8 @@ const Hero = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImage})` }}
+        role="img"
+        aria-label="Архитектурное проектирование домов - профессиональные услуги в Могилеве"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
       </div>

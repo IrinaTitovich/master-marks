@@ -6,9 +6,23 @@ interface WatermarkImageProps {
   className?: string;
   children?: ReactNode;
   subtle?: boolean; // Для главной страницы - более незаметный водяной знак
+  width?: number;
+  height?: number;
+  sizes?: string;
+  srcSet?: string;
 }
 
-const WatermarkImage = ({ src, alt, className = "", children, subtle = false }: WatermarkImageProps) => {
+const WatermarkImage = ({ 
+  src, 
+  alt, 
+  className = "", 
+  children, 
+  subtle = false,
+  width,
+  height,
+  sizes,
+  srcSet
+}: WatermarkImageProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [imageSrc, setImageSrc] = useState<string>(src);
 
@@ -99,6 +113,11 @@ const WatermarkImage = ({ src, alt, className = "", children, subtle = false }: 
         onDragStart={(e) => e.preventDefault()}
         draggable={false}
         loading="lazy"
+        width={width}
+        height={height}
+        sizes={sizes}
+        srcSet={srcSet}
+        decoding="async"
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
       {children}

@@ -4,10 +4,11 @@ import { Phone, Mail, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
-import { projects } from "@/data/projects";
+import { projects, Project } from "@/data/projects";
 import WatermarkImage from "@/components/WatermarkImage";
 import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,6 +69,11 @@ const ProjectDetail = () => {
 
   const areas = parseAreas(project.area);
 
+  // Получаем связанные проекты (из той же категории, исключая текущий)
+  const relatedProjects: Project[] = projects
+    .filter(p => p.category === project.category && p.id !== project.id)
+    .slice(0, 3);
+
   const baseUrl = import.meta.env.BASE_URL || "/";
   const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
   const projectUrl = `${siteUrl}projects/${project.id}`;
@@ -84,20 +90,44 @@ const ProjectDetail = () => {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "CreativeWork",
+    "@type": "Product",
     "@id": projectUrl,
     name: project.title,
     description: project.description || `Проект дома ${project.projectNumber || project.id}`,
     image: project.images?.map(img => img.startsWith("http") ? img : `${siteUrl}${img.replace(/^\//, "")}`) || [projectImageUrl],
     url: projectUrl,
-    creator: {
-      "@type": "Organization",
+    category: categoryNames[project.category] || "Проектирование домов",
+    brand: {
+      "@type": "Brand",
       name: "Ваш проект - Проектирование домов"
     },
-    about: {
-      "@type": "Thing",
-      name: categoryNames[project.category] || "Проектирование домов"
-    }
+    manufacturer: {
+      "@type": "Organization",
+      name: "Ваш проект - Проектирование домов",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Могилев",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY"
+      }
+    },
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "BYN",
+      url: projectUrl,
+      seller: {
+        "@type": "Organization",
+        name: "Ваш проект - Проектирование домов"
+      }
+    },
+    additionalProperty: project.area ? [
+      {
+        "@type": "PropertyValue",
+        name: "Площадь",
+        value: project.area
+      }
+    ] : []
   };
 
   const breadcrumbJsonLd = {
@@ -128,6 +158,7 @@ const ProjectDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <PageNavigation />
+      <main id="main-content" role="main" tabIndex={-1}>
       <SEO
         title={`${project.title} - Готовый проект дома в Могилеве | Ваш проект`}
         description={`${project.description || `Проект дома ${project.projectNumber || project.id}`} в Могилеве, Могилевской области. ${project.area || ""} ${categoryNames[project.category] || ""}`}
@@ -139,6 +170,14 @@ const ProjectDetail = () => {
       />
       <div className="container mx-auto px-6 py-12 pt-24">
         <div className="max-w-6xl mx-auto">
+          {/* Breadcrumbs */}
+          <Breadcrumbs
+            items={[
+              { label: "Готовые проекты", href: "/projects" },
+              { label: project.title }
+            ]}
+          />
+          
           {/* Заголовок */}
           <div className="mb-8">
             {project.projectNumber && (
@@ -274,8 +313,57 @@ const ProjectDetail = () => {
               </div>
             </div>
           </div>
+
+          {/* Связанные проекты */}
+          {relatedProjects.length > 0 && (
+            <div className="mt-16 pt-16 border-t border-border">
+              <h2 className="font-serif text-3xl md:text-4xl font-bold text-foreground mb-8">
+                Похожие проекты
+              </h2>
+              <div className="grid md:grid-cols-3 gap-6">
+                {relatedProjects.map((relatedProject) => (
+                  <div
+                    key={relatedProject.id}
+                    onClick={() => navigate(`/projects/${relatedProject.id}`)}
+                    className="group bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 overflow-hidden cursor-pointer"
+                  >
+                    {relatedProject.image && (
+                      <div className="aspect-[4/3] overflow-hidden">
+                        <WatermarkImage
+                          src={relatedProject.image}
+                          alt={relatedProject.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      </div>
+                    )}
+                    <div className="p-6">
+                      <h3 className="font-serif text-xl font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
+                        {relatedProject.title}
+                      </h3>
+                      {relatedProject.area && (
+                        <p className="text-sm text-muted-foreground mb-4">
+                          {relatedProject.area}
+                        </p>
+                      )}
+                      <Button
+                        variant="outline"
+                        className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/projects/${relatedProject.id}`);
+                        }}
+                      >
+                        Подробнее
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
+      </main>
     </div>
   );
 };

@@ -79,11 +79,11 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" aria-label="Форма обратной связи">
       <div className="grid md:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">
-            Ваше имя
+            Ваше имя <span className="text-destructive" aria-label="обязательное поле">*</span>
           </label>
           <input
             type="text"
@@ -93,9 +93,12 @@ const ContactForm = () => {
             onChange={handleChange}
             required
             autoComplete="name"
+            aria-required="true"
+            aria-describedby="name-description"
             className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
             placeholder="Иван Иванов"
           />
+          <span id="name-description" className="sr-only">Введите ваше полное имя</span>
         </div>
         <div>
           <label htmlFor="phone" className="block text-sm font-medium text-card-foreground mb-2">
@@ -108,9 +111,11 @@ const ContactForm = () => {
             value={formData.phone}
             onChange={handleChange}
             autoComplete="tel"
+            aria-describedby="phone-description"
             className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
             placeholder="+375 (XX) XXX-XX-XX"
           />
+          <span id="phone-description" className="sr-only">Введите номер телефона для связи</span>
         </div>
       </div>
       <div>
@@ -124,9 +129,11 @@ const ContactForm = () => {
             value={formData.email}
             onChange={handleChange}
             autoComplete="email"
+            aria-describedby="email-description"
             className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
             placeholder="your@email.com"
           />
+          <span id="email-description" className="sr-only">Введите адрес электронной почты</span>
       </div>
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-card-foreground mb-2">
@@ -138,9 +145,11 @@ const ContactForm = () => {
           value={formData.message}
           onChange={handleChange}
           rows={4}
+          aria-describedby="message-description"
           className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300 resize-none"
           placeholder="Расскажите о вашем проекте..."
         />
+        <span id="message-description" className="sr-only">Опишите ваш проект или задайте вопрос</span>
       </div>
       <div>
         <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all whitespace-normal break-words">

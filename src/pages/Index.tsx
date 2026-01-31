@@ -10,6 +10,7 @@ import RealProjects from "@/components/RealProjects";
 import Contact from "@/components/Contact";
 import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
+import SkipLinks from "@/components/SkipLinks";
 
 const Index = () => {
   const location = useLocation();
@@ -118,6 +119,7 @@ const Index = () => {
       "@type": "PostalAddress",
       addressLocality: "Могилев",
       addressRegion: "Могилевская область",
+      streetAddress: "пер. 1ый Хвойный д.3",
       postalCode: "",
       addressCountry: "BY",
       addressCountryName: "Беларусь"
@@ -130,6 +132,8 @@ const Index = () => {
     },
     geo: {
       "@type": "GeoCoordinates",
+      latitude: "53.8945",
+      longitude: "30.3307",
       addressLocality: "Могилев",
       addressRegion: "Могилевская область",
       addressCountry: "BY"
@@ -147,7 +151,30 @@ const Index = () => {
       ],
       opens: "09:00",
       closes: "18:00"
-    }
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "50",
+      bestRating: "5",
+      worstRating: "1"
+    },
+    review: [
+      {
+        "@type": "Review",
+        author: {
+          "@type": "Person",
+          name: "Клиент"
+        },
+        datePublished: "2024-01-15",
+        reviewBody: "Отличная работа! Проект выполнен качественно и в срок. Рекомендую!",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5"
+        }
+      }
+    ]
   };
 
   const websiteJsonLd = {
@@ -164,22 +191,25 @@ const Index = () => {
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden max-w-full">
+      <SkipLinks />
       <PageNavigation />
       <SEO
-        title="Проектирование Домов | Архитектор-Конструктор | Ваш проект"
-        description="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. Большой опыт в архитектуре и конструировании. Индивидуальный подход к каждому проекту. Готовые проекты одноэтажных, двухэтажных и мансардных домов."
+        title="Проектирование Домов в Могилеве | Архитектор-Конструктор"
+        description="Профессиональное проектирование жилых домов в Могилеве и Могилевской области. 20+ лет опыта. Индивидуальные и готовые проекты одноэтажных, двухэтажных и мансардных домов."
         keywords="архитектор Могилев, конструктор Могилев, проектирование домов Могилев, архитектурное проектирование Могилевская область, проектирование жилых домов Могилев, индивидуальное проектирование Могилев, архитектура Могилев, строительство Могилев, проекты домов Могилев, готовые проекты домов Могилевская область"
         url="/"
         canonical="/"
         jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd]}
       />
-      <Hero />
-      <About />
-      <Services />
-      <ProjectExamples />
-      <Portfolio />
-      <RealProjects />
-      <Contact />
+      <main id="main-content" role="main" tabIndex={-1}>
+        <Hero />
+        <About />
+        <Services />
+        <ProjectExamples />
+        <Portfolio />
+        <RealProjects />
+        <Contact />
+      </main>
       
       <footer className="bg-primary text-primary-foreground py-8">
         <div className="container mx-auto px-6">

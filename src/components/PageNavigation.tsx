@@ -142,7 +142,12 @@ const PageNavigation = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/85 backdrop-blur-sm border-b border-primary-foreground/20 shadow-sm transition-all duration-300">
+    <nav 
+      id="navigation"
+      role="navigation" 
+      aria-label="Основная навигация"
+      className="fixed top-0 left-0 right-0 z-50 bg-primary/85 backdrop-blur-sm border-b border-primary-foreground/20 shadow-sm transition-all duration-300"
+    >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between min-h-16 py-2">
           {/* Логотип */}
@@ -198,6 +203,8 @@ const PageNavigation = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden p-2 text-primary-foreground hover:text-accent transition-colors"
             aria-label="Меню"
+            aria-expanded={isOpen}
+            aria-controls="mobile-menu"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -211,7 +218,9 @@ const PageNavigation = () => {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
-                  className={`relative px-4 py-3 rounded-lg text-left transition-all flex items-center gap-2 font-medium ${
+                  role="menuitem"
+                  aria-current={activeSection === section.id ? "page" : undefined}
+                  className={`relative px-4 py-3 rounded-lg text-left transition-all flex items-center gap-2 font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary ${
                     activeSection === section.id
                       ? "bg-accent text-accent-foreground"
                       : section.id === "services"

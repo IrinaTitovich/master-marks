@@ -120,6 +120,17 @@ All colors MUST be HSL.
     position: relative;
   }
 
+  /* Оптимизация шрифтов */
+  @font-face {
+    font-family: 'Playfair Display';
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-display: swap;
+  }
+
   /* Предотвращение горизонтального скролла на мобильных */
   @media (max-width: 640px) {
     body {

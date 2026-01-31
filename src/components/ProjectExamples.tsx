@@ -63,7 +63,7 @@ const ProjectExamples = () => {
                   <div className="aspect-[4/3] overflow-hidden bg-card flex items-center justify-center">
                     <WatermarkImage
                       src={category.image}
-                      alt={category.title}
+                      alt={`${category.title} - пример проекта дома в Могилеве`}
                       className={`w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 ${
                         category.id === "single-story" ? "object-left" : ""
                       }`}

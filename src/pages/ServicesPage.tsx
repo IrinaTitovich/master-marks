@@ -5,6 +5,7 @@ import PageNavigation from "@/components/PageNavigation";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEO from "@/components/SEO";
+import Breadcrumbs from "@/components/Breadcrumbs";
 import {
   PenTool,
   Ruler,
@@ -336,9 +337,10 @@ const ServicesPage = () => {
   return (
     <div className="min-h-screen bg-background w-full overflow-x-hidden max-w-full">
       <PageNavigation />
+      <main id="main-content" role="main" tabIndex={-1}>
       <SEO
-        title="Услуги по проектированию домов в Могилеве | Архитектор-Конструктор"
-        description="Профессиональные услуги по проектированию домов: архитектурное проектирование, конструктивные решения, рабочая документация, эскизный проект, реконструкция, авторский надзор, генеральный план. Работаем в Могилеве и Могилевской области."
+        title="Услуги по Проектированию Домов в Могилеве | Архитектор"
+        description="Архитектурное проектирование, конструктивные решения, рабочая документация АР+КР, эскизный проект, реконструкция, авторский надзор, генеральный план. Могилев и область."
         keywords="услуги архитектора Могилев, проектирование домов услуги, архитектурное проектирование Могилев, конструктивные решения, рабочая документация АР КР, эскизный проект, реконструкция перепланировка, авторский надзор, генеральный план участка Могилев"
         url="/services"
         canonical="/services"
@@ -346,16 +348,13 @@ const ServicesPage = () => {
       />
       
       <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* Кнопка назад на главную */}
-        <div className="mb-6 mt-20 md:mt-24">
-          <button
-            onClick={() => navigate("/")}
-            className="text-muted-foreground/70 hover:text-muted-foreground text-sm flex items-center gap-2 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <Home className="h-4 w-4" />
-            Назад на главную
-          </button>
+        {/* Breadcrumbs */}
+        <div className="mt-20 md:mt-24 mb-6">
+          <Breadcrumbs
+            items={[
+              { label: "Услуги" }
+            ]}
+          />
         </div>
 
         {/* Заголовок */}
@@ -835,6 +834,7 @@ const ServicesPage = () => {
           </div>
         </div>
       </div>
+      </main>
     </div>
   );
 };

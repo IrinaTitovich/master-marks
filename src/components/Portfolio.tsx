@@ -46,7 +46,7 @@ const Portfolio = () => {
               <div className="aspect-[4/3] overflow-hidden">
                 <WatermarkImage
                   src={project.image}
-                  alt={project.title}
+                  alt={`${project.title} - готовый проект дома в Могилеве`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   subtle={true}
                 />
