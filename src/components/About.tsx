@@ -21,7 +21,7 @@ const About = () => {
   const shortText = fullText[0];
 
   return (
-    <section id="about" className="pt-24 pb-12 md:pb-16 bg-card">
+    <section id="about" className="pt-24 pb-12 md:pb-16 bg-card scroll-mt-16">
       <div className="container mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>

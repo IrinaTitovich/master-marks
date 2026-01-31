@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import readyProject1 from "@/assets/ready-project-section-1.jpg";
-import readyProject2 from "@/assets/ready-project-section-2.jpg";
+import readyProject1 from "@/assets/1.jpg";
+import readyProject2 from "@/assets/2.jpg";
 import readyProject3 from "@/assets/ready-project-section-3.jpg";
 import WatermarkImage from "@/components/WatermarkImage";
 
@@ -43,7 +43,7 @@ const ProjectExamples = () => {
   };
 
   return (
-    <section id="project-examples" className="py-24 bg-background">
+    <section id="project-examples" className="py-24 bg-background scroll-mt-16">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
@@ -94,11 +94,13 @@ const ProjectExamples = () => {
                   onClick={() => handleCategoryClick(category.id)}
                   className="group cursor-pointer bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2 overflow-hidden"
                 >
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-[4/3] overflow-hidden bg-card flex items-center justify-center">
                     <WatermarkImage
                       src={category.image}
                       alt={category.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      className={`w-full h-full object-contain group-hover:scale-110 transition-transform duration-700 ${
+                        category.id === "single-story" ? "object-left" : ""
+                      }`}
                       subtle={true}
                     />
                   </div>

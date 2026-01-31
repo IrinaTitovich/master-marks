@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { Phone } from "lucide-react";
+import { Phone, Instagram } from "lucide-react";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
@@ -9,11 +9,35 @@ import Portfolio from "@/components/Portfolio";
 import RealProjects from "@/components/RealProjects";
 import Contact from "@/components/Contact";
 import SEO from "@/components/SEO";
+import PageNavigation from "@/components/PageNavigation";
 
 const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
+    // Прокрутка к секции, если перешли с других страниц
+    if (location.state?.scrollToSection) {
+      const sectionId = location.state.scrollToSection;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const isMobile = window.innerWidth < 768;
+            const offset = isMobile ? 20 : 80;
+            
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: isMobile ? "auto" : "smooth"
+            });
+          }
+        });
+      });
+      return;
+    }
+
     // Прокрутка к форме контакта, если перешли с других страниц
     if (location.state?.scrollToContact) {
       // Используем двойной requestAnimationFrame для гарантии рендеринга
@@ -36,6 +60,13 @@ const Index = () => {
               top: offsetPosition,
               behavior: isMobile ? "auto" : "smooth" // Instant на мобильных для четкости
             });
+
+            // Если нужно открыть карту
+            if (location.state?.openMap) {
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent("openLocationMap"));
+              }, 500);
+            }
           }
         });
       });
@@ -133,6 +164,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden max-w-full">
+      <PageNavigation />
       <SEO
         title="Проектирование Домов | Архитектор-Конструктор | Ваш проект"
         description="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. Большой опыт в архитектуре и конструировании. Индивидуальный подход к каждому проекту. Готовые проекты одноэтажных, двухэтажных и мансардных домов."
@@ -161,10 +193,19 @@ const Index = () => {
               </div>
               <a 
                 href="tel:+375296745773"
-                className="text-accent hover:text-accent/80 font-semibold text-sm flex items-center justify-center md:justify-start gap-1 transition-colors"
+                className="text-accent hover:text-accent/80 font-semibold text-sm flex items-center justify-center md:justify-start gap-1 transition-colors mb-2"
               >
                 <Phone className="h-4 w-4" />
                 +375 (29) 674-57-73
+              </a>
+              <a 
+                href="https://www.instagram.com/vashproekt.by/?hl=ru"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:text-accent/80 font-semibold text-sm flex items-center justify-center md:justify-start gap-1 transition-colors"
+              >
+                <Instagram className="h-4 w-4" />
+                Instagram
               </a>
             </div>
             <div className="text-center md:text-right">

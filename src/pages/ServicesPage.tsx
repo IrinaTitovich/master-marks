@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Phone, ArrowLeft, ArrowRight, CheckCircle2, MessageSquare } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import PageNavigation from "@/components/PageNavigation";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import SEO from "@/components/SEO";
@@ -334,6 +335,7 @@ const ServicesPage = () => {
 
   return (
     <div className="min-h-screen bg-background w-full overflow-x-hidden max-w-full">
+      <PageNavigation />
       <SEO
         title="Услуги по проектированию домов в Могилеве | Архитектор-Конструктор"
         description="Профессиональные услуги по проектированию домов: архитектурное проектирование, конструктивные решения, рабочая документация, эскизный проект, реконструкция, авторский надзор, генеральный план. Работаем в Могилеве и Могилевской области."
@@ -343,7 +345,7 @@ const ServicesPage = () => {
         jsonLd={[jsonLd, breadcrumbJsonLd]}
       />
       
-      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 pt-24">
         {/* Шапка */}
         <div className="flex items-center justify-between mb-8">
           <Button

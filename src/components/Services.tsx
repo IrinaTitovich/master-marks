@@ -42,7 +42,7 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="pt-12 md:pt-16 pb-24 bg-background">
+    <section id="services" className="pt-12 md:pt-16 pb-24 bg-background scroll-mt-16">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">

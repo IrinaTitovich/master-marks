@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Mail, Phone, MapPin, Navigation, RotateCcw, Instagram } from "lucide-react";
 
 const ContactForm = () => {
   const location = useLocation();
@@ -118,7 +119,63 @@ const ContactForm = () => {
 };
 
 const Contact = () => {
-  const contactInfo = [
+  const [mapOpen, setMapOpen] = useState(false);
+  const [mapProvider, setMapProvider] = useState<"google" | "yandex">("google");
+  const [mapKey, setMapKey] = useState(0);
+
+  // Определяем источник трафика при монтировании
+  useEffect(() => {
+    const referrer = document.referrer.toLowerCase();
+    const userAgent = navigator.userAgent.toLowerCase();
+    
+    if (referrer.includes("yandex") || referrer.includes("yandex.ru") || userAgent.includes("yabrowser")) {
+      setMapProvider("yandex");
+    } else {
+      setMapProvider("google");
+    }
+  }, []);
+
+  // Обработчик события для открытия карты из навигации
+  useEffect(() => {
+    const handleOpenMap = () => {
+      setMapOpen(true);
+    };
+
+    window.addEventListener("openLocationMap", handleOpenMap);
+    return () => window.removeEventListener("openLocationMap", handleOpenMap);
+  }, []);
+
+  const fullAddress = "пер. 1ый Хвойный д.3, Могилёв, Беларусь";
+  const shortAddress = "Могилёв, Беларусь";
+  const encodedAddress = encodeURIComponent(fullAddress);
+  
+  // Координаты для карты (примерные координаты Могилёва, можно уточнить)
+  // Для точного адреса "пер. 1ый хвойный д.3" нужно уточнить координаты
+  const lat = 53.8945;
+  const lon = 30.3307;
+  
+  // Ссылки для карт (iframe)
+  // Google Maps через поиск адреса
+  const googleMapUrl = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+  // Яндекс Карты
+  const yandexMapUrl = `https://yandex.ru/map-widget/v1/?ll=${lon},${lat}&z=15&pt=${lon},${lat}&l=map`;
+  
+  // Ссылки для навигаторов
+  const googleNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+  const yandexNavUrl = `yandexnavi://build_route?lat_to=${lat}&lon_to=${lon}`;
+
+  // Функция для возврата карты к исходному адресу
+  const resetMap = () => {
+    setMapKey(prev => prev + 1);
+  };
+
+  const contactInfo: Array<{
+    icon: typeof Phone;
+    label: string;
+    value: string;
+    href: string;
+    onClick?: (e: React.MouseEvent) => void;
+  }> = [
     {
       icon: Phone,
       label: "Телефон",
@@ -134,8 +191,18 @@ const Contact = () => {
     {
       icon: MapPin,
       label: "Локация",
-      value: "Беларусь, Могилёв",
+      value: shortAddress,
       href: "#",
+      onClick: (e: React.MouseEvent) => {
+        e.preventDefault();
+        setMapOpen(true);
+      },
+    },
+    {
+      icon: Instagram,
+      label: "Instagram",
+      value: "@vashproekt.by",
+      href: "https://www.instagram.com/vashproekt.by/?hl=ru",
     },
   ];
 
@@ -155,25 +222,126 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-12">
-            {contactInfo.map((item, index) => (
-              <a
-                key={index}
-                href={item.href}
-                className="group flex flex-col items-center text-center p-4 sm:p-6 bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2"
-              >
-                <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                  <item.icon className="h-6 w-6 text-accent-foreground" />
-                </div>
-                <div className="text-sm text-muted-foreground mb-2 break-words">
-                  {item.label}
-                </div>
-                <div className="font-semibold text-foreground text-sm sm:text-base break-words">
-                  {item.value}
-                </div>
-              </a>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
+            {contactInfo.map((item, index) => {
+              if (item.onClick) {
+                return (
+                  <button
+                    key={index}
+                    onClick={item.onClick}
+                    className="group flex flex-col items-center text-center p-4 sm:p-6 bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2 cursor-pointer w-full"
+                  >
+                    <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                      <item.icon className="h-6 w-6 text-accent-foreground" />
+                    </div>
+                    <div className="text-sm text-muted-foreground mb-2 break-words">
+                      {item.label}
+                    </div>
+                    <div className="font-semibold text-foreground text-sm sm:text-base break-words">
+                      {item.value}
+                    </div>
+                  </button>
+                );
+              }
+              return (
+                <a
+                  key={index}
+                  href={item.href}
+                  className="group flex flex-col items-center text-center p-4 sm:p-6 bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2"
+                >
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    <item.icon className="h-6 w-6 text-accent-foreground" />
+                  </div>
+                  <div className="text-sm text-muted-foreground mb-2 break-words">
+                    {item.label}
+                  </div>
+                  <div className="font-semibold text-foreground text-sm sm:text-base break-words">
+                    {item.value}
+                  </div>
+                </a>
+              );
+            })}
           </div>
+
+          {/* Диалог с картой */}
+          <Dialog open={mapOpen} onOpenChange={setMapOpen}>
+            <DialogContent className="max-w-4xl w-full p-0">
+              <div className="p-6">
+                <h3 className="font-serif text-2xl font-bold text-card-foreground mb-4">
+                  Консультации по адресу
+                </h3>
+                <p className="text-muted-foreground mb-4">
+                  {fullAddress}
+                </p>
+                
+                {/* Карта */}
+                <div className="w-full h-96 rounded-lg overflow-hidden mb-4 border border-border relative">
+                  {mapProvider === "google" ? (
+                    <iframe
+                      key={mapKey}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                      src={googleMapUrl}
+                    />
+                  ) : (
+                    <iframe
+                      key={mapKey}
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      src={yandexMapUrl}
+                    />
+                  )}
+                  {/* Кнопка возврата к адресу */}
+                  <Button
+                    onClick={resetMap}
+                    variant="outline"
+                    size="sm"
+                    className="absolute top-2 right-2 bg-background/90 backdrop-blur-sm hover:bg-background"
+                  >
+                    <RotateCcw className="h-4 w-4 mr-2" />
+                    Вернуть к адресу
+                  </Button>
+                </div>
+
+                {/* Кнопки навигаторов */}
+                <div className="flex flex-col gap-4">
+                  <p className="text-sm font-semibold text-card-foreground text-center mb-2">
+                    Открыть в навигаторе для поездки:
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button
+                      onClick={() => window.open(googleNavUrl, "_blank")}
+                      className="flex-1 bg-[#4285F4] hover:bg-[#357AE8] text-white font-bold text-base sm:text-lg py-6 sm:py-7 shadow-lg hover:shadow-xl transition-all"
+                      size="lg"
+                    >
+                      <Navigation className="mr-3 h-6 w-6 sm:h-7 sm:w-7" />
+                      Google Maps
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        // Пытаемся открыть в приложении Яндекс Навигатор
+                        window.location.href = yandexNavUrl;
+                        // Если не получилось, открываем веб-версию
+                        setTimeout(() => {
+                          window.open(`https://yandex.ru/maps/?pt=30.3307,53.8945&z=15&l=map`, "_blank");
+                        }, 500);
+                      }}
+                      className="flex-1 bg-[#FC3F1D] hover:bg-[#E02E0F] text-white font-bold text-base sm:text-lg py-6 sm:py-7 shadow-lg hover:shadow-xl transition-all"
+                      size="lg"
+                    >
+                      <Navigation className="mr-3 h-6 w-6 sm:h-7 sm:w-7" />
+                      Яндекс Навигатор
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           <div id="contact-form" className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden scroll-mt-20 sm:scroll-mt-24">
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-card-foreground mb-2 text-center break-words">
