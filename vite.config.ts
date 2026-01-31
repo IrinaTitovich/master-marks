@@ -27,66 +27,7 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Разделяем vendor библиотеки на отдельные чанки для лучшего кэширования
-          if (id.includes('node_modules')) {
-            // React core - критически важные библиотеки (самый маленький чанк)
-            if (id.includes('react') || id.includes('react-dom')) {
-              return 'react-core';
-            }
-            // React Router - отдельно для лучшего кэширования
-            if (id.includes('react-router')) {
-              return 'react-router';
-            }
-            // Radix UI - разделяем по использованию для параллельной загрузки
-            if (id.includes('@radix-ui')) {
-              // Критичные компоненты загружаются первыми
-              if (id.includes('react-slot')) {
-                return 'radix-slot';
-              }
-              if (id.includes('react-dialog')) {
-                return 'radix-dialog';
-              }
-              if (id.includes('react-accordion')) {
-                return 'radix-accordion';
-              }
-              if (id.includes('react-label')) {
-                return 'radix-label';
-              }
-              if (id.includes('react-tooltip')) {
-                return 'radix-tooltip';
-              }
-              if (id.includes('react-toast')) {
-                return 'radix-toast';
-              }
-              // Остальные Radix компоненты
-              return 'radix-ui';
-            }
-            // Иконки - разделяем на более мелкие чанки для параллельной загрузки
-            if (id.includes('lucide-react')) {
-              // Разделяем lucide-react на более мелкие части если возможно
-              return 'icons';
-            }
-            // UI утилиты - разделяем для параллельной загрузки
-            if (id.includes('tailwind-merge')) {
-              return 'tailwind-merge';
-            }
-            if (id.includes('clsx')) {
-              return 'clsx';
-            }
-            if (id.includes('class-variance-authority')) {
-              return 'cva';
-            }
-            if (id.includes('sonner')) {
-              return 'sonner';
-            }
-            if (id.includes('next-themes')) {
-              return 'next-themes';
-            }
-            // Остальные vendor библиотеки
-            return 'vendor';
-          }
-        },
+        // Позволяем Vite автоматически управлять разделением чанков
         // Оптимизация имен файлов для лучшего кэширования
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',
@@ -116,63 +57,17 @@ export default defineConfig({
     // Оптимизация для уменьшения работы основного потока
     modulePreload: {
       polyfill: false, // Отключаем polyfill для современных браузеров
-      resolveDependencies: (filename, deps) => {
-        // Оптимизация: загружаем только критические зависимости
-        return deps.filter(dep => {
-          // Исключаем некритичные зависимости из preload
-          return !dep.includes('lucide-react') && 
-                 !dep.includes('sonner') &&
-                 !dep.includes('@radix-ui/react-toast') &&
-                 !dep.includes('@radix-ui/react-tooltip');
-        });
-      },
     },
     // Улучшенная оптимизация для уменьшения размера
     reportCompressedSize: false, // Ускоряет сборку
   },
-  // Оптимизация зависимостей
+  // Оптимизация зависимостей - упрощенная конфигурация
   optimizeDeps: {
     include: [
       'react',
       'react-dom',
       'react-router-dom',
-      // Включаем только используемые Radix компоненты
-      '@radix-ui/react-slot',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-accordion',
-      '@radix-ui/react-label',
-      '@radix-ui/react-tooltip',
-      '@radix-ui/react-toast',
     ],
-    exclude: [
-      '@tanstack/react-query',
-      'next-themes', // Lazy load если используется
-      // Исключаем неиспользуемые Radix компоненты
-      '@radix-ui/react-select',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-popover',
-      '@radix-ui/react-navigation-menu',
-      '@radix-ui/react-menubar',
-      '@radix-ui/react-context-menu',
-      '@radix-ui/react-hover-card',
-      '@radix-ui/react-checkbox',
-      '@radix-ui/react-radio-group',
-      '@radix-ui/react-slider',
-      '@radix-ui/react-switch',
-      '@radix-ui/react-progress',
-      '@radix-ui/react-scroll-area',
-      '@radix-ui/react-separator',
-      '@radix-ui/react-toggle',
-      '@radix-ui/react-toggle-group',
-      '@radix-ui/react-collapsible',
-      '@radix-ui/react-aspect-ratio',
-      '@radix-ui/react-avatar',
-      '@radix-ui/react-alert-dialog',
-    ],
-    // Оптимизация для уменьшения времени компиляции
-    esbuildOptions: {
-      target: 'es2015',
-    },
   },
   // Оптимизация esbuild для уменьшения размера бандла и работы основного потока
   esbuild: {
