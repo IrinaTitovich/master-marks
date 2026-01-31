@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
 import WatermarkImage from "@/components/WatermarkImage";
+import SEO from "@/components/SEO";
 
 const ProjectsCatalog = () => {
   const navigate = useNavigate();
@@ -70,8 +71,63 @@ const ProjectsCatalog = () => {
     return areas;
   };
 
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
+
+  const categoryTitle = selectedCategory 
+    ? categories.find(c => c.id === selectedCategory)?.title || "Готовые проекты"
+    : "Готовые проекты";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `${categoryTitle} - Каталог готовых проектов домов`,
+    description: `Каталог готовых проектов домов. ${selectedCategory ? categories.find(c => c.id === selectedCategory)?.description || "" : "Одноэтажные, двухэтажные и мансардные дома."}`,
+    url: `${siteUrl}projects`,
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: filteredProjects.length,
+      itemListElement: filteredProjects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: project.title,
+          url: `${siteUrl}projects/${project.id}`
+        }
+      }))
+    }
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Главная",
+        item: siteUrl
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Готовые проекты",
+        item: `${siteUrl}projects`
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={`${categoryTitle} - Каталог готовых проектов домов в Могилеве | Ваш проект`}
+        description={`Каталог готовых проектов домов в Могилеве, Могилевской области. ${selectedCategory ? categories.find(c => c.id === selectedCategory)?.description || "" : "Одноэтажные, двухэтажные и мансардные дома. Профессиональное проектирование."}`}
+        keywords={`готовые проекты домов Могилев, ${categoryTitle.toLowerCase()} Могилев, каталог проектов Могилев, проекты домов Могилевская область, архитектурные проекты Могилев`}
+        url="/projects"
+        canonical="/projects"
+        jsonLd={[jsonLd, breadcrumbJsonLd]}
+      />
       <div className="container mx-auto px-6 py-12">
         {/* Шапка с брендом и кнопкой назад */}
         <div className="flex items-center justify-between mb-8">

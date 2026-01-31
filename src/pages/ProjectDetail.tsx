@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 import { projects } from "@/data/projects";
 import WatermarkImage from "@/components/WatermarkImage";
+import SEO from "@/components/SEO";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -60,8 +61,74 @@ const ProjectDetail = () => {
 
   const areas = parseAreas(project.area);
 
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
+  const projectUrl = `${siteUrl}projects/${project.id}`;
+  const projectImage = project.image || project.images?.[0] || "/placeholder.svg";
+  const projectImageUrl = projectImage.startsWith("http") 
+    ? projectImage 
+    : `${siteUrl}${projectImage.replace(/^\//, "")}`;
+
+  const categoryNames: Record<string, string> = {
+    "single-story": "Одноэтажные дома",
+    "two-story": "Двухэтажные дома",
+    "mansard": "Мансардные дома"
+  };
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "@id": projectUrl,
+    name: project.title,
+    description: project.description || `Проект дома ${project.projectNumber || project.id}`,
+    image: project.images?.map(img => img.startsWith("http") ? img : `${siteUrl}${img.replace(/^\//, "")}`) || [projectImageUrl],
+    url: projectUrl,
+    creator: {
+      "@type": "Organization",
+      name: "Ваш проект - Проектирование домов"
+    },
+    about: {
+      "@type": "Thing",
+      name: categoryNames[project.category] || "Проектирование домов"
+    }
+  };
+
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Главная",
+        item: siteUrl
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Готовые проекты",
+        item: `${siteUrl}projects`
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: project.title,
+        item: projectUrl
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background">
+      <SEO
+        title={`${project.title} - Готовый проект дома в Могилеве | Ваш проект`}
+        description={`${project.description || `Проект дома ${project.projectNumber || project.id}`} в Могилеве, Могилевской области. ${project.area || ""} ${categoryNames[project.category] || ""}`}
+        keywords={`${project.title} Могилев, проект дома ${project.projectNumber || ""} Могилев, ${categoryNames[project.category] || ""} Могилев, готовый проект Могилев, архитектурный проект Могилевская область`}
+        image={projectImageUrl}
+        url={`/projects/${project.id}`}
+        canonical={`/projects/${project.id}`}
+        jsonLd={[jsonLd, breadcrumbJsonLd]}
+      />
       <div className="container mx-auto px-6 py-12">
         {/* Шапка с брендом и кнопкой назад */}
         <div className="flex items-center justify-between mb-8">

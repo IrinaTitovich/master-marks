@@ -8,6 +8,7 @@ import ProjectExamples from "@/components/ProjectExamples";
 import Portfolio from "@/components/Portfolio";
 import RealProjects from "@/components/RealProjects";
 import Contact from "@/components/Contact";
+import SEO from "@/components/SEO";
 
 const Index = () => {
   const location = useLocation();
@@ -24,8 +25,105 @@ const Index = () => {
     }
   }, [location.state]);
 
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Ваш проект - Проектирование домов",
+    alternateName: "Архитектор-Конструктор",
+    url: siteUrl,
+    logo: `${siteUrl}placeholder.svg`,
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+375-29-674-57-73",
+      contactType: "customer service",
+      areaServed: {
+        "@type": "City",
+        name: "Могилев",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY"
+      },
+      availableLanguage: "Russian"
+    },
+    sameAs: [],
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Могилев",
+      addressRegion: "Могилевская область",
+      addressCountry: "BY",
+      addressCountryName: "Беларусь"
+    }
+  };
+
+  const localBusinessJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Ваш проект - Проектирование домов",
+    alternateName: "Архитектор-Конструктор",
+    description: "Профессиональное проектирование жилых домов в Могилеве, Могилевской области. Архитектурное проектирование, дизайн интерьеров, готовые проекты домов.",
+    url: siteUrl,
+    telephone: "+375-29-674-57-73",
+    email: "vashproekt.by@gmail.com",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Могилев",
+      addressRegion: "Могилевская область",
+      postalCode: "",
+      addressCountry: "BY",
+      addressCountryName: "Беларусь"
+    },
+    areaServed: {
+      "@type": "City",
+      name: "Могилев",
+      addressRegion: "Могилевская область",
+      addressCountry: "BY"
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      addressLocality: "Могилев",
+      addressRegion: "Могилевская область",
+      addressCountry: "BY"
+    },
+    priceRange: "$$",
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      opens: "09:00",
+      closes: "18:00"
+    }
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Ваш проект - Проектирование домов",
+    url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}projects?search={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Проектирование Домов | Архитектор-Конструктор | Ваш проект"
+        description="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. Большой опыт в архитектуре и конструировании. Индивидуальный подход к каждому проекту. Готовые проекты одноэтажных, двухэтажных и мансардных домов."
+        keywords="архитектор Могилев, конструктор Могилев, проектирование домов Могилев, архитектурное проектирование Могилевская область, проектирование жилых домов Могилев, индивидуальное проектирование Могилев, архитектура Могилев, строительство Могилев, проекты домов Могилев, готовые проекты домов Могилевская область"
+        url="/"
+        canonical="/"
+        jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd]}
+      />
       <Hero />
       <About />
       <Services />
