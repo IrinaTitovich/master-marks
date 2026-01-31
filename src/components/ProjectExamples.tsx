@@ -55,7 +55,7 @@ const ProjectExamples = () => {
           {/* Описание услуг с аккордеоном */}
           <div className="mb-16">
             <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-8">
-              <h3 className="text-2xl font-semibold text-card-foreground mb-4">
+              <h3 className="font-serif text-2xl font-semibold text-card-foreground mb-4">
                 Оказываем следующие услуги
               </h3>
               
