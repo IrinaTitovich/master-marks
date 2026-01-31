@@ -6,12 +6,45 @@ import { Mail, Phone, MapPin, Navigation, RotateCcw, Instagram } from "lucide-re
 
 const ContactForm = () => {
   const location = useLocation();
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    email: "",
-    message: "",
-  });
+  
+  // Загружаем сохраненные данные из localStorage
+  const loadSavedData = () => {
+    try {
+      const saved = localStorage.getItem("contactFormData");
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          name: parsed.name || "",
+          phone: parsed.phone || "",
+          email: parsed.email || "",
+          message: "",
+        };
+      }
+    } catch (error) {
+      console.error("Error loading saved form data:", error);
+    }
+    return {
+      name: "",
+      phone: "",
+      email: "",
+      message: "",
+    };
+  };
+
+  const [formData, setFormData] = useState(loadSavedData);
+
+  // Сохраняем данные в localStorage при изменении (кроме message)
+  useEffect(() => {
+    try {
+      localStorage.setItem("contactFormData", JSON.stringify({
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+      }));
+    } catch (error) {
+      console.error("Error saving form data:", error);
+    }
+  }, [formData.name, formData.phone, formData.email]);
 
   // Предзаполнение сообщения из location.state
   useEffect(() => {
@@ -59,6 +92,7 @@ const ContactForm = () => {
             value={formData.name}
             onChange={handleChange}
             required
+            autoComplete="name"
             className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
             placeholder="Иван Иванов"
           />
@@ -73,6 +107,7 @@ const ContactForm = () => {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
+            autoComplete="tel"
             className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
             placeholder="+375 (XX) XXX-XX-XX"
           />
@@ -82,15 +117,16 @@ const ContactForm = () => {
         <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">
           Email
         </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-          placeholder="your@email.com"
-        />
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            autoComplete="email"
+            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
+            placeholder="your@email.com"
+          />
       </div>
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-card-foreground mb-2">
@@ -224,6 +260,7 @@ const Contact = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
             {contactInfo.map((item, index) => {
+              const isPhone = item.label === "Телефон";
               if (item.onClick) {
                 return (
                   <button
@@ -237,7 +274,7 @@ const Contact = () => {
                     <div className="text-sm text-muted-foreground mb-2 break-words">
                       {item.label}
                     </div>
-                    <div className="font-semibold text-foreground text-sm sm:text-base break-words">
+                    <div className={`font-semibold text-foreground text-sm sm:text-base ${isPhone ? "whitespace-nowrap" : "break-words"}`}>
                       {item.value}
                     </div>
                   </button>
@@ -255,7 +292,7 @@ const Contact = () => {
                   <div className="text-sm text-muted-foreground mb-2 break-words">
                     {item.label}
                   </div>
-                  <div className="font-semibold text-foreground text-sm sm:text-base break-words">
+                  <div className={`font-semibold text-foreground text-sm sm:text-base ${isPhone ? "whitespace-nowrap" : "break-words"}`}>
                     {item.value}
                   </div>
                 </a>

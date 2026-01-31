@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { ArrowLeft, Phone, Mail, X } from "lucide-react";
+import { Phone, Mail, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
 import { projects } from "@/data/projects";
 import WatermarkImage from "@/components/WatermarkImage";
 import SEO from "@/components/SEO";
+import PageNavigation from "@/components/PageNavigation";
 
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -126,6 +127,7 @@ const ProjectDetail = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <PageNavigation />
       <SEO
         title={`${project.title} - Готовый проект дома в Могилеве | Ваш проект`}
         description={`${project.description || `Проект дома ${project.projectNumber || project.id}`} в Могилеве, Могилевской области. ${project.area || ""} ${categoryNames[project.category] || ""}`}
@@ -135,33 +137,7 @@ const ProjectDetail = () => {
         canonical={`/projects/${project.id}`}
         jsonLd={[jsonLd, breadcrumbJsonLd]}
       />
-      <div className="container mx-auto px-6 py-12">
-        {/* Шапка с брендом и кнопкой назад */}
-        <div className="flex items-center justify-between mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/projects")}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Назад к каталогу
-          </Button>
-          <div className="text-right">
-            <div className="font-serif text-xl font-bold text-foreground mb-1">
-              Ваш проект
-            </div>
-            <div className="text-sm text-muted-foreground mb-2">
-              Проектирование домов
-            </div>
-            <a 
-              href="tel:+375296745773"
-              className="text-accent hover:text-accent/80 font-semibold text-sm flex items-center justify-end gap-1 transition-colors"
-            >
-              <Phone className="h-4 w-4" />
-              +375 (29) 674-57-73
-            </a>
-          </div>
-        </div>
-
+      <div className="container mx-auto px-6 py-12 pt-24">
         <div className="max-w-6xl mx-auto">
           {/* Заголовок */}
           <div className="mb-8">

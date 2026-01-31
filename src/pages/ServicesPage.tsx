@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Phone, ArrowLeft, ArrowRight, CheckCircle2, MessageSquare } from "lucide-react";
+import { Phone, ArrowRight, CheckCircle2, MessageSquare } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PageNavigation from "@/components/PageNavigation";
 import { Button } from "@/components/ui/button";
@@ -345,39 +345,13 @@ const ServicesPage = () => {
         jsonLd={[jsonLd, breadcrumbJsonLd]}
       />
       
-      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12 pt-24">
-        {/* Шапка */}
-        <div className="flex items-center justify-between mb-8">
-          <Button
-            variant="ghost"
-            onClick={() => navigate("/")}
-          >
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Назад на главную
-          </Button>
-          <div className="text-right">
-            <div className="font-serif text-xl font-bold text-foreground mb-1">
-              Ваш проект
-            </div>
-            <div className="text-sm text-muted-foreground mb-2">
-              Проектирование домов
-            </div>
-            <a 
-              href="tel:+375296745773"
-              className="text-accent hover:text-accent/80 font-semibold text-sm flex items-center justify-end gap-1 transition-colors"
-            >
-              <Phone className="h-4 w-4" />
-              +375 (29) 674-57-73
-            </a>
-          </div>
-        </div>
-
+      <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Заголовок */}
-        <div className="mb-8 text-center">
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+        <div className="mb-8 mt-20 md:mt-24">
+          <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
             Наши услуги по проектированию
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-muted-foreground mt-2">
             Полный спектр услуг для создания вашего идеального дома. От первой идеи до сдачи объекта в эксплуатацию.
           </p>
         </div>

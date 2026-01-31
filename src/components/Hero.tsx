@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/1.jpg";
+import heroImage from "@/assets/hero-architecture.jpg";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,8 +13,8 @@ const Hero = () => {
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 scroll-mt-0">
       <div 
-        className="absolute inset-0 bg-contain bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage})`, backgroundColor: 'hsl(var(--primary))' }}
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
       </div>

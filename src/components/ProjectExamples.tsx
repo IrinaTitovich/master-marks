@@ -3,7 +3,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Button } from "@/components/ui/button";
 import readyProject1 from "@/assets/1.jpg";
 import readyProject2 from "@/assets/2.jpg";
-import readyProject3 from "@/assets/ready-project-section-3.jpg";
+import readyProject3 from "@/assets/3.png";
 import WatermarkImage from "@/components/WatermarkImage";
 
 const ProjectExamples = () => {

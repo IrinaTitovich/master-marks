@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, MapPin } from "lucide-react";
+import { Menu, X, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const PageNavigation = () => {
@@ -9,7 +9,9 @@ const PageNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState(() => {
     // Устанавливаем начальное состояние в зависимости от текущего URL
-    return location.pathname === "/services" ? "services" : "hero";
+    if (location.pathname === "/services") return "services";
+    if (location.pathname === "/projects" || location.pathname.startsWith("/projects/")) return "projects";
+    return "hero";
   });
 
   const sections: Array<{
@@ -23,15 +25,20 @@ const PageNavigation = () => {
     { id: "hero", label: "Главная", isSection: true },
     { id: "about", label: "О нас", isSection: true },
     { id: "services", label: "Услуги", isPage: true, path: "/services" },
-    { id: "project-examples", label: "Проекты", isSection: true },
+    { id: "projects", label: "Проекты", isPage: true, path: "/projects" },
     { id: "contact", label: "Контакты", isSection: true },
     { id: "location", label: "Локация", isLocation: true },
   ];
 
   useEffect(() => {
-    // Проверяем текущий URL для выделения страницы услуг
+    // Проверяем текущий URL для выделения страниц
     if (location.pathname === "/services") {
       setActiveSection("services");
+      return;
+    }
+
+    if (location.pathname === "/projects" || location.pathname.startsWith("/projects/")) {
+      setActiveSection("projects");
       return;
     }
 
@@ -136,9 +143,9 @@ const PageNavigation = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-primary/85 backdrop-blur-sm border-b border-primary-foreground/20 shadow-sm transition-all duration-300">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between min-h-16 py-2">
           {/* Логотип */}
-          <div className="flex items-center">
+          <div className="flex flex-col items-start">
             <button
               onClick={() => {
                 if (location.pathname === "/") {
@@ -151,6 +158,13 @@ const PageNavigation = () => {
             >
               Ваш проект
             </button>
+            <a 
+              href="tel:+375296745773"
+              className="text-primary-foreground/80 hover:text-accent text-xs font-semibold flex items-center gap-1 transition-colors mt-0.5"
+            >
+              <Phone className="h-3 w-3" />
+              +375 (29) 674-57-73
+            </a>
           </div>
 
           {/* Десктопное меню */}
@@ -159,14 +173,12 @@ const PageNavigation = () => {
               <button
                 key={section.id}
                 onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
-                className={`rounded-lg font-medium transition-all flex items-center gap-1.5 ${
-                  section.id === "services"
-                    ? activeSection === section.id
-                      ? "bg-accent text-accent-foreground px-4 py-2.5 text-base font-bold shadow-lg"
-                      : "bg-accent/20 text-accent px-4 py-2.5 text-base font-bold hover:bg-accent/30 hover:shadow-md"
-                    : activeSection === section.id
-                      ? "bg-accent text-accent-foreground px-3 py-2 text-sm"
-                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 px-3 py-2 text-sm"
+                className={`rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm ${
+                  activeSection === section.id
+                    ? "bg-accent text-accent-foreground"
+                    : section.id === "services"
+                      ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                 }`}
               >
                 {section.isLocation && <MapPin className="h-4 w-4" />}
@@ -193,14 +205,12 @@ const PageNavigation = () => {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
-                  className={`px-4 py-3 rounded-lg text-left transition-all flex items-center gap-2 ${
-                    section.id === "services"
-                      ? activeSection === section.id
-                        ? "bg-accent text-accent-foreground font-bold text-base shadow-lg"
-                        : "bg-accent/20 text-accent font-bold text-base hover:bg-accent/30"
-                      : activeSection === section.id
-                        ? "bg-accent text-accent-foreground font-medium"
-                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10 font-medium"
+                  className={`px-4 py-3 rounded-lg text-left transition-all flex items-center gap-2 font-medium ${
+                    activeSection === section.id
+                      ? "bg-accent text-accent-foreground"
+                      : section.id === "services"
+                        ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                   }`}
                 >
                   {section.isLocation && <MapPin className="h-4 w-4" />}
