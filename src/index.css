@@ -118,16 +118,18 @@ All colors MUST be HSL.
     overflow-x: hidden;
     max-width: 100vw;
     position: relative;
+    /* Fallback шрифты для предотвращения FOIT (Flash of Invisible Text) */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   }
 
-  /* Оптимизация шрифтов */
-  @font-face {
-    font-family: 'Playfair Display';
+  /* Оптимизация шрифтов - font-display: swap предотвращает блокировку рендеринга */
+  .font-serif {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
     font-display: swap;
   }
 
-  @font-face {
-    font-family: 'Inter';
+  .font-sans {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
     font-display: swap;
   }
 
@@ -139,6 +141,44 @@ All colors MUST be HSL.
     
     * {
       max-width: 100%;
+    }
+  }
+
+  /* Оптимизация рендеринга - использование GPU ускорения */
+  .animate-in,
+  .group:hover {
+    will-change: transform, opacity;
+    transform: translateZ(0); /* Принудительное GPU ускорение */
+  }
+
+  /* Оптимизация для плавной прокрутки */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Content-visibility для секций вне viewport - уменьшает работу основного потока */
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
+  /* Оптимизация для карточек и интерактивных элементов */
+  .group,
+  [class*="hover:"] {
+    contain: layout style paint;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
     }
   }
 }

@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Award, Users, Building2, Target, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const About = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  
+  const toggleExpanded = useCallback(() => {
+    setIsExpanded(prev => !prev);
+  }, []);
 
   const stats = [
     { icon: Building2, value: "600+", label: "Реализованных проектов" },
@@ -38,7 +42,7 @@ const About = () => {
                 </div>
               )}
               <button
-                onClick={() => setIsExpanded(!isExpanded)}
+                onClick={toggleExpanded}
                 className="mt-4 text-accent hover:text-accent/80 font-semibold flex items-center gap-2 transition-colors hover:underline"
               >
                 {isExpanded ? (

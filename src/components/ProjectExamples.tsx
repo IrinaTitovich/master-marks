@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -10,7 +11,7 @@ import WatermarkImage from "@/components/WatermarkImage";
 const ProjectExamples = () => {
   const navigate = useNavigate();
 
-  const categories = [
+  const categories = useMemo(() => [
     {
       id: "single-story",
       title: "Одноэтажные дома",
@@ -29,11 +30,11 @@ const ProjectExamples = () => {
       description: "Экономичные проекты с мансардным этажом",
       image: readyProject3,
     },
-  ];
+  ], []);
 
-  const handleCategoryClick = (categoryId: string) => {
+  const handleCategoryClick = useCallback((categoryId: string) => {
     navigate("/projects", { state: { categoryId } });
-  };
+  }, [navigate]);
 
   return (
     <section id="project-examples" className="py-24 bg-background scroll-mt-16">

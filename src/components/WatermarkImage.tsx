@@ -34,14 +34,19 @@ const WatermarkImage = ({
     img.crossOrigin = "anonymous";
     
     img.onload = () => {
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
+      // Используем requestIdleCallback для обработки canvas вне критического пути
+      const processImage = () => {
+        const ctx = canvas.getContext("2d", { 
+          willReadFrequently: false, // Оптимизация для производительности
+          alpha: true 
+        });
+        if (!ctx) return;
 
-      canvas.width = img.width;
-      canvas.height = img.height;
+        canvas.width = img.width;
+        canvas.height = img.height;
 
-      // Рисуем изображение
-      ctx.drawImage(img, 0, 0);
+        // Рисуем изображение
+        ctx.drawImage(img, 0, 0);
 
       if (subtle) {
         // Более незаметный водяной знак для главной страницы
@@ -81,13 +86,29 @@ const WatermarkImage = ({
         ctx.restore();
       }
 
-      // Конвертируем canvas в изображение
-      canvas.toBlob((blob) => {
-        if (blob) {
-          const url = URL.createObjectURL(blob);
-          setImageSrc(url);
+        // Конвертируем canvas в изображение асинхронно
+        const convertToBlob = () => {
+          canvas.toBlob((blob) => {
+            if (blob) {
+              const url = URL.createObjectURL(blob);
+              setImageSrc(url);
+            }
+          }, "image/jpeg", 0.9);
+        };
+
+        if ('requestIdleCallback' in window) {
+          (window as any).requestIdleCallback(convertToBlob, { timeout: 1000 });
+        } else {
+          setTimeout(convertToBlob, 0);
         }
-      }, "image/jpeg", 0.9);
+      };
+
+      // Используем requestIdleCallback если доступен, иначе выполняем сразу
+      if ('requestIdleCallback' in window) {
+        (window as any).requestIdleCallback(processImage, { timeout: 500 });
+      } else {
+        setTimeout(processImage, 0);
+      }
     };
 
     img.onerror = () => {

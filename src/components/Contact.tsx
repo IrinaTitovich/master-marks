@@ -33,17 +33,21 @@ const ContactForm = () => {
 
   const [formData, setFormData] = useState(loadSavedData);
 
-  // Сохраняем данные в localStorage при изменении (кроме message)
+  // Сохраняем данные в localStorage при изменении (кроме message) - с debounce для оптимизации
   useEffect(() => {
-    try {
-      localStorage.setItem("contactFormData", JSON.stringify({
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-      }));
-    } catch (error) {
-      console.error("Error saving form data:", error);
-    }
+    const timeoutId = setTimeout(() => {
+      try {
+        localStorage.setItem("contactFormData", JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+        }));
+      } catch (error) {
+        console.error("Error saving form data:", error);
+      }
+    }, 300); // Debounce 300ms для уменьшения записей в localStorage
+
+    return () => clearTimeout(timeoutId);
   }, [formData.name, formData.phone, formData.email]);
 
   // Предзаполнение сообщения из location.state

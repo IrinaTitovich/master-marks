@@ -44,24 +44,31 @@ const PageNavigation = () => {
     }
 
     // Если мы на главной странице, обрабатываем скролл
+    let ticking = false;
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPosition = window.scrollY + 150;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        // Пропускаем location и страницы, так как это не реальные секции
-        if (sections[i].isLocation || sections[i].isPage) continue;
-        
-        const section = document.getElementById(sections[i].id);
-        if (section && section.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i].id);
-          break;
-        }
+          for (let i = sections.length - 1; i >= 0; i--) {
+            // Пропускаем location и страницы, так как это не реальные секции
+            if (sections[i].isLocation || sections[i].isPage) continue;
+            
+            const section = document.getElementById(sections[i].id);
+            if (section && section.offsetTop <= scrollPosition) {
+              setActiveSection(sections[i].id);
+              break;
+            }
+          }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
     // Только на главной странице добавляем обработчик скролла
     if (location.pathname === "/") {
-      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll, { passive: true });
       handleScroll();
 
       return () => window.removeEventListener("scroll", handleScroll);

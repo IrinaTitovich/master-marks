@@ -1,16 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { Phone, Instagram } from "lucide-react";
-import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Services from "@/components/Services";
-import ProjectExamples from "@/components/ProjectExamples";
-import Portfolio from "@/components/Portfolio";
-import RealProjects from "@/components/RealProjects";
-import Contact from "@/components/Contact";
 import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
 import SkipLinks from "@/components/SkipLinks";
+
+// Lazy loading компонентов для уменьшения первоначального бандла
+const Hero = lazy(() => import("@/components/Hero"));
+const About = lazy(() => import("@/components/About"));
+const Services = lazy(() => import("@/components/Services"));
+const ProjectExamples = lazy(() => import("@/components/ProjectExamples"));
+const Portfolio = lazy(() => import("@/components/Portfolio"));
+const RealProjects = lazy(() => import("@/components/RealProjects"));
+const Contact = lazy(() => import("@/components/Contact"));
 
 const Index = () => {
   const location = useLocation();
@@ -77,7 +79,8 @@ const Index = () => {
   const baseUrl = import.meta.env.BASE_URL || "/";
   const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
 
-  const jsonLd = {
+  // Мемоизация JSON-LD для предотвращения пересоздания объектов
+  const jsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Ваш проект - Проектирование домов",
@@ -104,9 +107,9 @@ const Index = () => {
       addressCountry: "BY",
       addressCountryName: "Беларусь"
     }
-  };
+  }), [siteUrl]);
 
-  const localBusinessJsonLd = {
+  const localBusinessJsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Ваш проект - Проектирование домов",
@@ -175,9 +178,9 @@ const Index = () => {
         }
       }
     ]
-  };
+  }), [siteUrl]);
 
-  const websiteJsonLd = {
+  const websiteJsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Ваш проект - Проектирование домов",
@@ -187,7 +190,7 @@ const Index = () => {
       target: `${siteUrl}projects?search={search_term_string}`,
       "query-input": "required name=search_term_string"
     }
-  };
+  }), [siteUrl]);
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden max-w-full">
@@ -202,13 +205,27 @@ const Index = () => {
         jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd]}
       />
       <main id="main-content" role="main" tabIndex={-1}>
-        <Hero />
-        <About />
-        <Services />
-        <ProjectExamples />
-        <Portfolio />
-        <RealProjects />
-        <Contact />
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Hero />
+        </Suspense>
+        <Suspense fallback={<div className="h-96" />}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<div className="h-96" />}>
+          <Services />
+        </Suspense>
+        <Suspense fallback={<div className="h-96" />}>
+          <ProjectExamples />
+        </Suspense>
+        <Suspense fallback={<div className="h-96" />}>
+          <Portfolio />
+        </Suspense>
+        <Suspense fallback={<div className="h-96" />}>
+          <RealProjects />
+        </Suspense>
+        <Suspense fallback={<div className="h-96" />}>
+          <Contact />
+        </Suspense>
       </main>
       
       <footer className="bg-primary text-primary-foreground py-8">

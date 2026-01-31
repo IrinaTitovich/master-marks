@@ -22,5 +22,30 @@ export default defineConfig({
     // Убеждаемся, что пути обрабатываются правильно
     assetsDir: 'assets',
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Разделяем vendor библиотеки на отдельные чанки
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-tooltip',
+          ],
+          'query-vendor': ['@tanstack/react-query'],
+        },
+      },
+    },
+    // Оптимизация для уменьшения размера бандла
+    minify: 'esbuild',
+    target: 'es2015',
+    cssCodeSplit: true,
+    sourcemap: false,
+  },
+  // Оптимизация зависимостей
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'react-router-dom'],
+    exclude: ['@tanstack/react-query'], // Исключаем если не используется активно
   },
 });

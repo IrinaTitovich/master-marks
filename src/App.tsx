@@ -23,7 +23,18 @@ const PageLoader = () => (
   </div>
 );
 
-const queryClient = new QueryClient();
+// Оптимизированный QueryClient с настройками для уменьшения работы основного потока
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000, // 1 минута
+      gcTime: 5 * 60 * 1000, // 5 минут
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      retry: 1, // Меньше повторных попыток
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
