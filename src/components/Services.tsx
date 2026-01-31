@@ -1,7 +1,10 @@
 import { PenTool, Home, Ruler, FileText, MessageCircle, Settings, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const Services = () => {
+  const navigate = useNavigate();
+  
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -45,9 +48,17 @@ const Services = () => {
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
             Услуги
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
             Полный цикл проектирования — от первого эскиза до сдачи объекта
           </p>
+          <Button
+            variant="outline"
+            onClick={() => navigate('/services')}
+            className="text-base"
+          >
+            Подробнее об услугах
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">

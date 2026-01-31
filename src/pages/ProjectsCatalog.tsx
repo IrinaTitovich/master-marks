@@ -12,6 +12,11 @@ const ProjectsCatalog = () => {
   const location = useLocation();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
+  // Прокрутка вверх при переходе на страницу
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname]);
+
   // Устанавливаем категорию из state при переходе с главной страницы
   useEffect(() => {
     if (location.state?.categoryId) {

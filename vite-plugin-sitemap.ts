@@ -34,6 +34,11 @@ export default function sitemapPlugin(): Plugin {
           priority: "1.0",
         },
         {
+          url: "services",
+          changefreq: "monthly",
+          priority: "0.9",
+        },
+        {
           url: "projects",
           changefreq: "weekly",
           priority: "0.9",

@@ -105,9 +105,14 @@ const ContactForm = () => {
           placeholder="Расскажите о вашем проекте..."
         />
       </div>
-      <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all whitespace-normal break-words">
-        Отправить заявку и получить консультацию
-      </Button>
+      <div>
+        <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all whitespace-normal break-words">
+          Отправить заявку
+        </Button>
+        <p className="text-sm text-muted-foreground mt-3 text-center">
+          Вы получите консультацию бесплатно
+        </p>
+      </div>
     </form>
   );
 };
@@ -135,7 +140,7 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-16 sm:py-24 bg-background overflow-x-hidden">
+    <section id="contact" className="py-16 sm:py-24 bg-background overflow-x-hidden scroll-mt-20 sm:scroll-mt-24">
       <div className="container mx-auto px-4 sm:px-6 w-full max-w-full">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-12 sm:mb-16">
@@ -170,7 +175,7 @@ const Contact = () => {
             ))}
           </div>
 
-          <div className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden">
+          <div id="contact-form" className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden scroll-mt-20 sm:scroll-mt-24">
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-card-foreground mb-2 text-center break-words">
               Оставьте заявку
             </h3>

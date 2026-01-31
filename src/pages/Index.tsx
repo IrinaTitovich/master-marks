@@ -14,14 +14,31 @@ const Index = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Прокрутка к секции contact, если перешли с ProjectsCatalog
+    // Прокрутка к форме контакта, если перешли с других страниц
     if (location.state?.scrollToContact) {
-      setTimeout(() => {
-        const contactElement = document.getElementById("contact");
-        if (contactElement) {
-          contactElement.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
+      // Используем двойной requestAnimationFrame для гарантии рендеринга
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Сначала пытаемся найти форму, если нет - используем секцию контакта
+          const formElement = document.getElementById("contact-form");
+          const contactElement = document.getElementById("contact");
+          const targetElement = formElement || contactElement;
+          
+          if (targetElement) {
+            // Для мобильных устройств используем instant прокрутку для четкости
+            const isMobile = window.innerWidth < 768;
+            const offset = isMobile ? 20 : 80; // Меньший отступ на мобильных
+            
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: isMobile ? "auto" : "smooth" // Instant на мобильных для четкости
+            });
+          }
+        });
+      });
     }
   }, [location.state]);
 
