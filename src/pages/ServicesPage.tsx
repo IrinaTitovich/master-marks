@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import PageNavigation from "@/components/PageNavigation";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import {
@@ -26,30 +27,6 @@ const ServicesPage = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [location.pathname]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const servicesSection = document.getElementById("services-section");
-      const packagesSection = document.getElementById("packages-section");
-      
-      if (!servicesSection || !packagesSection) return;
-
-      const servicesTop = servicesSection.offsetTop - 100;
-      const packagesTop = packagesSection.offsetTop - 100;
-      const scrollPosition = window.scrollY + 150;
-
-      if (scrollPosition >= packagesTop) {
-        setActiveSection("packages");
-      } else if (scrollPosition >= servicesTop) {
-        setActiveSection("services");
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial check
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const scrollToSection = (sectionId: "services-section" | "packages-section") => {
     const element = document.getElementById(sectionId);
@@ -397,43 +374,22 @@ const ServicesPage = () => {
           </div>
         </div>
 
-        {/* Навигация между разделами */}
-        <div className="sticky top-4 z-10 max-w-5xl mx-auto mb-12">
-          <nav className="border-b border-border/40">
-            <div className="flex gap-8">
-              <button
-                onClick={() => scrollToSection("services-section")}
-                className={`relative px-4 py-4 font-semibold text-base transition-all duration-200 ${
-                  activeSection === "services"
-                    ? "text-accent"
-                    : "text-muted-foreground hover:text-card-foreground"
-                }`}
-              >
-                Услуги
-                {activeSection === "services" && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"></span>
-                )}
-              </button>
-              <button
-                onClick={() => scrollToSection("packages-section")}
-                className={`relative px-4 py-4 font-semibold text-base transition-all duration-200 ${
-                  activeSection === "packages"
-                    ? "text-accent"
-                    : "text-muted-foreground hover:text-card-foreground"
-                }`}
-              >
-                Пакеты услуг
-                {activeSection === "packages" && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent"></span>
-                )}
-              </button>
-            </div>
-          </nav>
-        </div>
+        {/* Табы для переключения между услугами и пакетами */}
+        <Tabs value={activeSection} onValueChange={(value) => {
+          setActiveSection(value as "services" | "packages");
+          scrollToSection(value === "services" ? "services-section" : "packages-section");
+        }} className="w-full">
+          <div className="max-w-5xl mx-auto mb-8">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="services">Услуги</TabsTrigger>
+              <TabsTrigger value="packages">Пакеты услуг</TabsTrigger>
+            </TabsList>
+          </div>
 
-        {/* Список услуг с roadmap */}
-        <div id="services-section" className="max-w-7xl mx-auto mb-16 scroll-mt-24">
-          <div className="grid lg:grid-cols-4 gap-8">
+          {/* Список услуг с roadmap */}
+          <TabsContent value="services" className="mt-6">
+            <div id="services-section" className="max-w-7xl mx-auto mb-16 scroll-mt-24">
+              <div className="grid lg:grid-cols-4 gap-8">
             {/* Roadmap - только для десктопа */}
             <div className="hidden lg:block">
               <div className="sticky top-6">
@@ -589,24 +545,26 @@ const ServicesPage = () => {
                   );
                 })}
               </Accordion>
+              </div>
             </div>
-          </div>
-        </div>
+            </div>
+          </TabsContent>
 
-        {/* Пакеты услуг */}
-        <div id="packages-section" className="max-w-5xl mx-auto mb-16 scroll-mt-24">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Пакеты услуг
-            </h2>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
-              Готовые комплекты услуг для разных этапов проектирования. Выберите подходящий пакет или закажите индивидуальный комплект.
-            </p>
-          </div>
+          {/* Пакеты услуг */}
+          <TabsContent value="packages" className="mt-6">
+            <div id="packages-section" className="max-w-5xl mx-auto mb-16 scroll-mt-24">
+              <div className="text-center mb-12">
+                <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-foreground mb-4">
+                  Пакеты услуг
+                </h2>
+                <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto">
+                  Готовые комплекты услуг для разных этапов проектирования. Выберите подходящий пакет или закажите индивидуальный комплект.
+                </p>
+              </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Пакет 1: Эскизный проект */}
-            <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col">
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Пакет 1: Эскизный проект */}
+                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col">
               <div className="mb-4">
                 <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
                   Эскизный проект
@@ -650,155 +608,157 @@ const ServicesPage = () => {
               </Button>
             </div>
 
-            {/* Пакет 2: Базовый */}
-            <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col">
-              <div className="mb-4">
-                <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
-                  Базовый
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Основной комплект для начала проектирования и получения разрешения
-                </p>
-              </div>
-              <div className="flex-1 mb-6">
-                <ul className="space-y-2 text-sm text-card-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Генеральный план (генплан)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Архитектурное проектирование (АР)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Эскизный проект (концепция)</span>
-                  </li>
-                </ul>
-              </div>
-              <Button
-                onClick={() => navigate("/", { 
-                  state: { 
-                    scrollToContact: true,
-                    prefillMessage: `Мне нужен пакет услуг: Базовый`
-                  } 
-                })}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                size="lg"
-              >
-                Заказать пакет
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
+                {/* Пакет 2: Базовый */}
+                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col">
+                  <div className="mb-4">
+                    <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
+                      Базовый
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Основной комплект для начала проектирования и получения разрешения
+                    </p>
+                  </div>
+                  <div className="flex-1 mb-6">
+                    <ul className="space-y-2 text-sm text-card-foreground">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Генеральный план (генплан)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Архитектурное проектирование (АР)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Эскизный проект (концепция)</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <Button
+                    onClick={() => navigate("/", { 
+                      state: { 
+                        scrollToContact: true,
+                        prefillMessage: `Мне нужен пакет услуг: Базовый`
+                      } 
+                    })}
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                    size="lg"
+                  >
+                    Заказать пакет
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
 
-            {/* Пакет 2: Рабочая документация */}
-            <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col border-2 border-accent/30">
-              <div className="mb-2">
-                <span className="inline-block bg-accent/20 text-accent text-xs font-semibold px-2 py-1 rounded mb-2">
-                  Популярный
-                </span>
-              </div>
-              <div className="mb-4">
-                <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
-                  Рабочая документация
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Полный комплект документов для строительства
-                </p>
-              </div>
-              <div className="flex-1 mb-6">
-                <ul className="space-y-2 text-sm text-card-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Архитектурное проектирование (АР)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Конструктивные решения (КР)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Рабочая документация (АР+КР)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Спецификации материалов</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Готово для получения разрешения</span>
-                  </li>
-                </ul>
-              </div>
-              <Button
-                onClick={() => navigate("/", { 
-                  state: { 
-                    scrollToContact: true,
-                    prefillMessage: `Мне нужен пакет услуг: Рабочая документация`
-                  } 
-                })}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                size="lg"
-              >
-                Заказать пакет
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </div>
+                {/* Пакет 2: Рабочая документация */}
+                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col border-2 border-accent/30">
+                  <div className="mb-2">
+                    <span className="inline-block bg-accent/20 text-accent text-xs font-semibold px-2 py-1 rounded mb-2">
+                      Популярный
+                    </span>
+                  </div>
+                  <div className="mb-4">
+                    <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
+                      Рабочая документация
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Полный комплект документов для строительства
+                    </p>
+                  </div>
+                  <div className="flex-1 mb-6">
+                    <ul className="space-y-2 text-sm text-card-foreground">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Архитектурное проектирование (АР)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Конструктивные решения (КР)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Рабочая документация (АР+КР)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Спецификации материалов</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Готово для получения разрешения</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <Button
+                    onClick={() => navigate("/", { 
+                      state: { 
+                        scrollToContact: true,
+                        prefillMessage: `Мне нужен пакет услуг: Рабочая документация`
+                      } 
+                    })}
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                    size="lg"
+                  >
+                    Заказать пакет
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
 
-            {/* Пакет 3: Полный комплект */}
-            <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col">
-              <div className="mb-4">
-                <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
-                  Полный комплект
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  Все услуги от концепции до авторского надзора
-                </p>
+                {/* Пакет 3: Полный комплект */}
+                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 p-6 flex flex-col">
+                  <div className="mb-4">
+                    <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
+                      Полный комплект
+                    </h3>
+                    <p className="text-sm text-muted-foreground">
+                      Все услуги от концепции до авторского надзора
+                    </p>
+                  </div>
+                  <div className="flex-1 mb-6">
+                    <ul className="space-y-2 text-sm text-card-foreground">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Эскизный проект</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Архитектурное проектирование</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Конструктивные решения</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Рабочая документация (АР+КР)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Генеральный план</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                        <span>Авторский надзор</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <Button
+                    onClick={() => navigate("/", { 
+                      state: { 
+                        scrollToContact: true,
+                        prefillMessage: `Мне нужен пакет услуг: Полный комплект`
+                      } 
+                    })}
+                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+                    size="lg"
+                  >
+                    Заказать пакет
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex-1 mb-6">
-                <ul className="space-y-2 text-sm text-card-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Эскизный проект</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Архитектурное проектирование</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Конструктивные решения</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Рабочая документация (АР+КР)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Генеральный план</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                    <span>Авторский надзор</span>
-                  </li>
-                </ul>
-              </div>
-              <Button
-                onClick={() => navigate("/", { 
-                  state: { 
-                    scrollToContact: true,
-                    prefillMessage: `Мне нужен пакет услуг: Полный комплект`
-                  } 
-                })}
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                size="lg"
-              >
-                Заказать пакет
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
             </div>
-          </div>
-        </div>
+          </TabsContent>
+        </Tabs>
 
         {/* CTA секция */}
         <div className="max-w-3xl mx-auto bg-card rounded-lg shadow-[var(--shadow-elegant)] p-8 sm:p-12 text-center">
@@ -806,7 +766,7 @@ const ServicesPage = () => {
             Готовы начать работу над вашим проектом?
           </h2>
           <p className="text-lg text-muted-foreground mb-8">
-            Свяжитесь с нами для получения бесплатной консультации и расчета стоимости услуг
+            Свяжитесь с нами для получения консультации и расчета стоимости услуг
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-start sm:items-center">
             <Button
@@ -828,7 +788,7 @@ const ServicesPage = () => {
                 Оставить заявку
               </Button>
               <p className="text-sm text-muted-foreground mt-2 text-center sm:text-left">
-                Вы получите консультацию бесплатно
+                Вы получите консультацию
               </p>
             </div>
           </div>

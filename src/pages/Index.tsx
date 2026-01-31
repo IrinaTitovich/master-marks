@@ -228,6 +228,15 @@ const Index = () => {
         </Suspense>
       </main>
       
+      {/* Hint перед footer */}
+      <div className="bg-accent/10 border-t border-accent/20 py-6">
+        <div className="container mx-auto px-6">
+          <p className="text-center text-muted-foreground text-sm">
+            💡 <span className="font-semibold text-foreground">Бесплатная консультация</span> — получите профессиональную консультацию и расчет стоимости вашего проекта
+          </p>
+        </div>
+      </div>
+      
       <footer className="bg-primary text-primary-foreground py-8">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
