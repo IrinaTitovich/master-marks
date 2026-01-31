@@ -245,19 +245,33 @@ const ProjectDetail = () => {
 
             {/* Боковая панель */}
             <div>
-              <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 sticky top-6">
-                <h3 className="font-serif text-xl font-bold text-card-foreground mb-4">
-                  Хотите этот проект?
+              <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 sticky top-6 border-2 border-accent/20">
+                <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
+                  Заинтересовал этот проект?
                 </h3>
-                <p className="text-muted-foreground text-sm mb-6">
-                  Свяжитесь с нами, и мы обсудим детали реализации этого проекта для вас.
+                <p className="text-muted-foreground text-sm mb-4">
+                  Получите бесплатную консультацию и расчет стоимости адаптации проекта под ваш участок
                 </p>
+                <div className="mb-6 space-y-2 text-xs text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <span className="text-accent">✓</span>
+                    <span>Бесплатная консультация</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-accent">✓</span>
+                    <span>Адаптация под ваш участок</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-accent">✓</span>
+                    <span>Расчет стоимости проекта</span>
+                  </div>
+                </div>
                 <Button
                   onClick={handleWantThis}
-                  className="w-full mb-3 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl transition-all"
+                  className="w-full mb-3 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl transition-all text-base py-6"
                   size="lg"
                 >
-                  Оставить заявку
+                  Получить консультацию
                 </Button>
                 <Button
                   variant="outline"
@@ -265,7 +279,7 @@ const ProjectDetail = () => {
                   className="w-full mb-2"
                 >
                   <Phone className="mr-2 h-4 w-4" />
-                  Позвонить
+                  Позвонить сейчас
                 </Button>
                 <Button
                   variant="outline"
@@ -273,7 +287,7 @@ const ProjectDetail = () => {
                   className="w-full"
                 >
                   <Mail className="mr-2 h-4 w-4" />
-                  Написать
+                  Написать на email
                 </Button>
               </div>
             </div>

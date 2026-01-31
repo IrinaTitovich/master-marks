@@ -105,8 +105,8 @@ const ContactForm = () => {
           placeholder="Расскажите о вашем проекте..."
         />
       </div>
-      <Button type="submit" size="lg" className="w-full">
-        Отправить заявку
+      <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg py-6 shadow-lg hover:shadow-xl transition-all">
+        Отправить заявку и получить консультацию
       </Button>
     </form>
   );
@@ -142,8 +142,11 @@ const Contact = () => {
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
               Начнем работу над вашим проектом
             </h2>
-            <p className="text-xl text-muted-foreground">
-              Свяжитесь со мной для обсуждения деталей и получения консультации
+            <p className="text-xl text-muted-foreground mb-2">
+              Получите бесплатную консультацию и расчет стоимости проекта
+            </p>
+            <p className="text-lg text-muted-foreground/80">
+              Ответим в течение 24 часов • Работаем по всей Могилевской области
             </p>
           </div>
 
@@ -168,9 +171,12 @@ const Contact = () => {
           </div>
 
           <div className="bg-card p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)]">
-            <h3 className="font-serif text-2xl font-bold text-card-foreground mb-6 text-center">
+            <h3 className="font-serif text-2xl font-bold text-card-foreground mb-2 text-center">
               Оставьте заявку
             </h3>
+            <p className="text-center text-muted-foreground mb-6">
+              Заполните форму, и мы свяжемся с вами в ближайшее время
+            </p>
             <ContactForm />
           </div>
         </div>

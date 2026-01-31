@@ -1,6 +1,10 @@
-import { PenTool, Home, Ruler, FileText, MessageCircle, Settings } from "lucide-react";
+import { PenTool, Home, Ruler, FileText, MessageCircle, Settings, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Services = () => {
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
   const services = [
     {
       icon: PenTool,
@@ -46,7 +50,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {services.map((service, index) => (
             <div
               key={index}
@@ -63,6 +67,20 @@ const Services = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="text-center">
+          <p className="text-lg text-muted-foreground mb-6">
+            Готовы начать работу над вашим проектом?
+          </p>
+          <Button
+            onClick={scrollToContact}
+            size="lg"
+            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
+          >
+            Получить бесплатную консультацию
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
     </section>

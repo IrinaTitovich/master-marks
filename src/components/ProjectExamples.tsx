@@ -111,9 +111,9 @@ const ProjectExamples = () => {
                     </p>
                     <Button 
                       variant="outline" 
-                      className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-colors"
+                      className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-colors font-semibold"
                     >
-                      Смотреть проекты
+                      Посмотреть проекты →
                     </Button>
                   </div>
                 </div>

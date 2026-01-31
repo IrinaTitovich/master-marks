@@ -256,9 +256,10 @@ const ProjectsCatalog = () => {
             </p>
             <Button
               onClick={handleContactClick}
-              className="mt-6"
+              className="mt-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+              size="lg"
             >
-              Связаться с нами
+              Получить консультацию
             </Button>
           </div>
         )}

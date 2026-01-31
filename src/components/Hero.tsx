@@ -28,15 +28,15 @@ const Hero = () => {
             Более 20 лет опыта в архитектуре и конструировании. Превращаем ваши идеи в реальность с вниманием к каждой детали.
           </p>
           <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
-            <Button variant="hero" size="lg" onClick={scrollToContact}>
-              Обсудить проект
+            <Button variant="hero" size="lg" onClick={scrollToContact} className="text-lg px-8 py-6">
+              Получить бесплатную консультацию
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button variant="heroOutline" size="lg" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}>
-              Посмотреть работы
+            <Button variant="heroOutline" size="lg" onClick={() => navigate('/projects')} className="text-lg px-6 py-6">
+              Выбрать готовый проект
             </Button>
-            <Button variant="heroOutline" size="lg" onClick={() => navigate('/projects')}>
-              Готовые проекты
+            <Button variant="heroOutline" size="lg" onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })} className="text-lg px-6 py-6">
+              Посмотреть портфолио
             </Button>
           </div>
         </div>
