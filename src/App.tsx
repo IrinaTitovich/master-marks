@@ -1,10 +1,11 @@
 import { lazy, Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+
+// Lazy loading для UI компонентов, которые не критичны для первоначальной отрисовки
+const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
+const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
+const TooltipProvider = lazy(() => import("@/components/ui/tooltip").then(m => ({ default: m.TooltipProvider })));
 
 // Lazy loading для страниц для улучшения производительности
 const Index = lazy(() => import("./pages/Index"));
@@ -23,44 +24,29 @@ const PageLoader = () => (
   </div>
 );
 
-// Оптимизированный QueryClient с настройками для уменьшения работы основного потока
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60 * 1000, // 1 минута
-      gcTime: 5 * 60 * 1000, // 5 минут
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      retry: 1, // Меньше повторных попыток
-    },
-  },
-});
-
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter 
-        basename={import.meta.env.BASE_URL}
-        future={{
-          v7_startTransition: true,
-        }}
-      >
-        <ScrollToTop />
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/projects" element={<ProjectsCatalog />} />
-            <Route path="/projects/:id" element={<ProjectDetail />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <BrowserRouter 
+    basename={import.meta.env.BASE_URL}
+    future={{
+      v7_startTransition: true,
+    }}
+  >
+    <ScrollToTop />
+    <Suspense fallback={<PageLoader />}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/projects" element={<ProjectsCatalog />} />
+          <Route path="/projects/:id" element={<ProjectDetail />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </TooltipProvider>
+    </Suspense>
+  </BrowserRouter>
 );
 
 export default App;

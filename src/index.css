@@ -151,9 +151,11 @@ All colors MUST be HSL.
     transform: translateZ(0); /* Принудительное GPU ускорение */
   }
 
-  /* Оптимизация для плавной прокрутки */
+  /* Оптимизация для плавной прокрутки - используем CSS вместо JS где возможно */
   html {
     scroll-behavior: smooth;
+    /* Оптимизация рендеринга */
+    text-rendering: optimizeSpeed; /* Быстрый рендеринг текста */
   }
 
   /* Content-visibility для секций вне viewport - уменьшает работу основного потока */
@@ -166,6 +168,39 @@ All colors MUST be HSL.
   .group,
   [class*="hover:"] {
     contain: layout style paint;
+  }
+
+  /* Оптимизация для уменьшения работы основного потока при рендеринге */
+  img,
+  picture,
+  video {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 300px;
+  }
+
+  /* Оптимизация для текстовых блоков */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-rendering: optimizeSpeed;
+  }
+
+  /* Оптимизация для уменьшения работы layout */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Оптимизация для уменьшения работы style recalculation */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    contain: layout style;
   }
 
   @media (prefers-reduced-motion: reduce) {

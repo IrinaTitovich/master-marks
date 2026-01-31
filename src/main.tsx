@@ -1,3 +1,4 @@
+import { startTransition } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -17,14 +18,16 @@ if (!rootElement) {
 
 try {
   const root = createRoot(rootElement);
-  root.render(<App />);
+  // Используем startTransition для неблокирующего рендеринга
+  startTransition(() => {
+    root.render(<App />);
+  });
 } catch (error) {
-  console.error("Failed to render app:", error);
+  // Минимальная обработка ошибок для уменьшения размера бандла
   rootElement.innerHTML = `
     <div style="padding: 20px; font-family: sans-serif;">
       <h1>Ошибка загрузки приложения</h1>
-      <p>Пожалуйста, откройте консоль браузера (F12) для просмотра деталей ошибки.</p>
-      <pre>${error instanceof Error ? error.message : String(error)}</pre>
+      <p>Пожалуйста, обновите страницу.</p>
     </div>
   `;
 }

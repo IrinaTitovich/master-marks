@@ -45,7 +45,7 @@ const ProjectExamples = () => {
               <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
                 Готовые проекты
               </h2>
-              <Badge variant="outline" className="border-accent text-accent text-sm px-3 py-1 font-medium flex items-center gap-1.5">
+              <Badge className="border-accent text-accent text-sm px-3 py-1 font-medium flex items-center gap-1.5">
                 <Tag className="h-3 w-3" />
                 Скидка
               </Badge>

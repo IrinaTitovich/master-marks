@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Building2, Layers, Tag, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -52,11 +52,14 @@ const ProjectsCatalog = () => {
   ];
 
 
-  const filteredProjects = selectedCategory
-    ? projects.filter((p) => p.category === selectedCategory)
-    : projects;
+  // Мемоизируем фильтрацию проектов для оптимизации
+  const filteredProjects = useMemo(() => {
+    return selectedCategory
+      ? projects.filter((p) => p.category === selectedCategory)
+      : projects;
+  }, [selectedCategory]);
 
-  // Парсим площади из area для badge'ов
+  // Парсим площади из area для badge'ов - выносим функцию за пределы компонента для оптимизации
   const parseAreas = (areaString?: string) => {
     if (!areaString) return [];
     const areas: { label: string; value: string }[] = [];
@@ -81,19 +84,26 @@ const ProjectsCatalog = () => {
   const baseUrl = import.meta.env.BASE_URL || "/";
   const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
 
-  const categoryTitle = selectedCategory 
-    ? categories.find(c => c.id === selectedCategory)?.title || "Готовые проекты"
-    : "Готовые проекты";
+  // Мемоизируем вычисления для SEO и JSON-LD
+  const categoryTitle = useMemo(() => {
+    return selectedCategory 
+      ? categories.find(c => c.id === selectedCategory)?.title || "Готовые проекты"
+      : "Готовые проекты";
+  }, [selectedCategory]);
 
-  const seoTitle = selectedCategory
-    ? `${categoryTitle} в Могилеве | Каталог Проектов Домов`
-    : "Готовые Проекты Домов в Могилеве | Каталог";
+  const seoTitle = useMemo(() => {
+    return selectedCategory
+      ? `${categoryTitle} в Могилеве | Каталог Проектов Домов`
+      : "Готовые Проекты Домов в Могилеве | Каталог";
+  }, [selectedCategory, categoryTitle]);
   
-  const seoDescription = selectedCategory
-    ? `Каталог готовых проектов ${categoryTitle.toLowerCase()} в Могилеве и Могилевской области. Выберите проект дома со скидкой или закажите индивидуальное проектирование.`
-    : "Каталог готовых проектов домов в Могилеве. Одноэтажные, двухэтажные и мансардные дома. Выберите проект со скидкой или закажите индивидуальное проектирование.";
+  const seoDescription = useMemo(() => {
+    return selectedCategory
+      ? `Каталог готовых проектов ${categoryTitle.toLowerCase()} в Могилеве и Могилевской области. Выберите проект дома со скидкой или закажите индивидуальное проектирование.`
+      : "Каталог готовых проектов домов в Могилеве. Одноэтажные, двухэтажные и мансардные дома. Выберите проект со скидкой или закажите индивидуальное проектирование.";
+  }, [selectedCategory, categoryTitle]);
 
-  const jsonLd = {
+  const jsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: `${categoryTitle} - Каталог готовых проектов домов`,
@@ -112,9 +122,9 @@ const ProjectsCatalog = () => {
         }
       }))
     }
-  };
+  }), [filteredProjects, categoryTitle, selectedCategory, siteUrl]);
 
-  const breadcrumbJsonLd = {
+  const breadcrumbJsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -131,7 +141,7 @@ const ProjectsCatalog = () => {
         item: `${siteUrl}projects`
       }
     ]
-  };
+  }), [siteUrl]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -159,7 +169,7 @@ const ProjectsCatalog = () => {
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
               Готовые проекты
             </h1>
-            <Badge variant="outline" className="border-accent text-accent text-sm px-3 py-1 font-medium flex items-center gap-1.5">
+            <Badge className="border-accent text-accent text-sm px-3 py-1 font-medium flex items-center gap-1.5">
               <Tag className="h-3 w-3" />
               Скидка
             </Badge>
@@ -230,7 +240,6 @@ const ProjectsCatalog = () => {
                       {parseAreas(project.area).map((area, index) => (
                         <Badge 
                           key={index}
-                          variant="outline"
                           className="bg-accent/10 border-accent/30 text-foreground hover:bg-accent/20 px-2 py-0.5 text-xs font-medium"
                         >
                           <span className="text-muted-foreground mr-1 text-[10px]">{area.label}:</span>

@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Phone, MapPin, Navigation, RotateCcw, Instagram } from "lucide-react";
+
+// Lazy load Dialog для уменьшения критического пути
+const Dialog = lazy(() => import("@/components/ui/dialog").then(m => ({ default: m.Dialog })));
+const DialogContent = lazy(() => import("@/components/ui/dialog").then(m => ({ default: m.DialogContent })));
+const DialogTrigger = lazy(() => import("@/components/ui/dialog").then(m => ({ default: m.DialogTrigger })));
 
 const ContactForm = () => {
   const location = useLocation();
@@ -308,8 +312,9 @@ const Contact = () => {
           </div>
 
           {/* Диалог с картой */}
-          <Dialog open={mapOpen} onOpenChange={setMapOpen}>
-            <DialogContent className="max-w-4xl w-full p-0">
+          <Suspense fallback={null}>
+            <Dialog open={mapOpen} onOpenChange={setMapOpen}>
+              <DialogContent className="max-w-4xl w-full p-0">
               <div className="p-6">
                 <h3 className="font-serif text-2xl font-bold text-card-foreground mb-4">
                   Консультации по адресу
@@ -384,8 +389,9 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-            </DialogContent>
-          </Dialog>
+              </DialogContent>
+            </Dialog>
+          </Suspense>
 
           <div id="contact-form" className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden scroll-mt-20 sm:scroll-mt-24">
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-card-foreground mb-2 text-center break-words">

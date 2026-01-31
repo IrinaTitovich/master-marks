@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, MapPin, Phone, Percent } from "lucide-react";
+import { Menu, X, MapPin, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 const PageNavigation = () => {
   const location = useLocation();
@@ -153,10 +152,10 @@ const PageNavigation = () => {
       id="navigation"
       role="navigation" 
       aria-label="Основная навигация"
-      className="fixed top-0 left-0 right-0 z-50 bg-primary/85 backdrop-blur-sm border-b border-primary-foreground/20 shadow-sm transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-50 bg-primary/85 backdrop-blur-sm border-b border-primary-foreground/20 shadow-sm transition-all duration-300 overflow-visible"
     >
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between min-h-16 py-2">
+      <div className="container mx-auto px-4 sm:px-6 overflow-visible">
+        <div className="flex items-center justify-between min-h-16 py-2 overflow-visible">
           {/* Логотип */}
           <div className="flex flex-col items-start">
             <button
@@ -181,12 +180,12 @@ const PageNavigation = () => {
           </div>
 
           {/* Десктопное меню */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-1 overflow-visible">
             {sections.map((section) => (
               <button
                 key={section.id}
                 onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
-                className={`relative rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm ${
+                className={`relative rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm overflow-visible ${
                   activeSection === section.id
                     ? "bg-accent text-accent-foreground"
                     : section.id === "services"
@@ -196,11 +195,6 @@ const PageNavigation = () => {
               >
                 {section.isLocation && <MapPin className="h-4 w-4" />}
                 {section.label}
-                {section.id === "projects" && (
-                  <Badge variant="outline" className="absolute -top-1 -right-1 border-accent text-accent text-[10px] px-1.5 py-0 h-4 flex items-center gap-0.5">
-                    <Percent className="h-2.5 w-2.5" />
-                  </Badge>
-                )}
               </button>
             ))}
           </div>
@@ -237,11 +231,6 @@ const PageNavigation = () => {
                 >
                   {section.isLocation && <MapPin className="h-4 w-4" />}
                   {section.label}
-                  {section.id === "projects" && (
-                    <Badge variant="outline" className="ml-auto border-accent text-accent text-[10px] px-1.5 py-0 h-4 flex items-center gap-0.5">
-                      <Percent className="h-2.5 w-2.5" />
-                    </Badge>
-                  )}
                 </button>
               ))}
             </div>

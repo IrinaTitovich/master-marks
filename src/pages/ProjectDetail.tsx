@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Phone, Mail, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -45,8 +45,9 @@ const ProjectDetail = () => {
     });
   };
 
-  // Парсим площади из area для badge'ов
-  const parseAreas = (areaString?: string) => {
+  // Парсим площади из area для badge'ов - мемоизируем для оптимизации
+  const areas = useMemo(() => {
+    const areaString = project.area;
     if (!areaString) return [];
     const areas: { label: string; value: string }[] = [];
     
@@ -65,14 +66,14 @@ const ProjectDetail = () => {
       });
     }
     return areas;
-  };
+  }, [project.area]);
 
-  const areas = parseAreas(project.area);
-
-  // Получаем связанные проекты (из той же категории, исключая текущий)
-  const relatedProjects: Project[] = projects
-    .filter(p => p.category === project.category && p.id !== project.id)
-    .slice(0, 3);
+  // Получаем связанные проекты (из той же категории, исключая текущий) - мемоизируем для оптимизации
+  const relatedProjects = useMemo(() => {
+    return projects
+      .filter(p => p.category === project.category && p.id !== project.id)
+      .slice(0, 3);
+  }, [project.category, project.id]);
 
   const baseUrl = import.meta.env.BASE_URL || "/";
   const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
@@ -88,7 +89,8 @@ const ProjectDetail = () => {
     "mansard": "Мансардные дома"
   };
 
-  const jsonLd = {
+  // Мемоизируем вычисления для JSON-LD для оптимизации
+  const jsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": projectUrl,
@@ -128,9 +130,9 @@ const ProjectDetail = () => {
         value: project.area
       }
     ] : []
-  };
+  }), [project, projectUrl, projectImageUrl, siteUrl, categoryNames]);
 
-  const breadcrumbJsonLd = {
+  const breadcrumbJsonLd = useMemo(() => ({
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
@@ -153,7 +155,7 @@ const ProjectDetail = () => {
         item: projectUrl
       }
     ]
-  };
+  }), [project.title, projectUrl, siteUrl]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -193,7 +195,6 @@ const ProjectDetail = () => {
                 {areas.map((area, index) => (
                   <Badge 
                     key={index}
-                    variant="outline"
                     className="bg-accent/10 border-accent/30 text-foreground hover:bg-accent/20 px-3 py-1 text-sm font-medium"
                   >
                     <span className="text-muted-foreground mr-1">{area.label}:</span>
