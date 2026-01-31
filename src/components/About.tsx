@@ -6,7 +6,7 @@ const About = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const stats = [
-    { icon: Building2, value: "150+", label: "Реализованных проектов" },
+    { icon: Building2, value: "600+", label: "Реализованных проектов" },
     { icon: Users, value: "20+", label: "Лет опыта" },
     { icon: Award, value: "50+", label: "Довольных клиентов" },
     { icon: Target, value: "100%", label: "Качество работы" },

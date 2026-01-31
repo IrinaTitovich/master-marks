@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Building2, Layers } from "lucide-react";
+import { Home, Building2, Layers, Tag, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { projects } from "@/data/projects";
@@ -136,13 +136,34 @@ const ProjectsCatalog = () => {
         jsonLd={[jsonLd, breadcrumbJsonLd]}
       />
       <div className="container mx-auto px-6 py-12 pt-24">
+        {/* Кнопка назад на главную */}
+        <div className="mb-6">
+          <button
+            onClick={() => navigate("/")}
+            className="text-muted-foreground/70 hover:text-muted-foreground text-sm flex items-center gap-2 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <Home className="h-4 w-4" />
+            Назад на главную
+          </button>
+        </div>
+
         {/* Заголовок */}
         <div className="mb-8">
-          <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
-            Готовые проекты
-          </h1>
+          <div className="flex items-center gap-3 flex-wrap">
+            <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
+              Готовые проекты
+            </h1>
+            <Badge variant="outline" className="border-accent text-accent text-sm px-3 py-1 font-medium flex items-center gap-1.5">
+              <Tag className="h-3 w-3" />
+              Скидка
+            </Badge>
+          </div>
           <p className="text-xl text-muted-foreground mt-2">
             Каталог готовых проектов домов
+          </p>
+          <p className="text-sm text-muted-foreground/70 mt-3 italic max-w-3xl">
+            Проектов очень много. Здесь представлены некоторые из них. Мы рады подобрать вам готовый проект со скидкой или запроектировать индивидуальный под ваши требования.
           </p>
         </div>
 

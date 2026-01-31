@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tag } from "lucide-react";
 import readyProject1 from "@/assets/1.jpg";
 import readyProject2 from "@/assets/2.jpg";
 import readyProject3 from "@/assets/3.png";
@@ -30,14 +31,6 @@ const ProjectExamples = () => {
     },
   ];
 
-  const services = [
-    "Проектирование индивидуальных жилых домов (коттеджей, садовых домов)",
-    "Проектирование хозяйственных построек (баня, гараж, сарай, беседка и прочее)",
-    "Проектирование блоков гаражей и других объектов, относящихся к классу сложности К-5 по СТБ 2331-2015",
-    "Разработка генерального плана",
-    "Согласование проекта в органах исполнительной власти (город Могилев, Могилевский район)",
-  ];
-
   const handleCategoryClick = (categoryId: string) => {
     navigate("/projects", { state: { categoryId } });
   };
@@ -47,41 +40,14 @@ const ProjectExamples = () => {
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Примеры готовых проектов
-            </h2>
-          </div>
-
-          {/* Описание услуг с аккордеоном */}
-          <div className="mb-16">
-            <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-8">
-              <h3 className="font-serif text-2xl font-semibold text-card-foreground mb-4">
-                Оказываем следующие услуги
-              </h3>
-              
-              <div className="text-muted-foreground mb-4">
-                <p>
-                  Проектирование индивидуальных жилых домов, хозяйственных построек, разработка генерального плана и согласование проектов в органах исполнительной власти города Могилева и Могилевского района.
-                </p>
-              </div>
-
-              <Accordion type="single" collapsible className="w-full">
-                <AccordionItem value="services">
-                  <AccordionTrigger className="text-accent hover:text-accent/80">
-                    Развернуть полный список услуг
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <ul className="space-y-3 mt-4">
-                      {services.map((service, index) => (
-                        <li key={index} className="flex items-start gap-3 text-card-foreground">
-                          <span className="text-accent mt-1">•</span>
-                          <span>{service}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
+            <div className="flex items-center justify-center gap-3 flex-wrap mb-4">
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
+                Готовые проекты
+              </h2>
+              <Badge variant="outline" className="border-accent text-accent text-sm px-3 py-1 font-medium flex items-center gap-1.5">
+                <Tag className="h-3 w-3" />
+                Скидка
+              </Badge>
             </div>
           </div>
 

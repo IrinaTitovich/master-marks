@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, MapPin, Phone } from "lucide-react";
+import { Menu, X, MapPin, Phone, Percent } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const PageNavigation = () => {
   const location = useLocation();
@@ -25,7 +26,7 @@ const PageNavigation = () => {
     { id: "hero", label: "Главная", isSection: true },
     { id: "about", label: "О нас", isSection: true },
     { id: "services", label: "Услуги", isPage: true, path: "/services" },
-    { id: "projects", label: "Проекты", isPage: true, path: "/projects" },
+    { id: "projects", label: "Готовые проекты", isPage: true, path: "/projects" },
     { id: "contact", label: "Контакты", isSection: true },
     { id: "location", label: "Локация", isLocation: true },
   ];
@@ -173,7 +174,7 @@ const PageNavigation = () => {
               <button
                 key={section.id}
                 onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
-                className={`rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm ${
+                className={`relative rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm ${
                   activeSection === section.id
                     ? "bg-accent text-accent-foreground"
                     : section.id === "services"
@@ -183,6 +184,11 @@ const PageNavigation = () => {
               >
                 {section.isLocation && <MapPin className="h-4 w-4" />}
                 {section.label}
+                {section.id === "projects" && (
+                  <Badge variant="outline" className="absolute -top-1 -right-1 border-accent text-accent text-[10px] px-1.5 py-0 h-4 flex items-center gap-0.5">
+                    <Percent className="h-2.5 w-2.5" />
+                  </Badge>
+                )}
               </button>
             ))}
           </div>
@@ -205,7 +211,7 @@ const PageNavigation = () => {
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
-                  className={`px-4 py-3 rounded-lg text-left transition-all flex items-center gap-2 font-medium ${
+                  className={`relative px-4 py-3 rounded-lg text-left transition-all flex items-center gap-2 font-medium ${
                     activeSection === section.id
                       ? "bg-accent text-accent-foreground"
                       : section.id === "services"
@@ -215,6 +221,11 @@ const PageNavigation = () => {
                 >
                   {section.isLocation && <MapPin className="h-4 w-4" />}
                   {section.label}
+                  {section.id === "projects" && (
+                    <Badge variant="outline" className="ml-auto border-accent text-accent text-[10px] px-1.5 py-0 h-4 flex items-center gap-0.5">
+                      <Percent className="h-2.5 w-2.5" />
+                    </Badge>
+                  )}
                 </button>
               ))}
             </div>

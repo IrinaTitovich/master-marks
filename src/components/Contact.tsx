@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Mail, Phone, MapPin, Navigation, RotateCcw, Instagram } from "lucide-react";
+import { Phone, MapPin, Navigation, RotateCcw, Instagram } from "lucide-react";
 
 const ContactForm = () => {
   const location = useLocation();
@@ -219,12 +219,6 @@ const Contact = () => {
       href: "tel:+375296745773",
     },
     {
-      icon: Mail,
-      label: "Email",
-      value: "vashproekt.by@gmail.com",
-      href: "mailto:vashproekt.by@gmail.com",
-    },
-    {
       icon: MapPin,
       label: "Локация",
       value: shortAddress,
@@ -258,7 +252,7 @@ const Contact = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 mb-8 sm:mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-12">
             {contactInfo.map((item, index) => {
               const isPhone = item.label === "Телефон";
               if (item.onClick) {

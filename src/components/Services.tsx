@@ -1,4 +1,4 @@
-import { PenTool, Home, Ruler, FileText, MessageCircle, Settings, ArrowRight } from "lucide-react";
+import { PenTool, Home, Ruler, FileText, Lightbulb, Eye, Map, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
@@ -12,32 +12,37 @@ const Services = () => {
     {
       icon: PenTool,
       title: "Архитектурное проектирование",
-      description: "Разработка концепции и архитектурного проекта с учетом всех ваших пожеланий и особенностей участка.",
+      description: "Разработка внешнего вида и планировки вашего будущего дома",
     },
     {
       icon: Ruler,
       title: "Конструктивные решения",
-      description: "Полный расчет конструкций, обеспечивающий надежность и безопасность вашего дома.",
-    },
-    {
-      icon: Home,
-      title: "Проектирование коттеджей",
-      description: "Индивидуальные проекты загородных домов от небольших дач до просторных особняков.",
+      description: "Расчет прочности и надежности всех элементов дома",
     },
     {
       icon: FileText,
-      title: "Рабочая документация",
-      description: "Полный комплект чертежей и спецификаций для строительства и получения разрешений.",
+      title: "Рабочая документация (АР+КР)",
+      description: "Полный комплект чертежей для строителей",
     },
     {
-      icon: MessageCircle,
-      title: "Консультации по проектированию",
-      description: "Профессиональные консультации на всех этапах: выбор проекта, адаптация под участок, оптимизация планировки и решение технических вопросов.",
+      icon: Lightbulb,
+      title: "Эскизный проект (концепция)",
+      description: "Первоначальная идея и планировка будущего дома",
     },
     {
-      icon: Settings,
+      icon: Home,
+      title: "Реконструкция и перепланировка",
+      description: "Улучшение и изменение существующего дома",
+    },
+    {
+      icon: Eye,
       title: "Авторский надзор",
-      description: "Контроль соответствия строительства проектной документации на всех этапах работ.",
+      description: "Контроль качества строительства на всех этапах",
+    },
+    {
+      icon: Map,
+      title: "Генеральный план (генплан)",
+      description: "Планировка участка и расположение всех построек",
     },
   ];
 
@@ -61,19 +66,19 @@ const Services = () => {
           </Button>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
           {services.map((service, index) => (
             <div
               key={index}
-              className="group bg-card p-8 rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2"
+              className="group bg-card p-5 rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <service.icon className="h-7 w-7 text-accent-foreground" />
+              <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <service.icon className="h-6 w-6 text-accent-foreground" />
               </div>
-              <h3 className="font-serif text-xl font-semibold text-card-foreground mb-3">
+              <h3 className="font-serif text-lg font-semibold text-card-foreground mb-2">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 {service.description}
               </p>
             </div>
@@ -89,7 +94,7 @@ const Services = () => {
             size="lg"
             className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
           >
-            Получить бесплатную консультацию
+            Получить консультацию
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>

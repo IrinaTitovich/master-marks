@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Phone, ArrowRight, CheckCircle2, MessageSquare } from "lucide-react";
+import { Phone, ArrowRight, ArrowLeft, CheckCircle2, MessageSquare } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PageNavigation from "@/components/PageNavigation";
 import { Button } from "@/components/ui/button";
@@ -346,14 +346,56 @@ const ServicesPage = () => {
       />
       
       <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Кнопка назад на главную */}
+        <div className="mb-6 mt-20 md:mt-24">
+          <button
+            onClick={() => navigate("/")}
+            className="text-muted-foreground/70 hover:text-muted-foreground text-sm flex items-center gap-2 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <Home className="h-4 w-4" />
+            Назад на главную
+          </button>
+        </div>
+
         {/* Заголовок */}
-        <div className="mb-8 mt-20 md:mt-24">
+        <div className="mb-8">
           <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
             Наши услуги по проектированию
           </h1>
           <p className="text-xl text-muted-foreground mt-2">
             Полный спектр услуг для создания вашего идеального дома. От первой идеи до сдачи объекта в эксплуатацию.
           </p>
+          <div className="mt-6 bg-card rounded-lg shadow-[var(--shadow-soft)] p-6">
+            <h3 className="font-serif text-xl font-semibold text-card-foreground mb-3">
+              Оказываем следующие услуги
+            </h3>
+            <p className="text-muted-foreground mb-4">
+              Проектирование индивидуальных жилых домов, хозяйственных построек, разработка генерального плана и согласование проектов в органах исполнительной власти города Могилева и Могилевского района.
+            </p>
+            <ul className="space-y-2 text-card-foreground">
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span>Проектирование индивидуальных жилых домов (коттеджей, садовых домов)</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span>Проектирование хозяйственных построек (баня, гараж, сарай, беседка и прочее)</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span>Проектирование блоков гаражей и других объектов, относящихся к классу сложности К-5 по СТБ 2331-2015</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span>Разработка генерального плана</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-accent mt-1">•</span>
+                <span>Согласование проекта в органах исполнительной власти (город Могилев, Могилевский район)</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Навигация между разделами */}
