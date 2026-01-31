@@ -21,9 +21,9 @@ const About = () => {
   const shortText = fullText[0];
 
   return (
-    <section id="about" className="py-24 bg-card">
+    <section id="about" className="pt-24 pb-12 md:pb-16 bg-card">
       <div className="container mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
               Об архитекторе

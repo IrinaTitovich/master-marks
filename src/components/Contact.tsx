@@ -105,7 +105,7 @@ const ContactForm = () => {
           placeholder="Расскажите о вашем проекте..."
         />
       </div>
-      <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg py-6 shadow-lg hover:shadow-xl transition-all">
+      <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all whitespace-normal break-words">
         Отправить заявку и получить консультацию
       </Button>
     </form>
@@ -135,46 +135,46 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
+    <section id="contact" className="py-16 sm:py-24 bg-background overflow-x-hidden">
+      <div className="container mx-auto px-4 sm:px-6 w-full max-w-full">
+        <div className="max-w-4xl mx-auto w-full">
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 break-words px-2">
               Начнем работу над вашим проектом
             </h2>
-            <p className="text-xl text-muted-foreground mb-2">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-2 break-words px-2">
               Получите бесплатную консультацию и расчет стоимости проекта
             </p>
-            <p className="text-lg text-muted-foreground/80">
-              Ответим в течение 24 часов • Работаем по всей Могилевской области
+            <p className="text-base sm:text-lg text-muted-foreground/80 break-words px-2">
+              Работаем по всей Могилевской области
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 mb-8 sm:mb-12">
             {contactInfo.map((item, index) => (
               <a
                 key={index}
                 href={item.href}
-                className="group flex flex-col items-center text-center p-6 bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2"
+                className="group flex flex-col items-center text-center p-4 sm:p-6 bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2"
               >
-                <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                   <item.icon className="h-6 w-6 text-accent-foreground" />
                 </div>
-                <div className="text-sm text-muted-foreground mb-2">
+                <div className="text-sm text-muted-foreground mb-2 break-words">
                   {item.label}
                 </div>
-                <div className="font-semibold text-foreground">
+                <div className="font-semibold text-foreground text-sm sm:text-base break-words">
                   {item.value}
                 </div>
               </a>
             ))}
           </div>
 
-          <div className="bg-card p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)]">
-            <h3 className="font-serif text-2xl font-bold text-card-foreground mb-2 text-center">
+          <div className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden">
+            <h3 className="font-serif text-xl sm:text-2xl font-bold text-card-foreground mb-2 text-center break-words">
               Оставьте заявку
             </h3>
-            <p className="text-center text-muted-foreground mb-6">
+            <p className="text-center text-muted-foreground mb-6 text-sm sm:text-base break-words">
               Заполните форму, и мы свяжемся с вами в ближайшее время
             </p>
             <ContactForm />

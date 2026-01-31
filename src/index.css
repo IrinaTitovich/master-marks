@@ -108,7 +108,26 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
   body {
     @apply bg-background text-foreground;
+    overflow-x: hidden;
+    max-width: 100vw;
+    position: relative;
+  }
+
+  /* Предотвращение горизонтального скролла на мобильных */
+  @media (max-width: 640px) {
+    body {
+      overflow-x: hidden;
+    }
+    
+    * {
+      max-width: 100%;
+    }
   }
 }

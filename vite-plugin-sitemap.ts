@@ -1,12 +1,24 @@
 import { Plugin } from "vite";
 import { writeFileSync } from "fs";
 import { resolve } from "path";
-import { projects } from "./src/data/projects";
 
 export default function sitemapPlugin(): Plugin {
   return {
     name: "vite-plugin-sitemap",
     writeBundle() {
+      // Используем статический список ID проектов, так как импорт projects.ts
+      // использует алиасы @/assets, которые не работают в Node.js окружении
+      const projects = [
+        { id: "project-350" },
+        { id: "project-333" },
+        { id: "project-244" },
+        { id: "project-245" },
+        { id: "project-251" },
+        { id: "project-321" },
+        { id: "project-307" },
+        { id: "project-282" },
+      ];
+
       const BASE_URL = process.env.VITE_BASE_URL || "/";
       // Для GitHub Pages нужно указать полный URL вашего сайта
       // Можно настроить через переменную окружения VITE_SITE_URL
