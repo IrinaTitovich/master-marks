@@ -10,6 +10,13 @@ import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
+// Выносим categoryNames за пределы компонента для стабильности зависимостей
+const categoryNames: Record<string, string> = {
+  "single-story": "Одноэтажные дома",
+  "two-story": "Двухэтажные дома",
+  "mansard": "Мансардные дома"
+};
+
 const ProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -22,6 +29,121 @@ const ProjectDetail = () => {
   }, [location.pathname]);
 
   const project = projects.find((p) => p.id === id);
+
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
+
+  // Парсим площади из area для badge'ов - мемоизируем для оптимизации
+  // Всегда вызываем useMemo, даже если project undefined
+  const areas = useMemo(() => {
+    if (!project?.area) return [];
+    const areaString = project.area;
+    const areas: { label: string; value: string }[] = [];
+    
+    // Ищем площади в формате "99,4 м² (1 этаж)" и "23,4 м² (терраса)"
+    const matches = areaString.match(/(\d+[.,]\d+)\s*м²\s*\(([^)]+)\)/g);
+    if (matches) {
+      matches.forEach(match => {
+        const valueMatch = match.match(/(\d+[.,]\d+)\s*м²/);
+        const labelMatch = match.match(/\(([^)]+)\)/);
+        if (valueMatch && labelMatch) {
+          areas.push({
+            label: labelMatch[1],
+            value: valueMatch[1] + ' м²'
+          });
+        }
+      });
+    }
+    return areas;
+  }, [project]);
+
+  // Получаем связанные проекты (из той же категории, исключая текущий) - мемоизируем для оптимизации
+  const relatedProjects = useMemo(() => {
+    if (!project) return [];
+    return projects
+      .filter(p => p.category === project.category && p.id !== project.id)
+      .slice(0, 3);
+  }, [project]);
+
+  const projectUrl = project ? `${siteUrl}projects/${project.id}` : "";
+  const projectImage = project?.image || project?.images?.[0] || "/placeholder.svg";
+  const projectImageUrl = projectImage.startsWith("http") 
+    ? projectImage 
+    : `${siteUrl}${projectImage.replace(/^\//, "")}`;
+
+  // Мемоизируем вычисления для JSON-LD для оптимизации
+  const jsonLd = useMemo(() => {
+    if (!project) return null;
+    return {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": projectUrl,
+      name: project.title,
+      description: project.description || `Проект дома ${project.projectNumber || project.id}`,
+      image: project.images?.map(img => img.startsWith("http") ? img : `${siteUrl}${img.replace(/^\//, "")}`) || [projectImageUrl],
+      url: projectUrl,
+      category: categoryNames[project.category] || "Проектирование домов",
+      brand: {
+        "@type": "Brand",
+        name: "Ваш проект - Проектирование домов"
+      },
+      manufacturer: {
+        "@type": "Organization",
+        name: "Ваш проект - Проектирование домов",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          addressCountry: "BY"
+        }
+      },
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        priceCurrency: "BYN",
+        url: projectUrl,
+        seller: {
+          "@type": "Organization",
+          name: "Ваш проект - Проектирование домов"
+        }
+      },
+      additionalProperty: project.area ? [
+        {
+          "@type": "PropertyValue",
+          name: "Площадь",
+          value: project.area
+        }
+      ] : []
+    };
+  }, [project, projectUrl, projectImageUrl, siteUrl]);
+
+  const breadcrumbJsonLd = useMemo(() => {
+    if (!project) return null;
+    return {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Главная",
+          item: siteUrl
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Готовые проекты",
+          item: `${siteUrl}projects`
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: project.title,
+          item: projectUrl
+        }
+      ]
+    };
+  }, [project, projectUrl, siteUrl]);
 
   if (!project) {
     return (
@@ -45,118 +167,6 @@ const ProjectDetail = () => {
     });
   };
 
-  // Парсим площади из area для badge'ов - мемоизируем для оптимизации
-  const areas = useMemo(() => {
-    const areaString = project.area;
-    if (!areaString) return [];
-    const areas: { label: string; value: string }[] = [];
-    
-    // Ищем площади в формате "99,4 м² (1 этаж)" и "23,4 м² (терраса)"
-    const matches = areaString.match(/(\d+[.,]\d+)\s*м²\s*\(([^)]+)\)/g);
-    if (matches) {
-      matches.forEach(match => {
-        const valueMatch = match.match(/(\d+[.,]\d+)\s*м²/);
-        const labelMatch = match.match(/\(([^)]+)\)/);
-        if (valueMatch && labelMatch) {
-          areas.push({
-            label: labelMatch[1],
-            value: valueMatch[1] + ' м²'
-          });
-        }
-      });
-    }
-    return areas;
-  }, [project.area]);
-
-  // Получаем связанные проекты (из той же категории, исключая текущий) - мемоизируем для оптимизации
-  const relatedProjects = useMemo(() => {
-    return projects
-      .filter(p => p.category === project.category && p.id !== project.id)
-      .slice(0, 3);
-  }, [project.category, project.id]);
-
-  const baseUrl = import.meta.env.BASE_URL || "/";
-  const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
-  const projectUrl = `${siteUrl}projects/${project.id}`;
-  const projectImage = project.image || project.images?.[0] || "/placeholder.svg";
-  const projectImageUrl = projectImage.startsWith("http") 
-    ? projectImage 
-    : `${siteUrl}${projectImage.replace(/^\//, "")}`;
-
-  const categoryNames: Record<string, string> = {
-    "single-story": "Одноэтажные дома",
-    "two-story": "Двухэтажные дома",
-    "mansard": "Мансардные дома"
-  };
-
-  // Мемоизируем вычисления для JSON-LD для оптимизации
-  const jsonLd = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": projectUrl,
-    name: project.title,
-    description: project.description || `Проект дома ${project.projectNumber || project.id}`,
-    image: project.images?.map(img => img.startsWith("http") ? img : `${siteUrl}${img.replace(/^\//, "")}`) || [projectImageUrl],
-    url: projectUrl,
-    category: categoryNames[project.category] || "Проектирование домов",
-    brand: {
-      "@type": "Brand",
-      name: "Ваш проект - Проектирование домов"
-    },
-    manufacturer: {
-      "@type": "Organization",
-      name: "Ваш проект - Проектирование домов",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Могилев",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY"
-      }
-    },
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      priceCurrency: "BYN",
-      url: projectUrl,
-      seller: {
-        "@type": "Organization",
-        name: "Ваш проект - Проектирование домов"
-      }
-    },
-    additionalProperty: project.area ? [
-      {
-        "@type": "PropertyValue",
-        name: "Площадь",
-        value: project.area
-      }
-    ] : []
-  }), [project, projectUrl, projectImageUrl, siteUrl, categoryNames]);
-
-  const breadcrumbJsonLd = useMemo(() => ({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Главная",
-        item: siteUrl
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Готовые проекты",
-        item: `${siteUrl}projects`
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: project.title,
-        item: projectUrl
-      }
-    ]
-  }), [project.title, projectUrl, siteUrl]);
-
   return (
     <div className="min-h-screen bg-background">
       <PageNavigation />
@@ -168,7 +178,7 @@ const ProjectDetail = () => {
         image={projectImageUrl}
         url={`/projects/${project.id}`}
         canonical={`/projects/${project.id}`}
-        jsonLd={[jsonLd, breadcrumbJsonLd]}
+        jsonLd={jsonLd && breadcrumbJsonLd ? [jsonLd, breadcrumbJsonLd] : []}
       />
       <div className="container mx-auto px-6 py-12 pt-24">
         <div className="max-w-6xl mx-auto">
@@ -272,7 +282,7 @@ const ProjectDetail = () => {
                   Заинтересовал этот проект?
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4">
-                  Получите бесплатную консультацию и расчет стоимости адаптации проекта под ваш участок
+                  Получите консультацию и расчет стоимости адаптации проекта под ваш участок
                 </p>
                 <div className="mb-6 space-y-2 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">

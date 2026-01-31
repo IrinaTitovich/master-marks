@@ -160,7 +160,7 @@ const ContactForm = () => {
           Отправить заявку
         </Button>
         <p className="text-sm text-muted-foreground mt-3 text-center">
-          Вы получите консультацию бесплатно
+          Вы получите консультацию
         </p>
       </div>
     </form>
@@ -258,7 +258,7 @@ const Contact = () => {
               Начнем работу над вашим проектом
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-2 break-words px-2">
-              Получите бесплатную консультацию и расчет стоимости проекта
+              Получите консультацию и расчет стоимости проекта
             </p>
             <p className="text-base sm:text-lg text-muted-foreground/80 break-words px-2">
               Работаем по всей Могилевской области

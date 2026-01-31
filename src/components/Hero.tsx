@@ -61,7 +61,7 @@ const Hero = () => {
           {/* Что дальше - CTA */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
             <Button variant="hero" size="lg" onClick={scrollToContact} className="text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal">
-              Получить бесплатную консультацию
+              Получить консультацию
               <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
             </Button>
             <Button variant="heroOutline" size="lg" onClick={() => navigate('/projects')} className="text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-6 w-full sm:w-auto whitespace-normal">
