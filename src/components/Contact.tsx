@@ -105,13 +105,13 @@ const Contact = () => {
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 break-words px-2">
-              Начнем работу над вашим проектом
+              Начну работу над вашим проектом
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-2 break-words px-2">
               Позвоните для бесплатной консультации
             </p>
             <p className="text-base sm:text-lg text-muted-foreground/80 break-words px-2">
-              Работаем по всей Могилевской области и не только
+              Работаю по всей Могилевской области и не только
             </p>
           </div>
 
@@ -285,7 +285,7 @@ const Contact = () => {
 
           <div className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden scroll-mt-20 sm:scroll-mt-24">
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-card-foreground mb-2 text-center break-words">
-              Позвоните нам
+              Позвоните мне
             </h3>
             <p className="text-center text-muted-foreground mb-6 text-sm sm:text-base break-words">
               Позвоните — бесплатная консультация и расчёт стоимости

@@ -11,6 +11,7 @@ const PageNavigation = () => {
     // Устанавливаем начальное состояние в зависимости от текущего URL
     if (location.pathname === "/services") return "services";
     if (location.pathname === "/projects" || location.pathname.startsWith("/projects/")) return "projects";
+    if (location.pathname === "/about") return "about-page";
     return "hero";
   });
 
@@ -23,7 +24,7 @@ const PageNavigation = () => {
     isSection?: boolean; // Секция на главной странице
   }> = [
     { id: "hero", label: "Главная", isSection: true },
-    { id: "about", label: "О нас", isSection: true },
+    { id: "about-page", label: "Об архитекторе", isPage: true, path: "/about" },
     { id: "services", label: "Услуги", isPage: true, path: "/services" },
     { id: "projects", label: "Готовые проекты", isPage: true, path: "/projects" },
     { id: "contact", label: "Контакты", isSection: true },
@@ -42,7 +43,12 @@ const PageNavigation = () => {
       return;
     }
 
-    // Если мы на главной странице, обрабатываем скролл
+    if (location.pathname === "/about") {
+      setActiveSection("about-page");
+      return;
+    }
+
+    // Если открыта главная страница, обрабатываем скролл
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {

@@ -19,14 +19,14 @@ const Hero = () => {
       
       <div className="relative z-10 container mx-auto px-4 sm:px-6 py-20 sm:py-32 w-full max-w-full overflow-x-hidden">
         <div className="max-w-4xl mx-auto w-full">
-          {/* Кто мы */}
+          {/* Кто я */}
           <div className="mb-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-2 break-words">
               Архитектор-Конструктор • Могилев, Могилевская область
             </p>
           </div>
           
-          {/* Что мы делаем */}
+          {/* Чем занимаюсь */}
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 leading-tight break-words">
             Проектирование домов
           </h1>
@@ -36,7 +36,7 @@ const Hero = () => {
             Для владельцев участков, семей и всех, кто мечтает о собственном доме
           </p>
           
-          {/* Что мы делаем - детали */}
+          {/* Детали */}
           <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 space-y-3">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/90 font-medium break-words">
               Более 20 лет опыта в архитектуре и конструировании
@@ -50,7 +50,7 @@ const Hero = () => {
               </span>
             </div>
             <p className="text-base sm:text-lg text-primary-foreground/80 break-words">
-              Превращаем ваши идеи в реальность с вниманием к каждой детали
+              Превращаю ваши идеи в реальность с вниманием к каждой детали
             </p>
           </div>
           

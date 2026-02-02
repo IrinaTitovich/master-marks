@@ -43,6 +43,11 @@ export default function sitemapPlugin(): Plugin {
           changefreq: "weekly",
           priority: "0.9",
         },
+        {
+          url: "about",
+          changefreq: "monthly",
+          priority: "0.8",
+        },
       ];
 
       // Страницы проектов
