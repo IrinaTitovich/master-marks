@@ -48,6 +48,11 @@ export default function sitemapPlugin(): Plugin {
           changefreq: "monthly",
           priority: "0.8",
         },
+        {
+          url: "client-guide",
+          changefreq: "monthly",
+          priority: "0.8",
+        },
       ];
 
       // Страницы проектов

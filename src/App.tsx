@@ -13,6 +13,7 @@ const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const ProjectsCatalog = lazy(() => import("./pages/ProjectsCatalog"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 const AboutArchitectPage = lazy(() => import("./pages/AboutArchitectPage"));
+const ClientGuidePage = lazy(() => import("./pages/ClientGuidePage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Компонент загрузки
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/projects" element={<ProjectsCatalog />} />
           <Route path="/projects/:id" element={<ProjectDetail />} />
           <Route path="/about" element={<AboutArchitectPage />} />
+          <Route path="/client-guide" element={<ClientGuidePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
