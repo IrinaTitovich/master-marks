@@ -91,12 +91,12 @@ const documentsToPrepare = [
 ];
 
 const whatToUnderstand = [
-  "Какие строения необходимы (жилой дом, гараж, баня, летняя кухня и пр.).",
-  "Какие помещения нужны в жилом доме (количество спален, санузлов, наличие гардеробных, кухня-гостиная либо раздельные помещения, наличие террасы при доме и прочее).",
-  "Этажность жилого дома.",
-  "Предпочтения по цветовым решениям фасадов.",
-  "Предпочтение по размещению на участке (возможны изменения из-за необходимости соблюдения пожарных и санитарных норм, а также с учетом сторон света).",
-  "Набор помещений в хоз. постройках и необходимые площади (для гаража — в зависимости от количества автотранспорта и их размеров; для бани — от количества одновременно моющихся; для сарая — от объема хранящихся предметов и прочее).",
+  "Какие строения вы планируете (жилой дом, гараж, баня, летняя кухня и т. п.).",
+  "Какие помещения хотелось бы иметь в жилом доме (количество спален и санузлов, гардеробные, кухня-гостиная или раздельные зоны, терраса и т. д.).",
+  "Этажность дома (один или два этажа).",
+  "Предпочтения по цвету и отделке фасадов.",
+  "Желаемое размещение на участке (с учётом пожарных и санитарных норм и сторон света возможны корректировки).",
+  "Состав и площади помещений в хоз. постройках (гараж — по количеству и размеру машин; баня — по числу одновременно моющихся; сарай — по объёму хранения и т. п.).",
 ];
 
 const ClientGuidePage = () => {
@@ -133,7 +133,7 @@ const ClientGuidePage = () => {
       <main id="main-content" role="main" tabIndex={-1}>
         <SEO
           title="Памятка заказчику | Проектирование домов Могилев"
-          description="Что подготовить и что понимать для проектирования дома: объём проекта для исполкома, документы заказчика, конструктивные решения. Могилев и область."
+          description="Документы для начала проектирования дома: объём проекта для исполкома, что обсудить заранее, конструктивные чертежи. Могилев и область."
           keywords="памятка заказчику, проектирование домов документы, исполком согласование, архитектурные решения, конструктивные решения, документы для проектирования Могилев"
           url="/client-guide"
           canonical="/client-guide"
@@ -172,7 +172,7 @@ const ClientGuidePage = () => {
                     <span className="flex-shrink-0 w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-semibold text-accent text-sm">
                       2
                     </span>
-                    <span className="text-sm pt-0.5">Подготовить документы</span>
+                    <span className="text-sm pt-0.5">Документы для начала проектирования</span>
                   </a>
                   <div className="flex justify-center py-0.5" aria-hidden>
                     <ArrowDown className="h-4 w-4 text-muted-foreground" />
@@ -312,7 +312,7 @@ const ClientGuidePage = () => {
                 </section>
               </article>
 
-              {/* Лист 3: Документы для подготовки */}
+              {/* Лист 3: Документы для начала проектирования */}
               <article
                 className="relative bg-amber-50/95 dark:bg-stone-100/95 text-foreground rounded-sm border border-amber-200/80 dark:border-stone-300/80 shadow-[0_1px_3px_rgba(0,0,0,0.12),0_6px_16px_rgba(0,0,0,0.12)]"
                 style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 6px 16px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)" }}
@@ -322,7 +322,7 @@ const ClientGuidePage = () => {
                 </div>
                 <section id="documents" className="scroll-mt-28 p-5 sm:p-6 pt-8" aria-labelledby="documents-heading">
                   <h2 id="documents-heading" className="font-serif text-lg font-bold text-foreground mb-2">
-                    3. Что подготовить заказчику
+                    3. Документы для начала проектирования
                   </h2>
                   <ul className="space-y-2 text-muted-foreground text-sm leading-relaxed">
                     {documentsToPrepare.map((item, index) => {
@@ -351,7 +351,7 @@ const ClientGuidePage = () => {
                 </div>
                 <section id="understand" className="scroll-mt-28 p-5 sm:p-6 pt-8" aria-labelledby="understand-heading">
                   <h2 id="understand-heading" className="font-serif text-lg font-bold text-foreground mb-2">
-                    4. Что понимать (совместно с семьёй)
+                    4. О чём полезно подумать заранее (совместно с семьёй)
                   </h2>
                   <ul className="space-y-1.5 text-muted-foreground text-sm leading-relaxed">
                     {whatToUnderstand.map((item, index) => (
