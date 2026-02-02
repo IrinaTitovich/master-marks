@@ -338,43 +338,20 @@ const ServicesPage = () => {
               <h3 className="font-serif text-xl font-semibold text-card-foreground mb-3">
                 Оказываем следующие услуги
               </h3>
-              <p className="text-muted-foreground mb-4">
-                Проектирование индивидуальных жилых домов, хозяйственных
-                построек, разработка генерального плана и согласование проектов
-                в органах исполнительной власти города Могилева и Могилевского
-                района.
-              </p>
               <ul className="space-y-2 text-card-foreground">
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-1">•</span>
-                  <span>
-                    Проектирование индивидуальных жилых домов (коттеджей,
-                    садовых домов)
-                  </span>
+                  <span>Проектирование индивидуальных жилых домов</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-accent mt-1">•</span>
+                  <span>Проектирование садовых домов (дачи)</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-accent mt-1">•</span>
                   <span>
                     Проектирование хозяйственных построек (баня, гараж, сарай,
-                    беседка и прочее)
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>
-                    Проектирование блоков гаражей и других объектов, относящихся
-                    к классу сложности К-5 по СТБ 2331-2015
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>Разработка генерального плана</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-accent mt-1">•</span>
-                  <span>
-                    Согласование проекта в органах исполнительной власти (город
-                    Могилев, Могилевский район)
+                    беседка, летняя кухня и прочее)
                   </span>
                 </li>
               </ul>
