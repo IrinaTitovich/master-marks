@@ -7,6 +7,7 @@ import {
   Building2,
   Pin,
   Printer,
+  ArrowDown,
 } from "lucide-react";
 import PageNavigation from "@/components/PageNavigation";
 import SEO from "@/components/SEO";
@@ -143,6 +144,66 @@ const ClientGuidePage = () => {
           <div className="container mx-auto mb-6 no-print">
             <Breadcrumbs items={[{ label: "Памятка заказчику" }]} />
           </div>
+
+          <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[minmax(280px,360px)_1fr] gap-6 lg:gap-8">
+            {/* Левая колонка: схема «Как это понять» */}
+            <aside className="no-print shrink-0" aria-labelledby="scheme-heading">
+              <section className="bg-card rounded-lg border border-border shadow-[var(--shadow-soft)] p-5 sm:p-6">
+                <h2 id="scheme-heading" className="font-serif text-xl font-bold text-foreground mb-4">
+                  Как это понять
+                </h2>
+                <nav className="flex flex-col gap-0" aria-label="Схема шагов">
+                  <a
+                    href="#understand"
+                    className="flex items-start gap-3 py-2 rounded-md hover:bg-muted/50 transition-colors text-foreground"
+                  >
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-semibold text-accent text-sm">
+                      1
+                    </span>
+                    <span className="text-sm pt-0.5">Определиться с пожеланиями</span>
+                  </a>
+                  <div className="flex justify-center py-0.5" aria-hidden>
+                    <ArrowDown className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <a
+                    href="#documents"
+                    className="flex items-start gap-3 py-2 rounded-md hover:bg-muted/50 transition-colors text-foreground"
+                  >
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-semibold text-accent text-sm">
+                      2
+                    </span>
+                    <span className="text-sm pt-0.5">Подготовить документы</span>
+                  </a>
+                  <div className="flex justify-center py-0.5" aria-hidden>
+                    <ArrowDown className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <a
+                    href="#exec-volume"
+                    className="flex items-start gap-3 py-2 rounded-md hover:bg-muted/50 transition-colors text-foreground"
+                  >
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-semibold text-accent text-sm">
+                      3
+                    </span>
+                    <span className="text-sm pt-0.5">Проект для исполкома</span>
+                  </a>
+                  <div className="flex justify-center py-0.5" aria-hidden>
+                    <ArrowDown className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <a
+                    href="#additional-works"
+                    className="flex items-start gap-3 py-2 rounded-md hover:bg-muted/50 transition-colors text-foreground"
+                  >
+                    <span className="flex-shrink-0 w-7 h-7 rounded-full bg-accent/20 flex items-center justify-center font-semibold text-accent text-sm">
+                      4
+                    </span>
+                    <span className="text-sm pt-0.5">Конструктивные чертежи</span>
+                  </a>
+                </nav>
+              </section>
+            </aside>
+
+            {/* Правая колонка: памятка (доска с листами) */}
+            <div className="min-w-0">
           <div className="print-area">
           {/* Строка при печати: заголовок + телефон */}
           <p className="hidden print:block print-header-line mb-0" aria-hidden>
@@ -219,7 +280,7 @@ const ClientGuidePage = () => {
                 </section>
               </article>
 
-              {/* Лист 2: Дополнительные работы */}
+              {/* Лист 2: Конструктивные чертежи */}
               <article
                 className="relative bg-amber-50/95 dark:bg-stone-100/95 text-foreground rounded-sm border border-amber-200/80 dark:border-stone-300/80 shadow-[0_1px_3px_rgba(0,0,0,0.12),0_6px_16px_rgba(0,0,0,0.12)]"
                 style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 6px 16px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)" }}
@@ -229,7 +290,7 @@ const ClientGuidePage = () => {
                 </div>
                 <section id="additional-works" className="scroll-mt-28 p-5 sm:p-6 pt-8" aria-labelledby="additional-works-heading">
                   <h2 id="additional-works-heading" className="font-serif text-lg font-bold text-foreground mb-2">
-                    2. Дополнительные работы (без согласования)
+                    2. Конструктивные чертежи (без согласования)
                   </h2>
                   <p className="text-muted-foreground text-sm leading-relaxed mb-3">
                     По желанию заказчика; не требуют согласования в исполкоме.
@@ -330,6 +391,8 @@ const ClientGuidePage = () => {
               </Button>
             </div>
           </section>
+          </div>
+            </div>
           </div>
         </div>
       </main>
