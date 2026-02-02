@@ -1,172 +1,8 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/components/ui/tooltip";
 import { Phone, MapPin, Navigation, RotateCcw, Instagram, Copy, Check } from "lucide-react";
-
-const ContactForm = () => {
-  const location = useLocation();
-  
-  // Загружаем сохраненные данные из localStorage
-  const loadSavedData = () => {
-    try {
-      const saved = localStorage.getItem("contactFormData");
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        return {
-          name: parsed.name || "",
-          phone: parsed.phone || "",
-          email: parsed.email || "",
-          message: "",
-        };
-      }
-    } catch (error) {
-      console.error("Error loading saved form data:", error);
-    }
-    return {
-      name: "",
-      phone: "",
-      email: "",
-      message: "",
-    };
-  };
-
-  const [formData, setFormData] = useState(loadSavedData);
-
-  // Сохраняем данные в localStorage при изменении (кроме message) - с debounce для оптимизации
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      try {
-        localStorage.setItem("contactFormData", JSON.stringify({
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-        }));
-      } catch (error) {
-        console.error("Error saving form data:", error);
-      }
-    }, 300); // Debounce 300ms для уменьшения записей в localStorage
-
-    return () => clearTimeout(timeoutId);
-  }, [formData.name, formData.phone, formData.email]);
-
-  // Предзаполнение сообщения из location.state
-  useEffect(() => {
-    if (location.state?.prefillMessage) {
-      setFormData(prev => ({
-        ...prev,
-        message: location.state.prefillMessage,
-      }));
-    }
-  }, [location.state]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    const subject = encodeURIComponent(`Заявка от ${formData.name}`);
-    const body = encodeURIComponent(
-      `Имя: ${formData.name}\n` +
-      `Телефон: ${formData.phone}\n` +
-      `Email: ${formData.email}\n\n` +
-      `Сообщение:\n${formData.message}`
-    );
-    
-    // Открываем mailto с двумя адресами
-    window.location.href = `mailto:larisa_matsukova@tut.by,vashproekt.by@gmail.com?subject=${subject}&body=${body}`;
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }));
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6" aria-label="Форма обратной связи">
-      <div className="grid md:grid-cols-2 gap-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-card-foreground mb-2">
-            Ваше имя <span className="text-destructive" aria-label="обязательное поле">*</span>
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            autoComplete="name"
-            aria-required="true"
-            aria-describedby="name-description"
-            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-            placeholder="Иван Иванов"
-          />
-          <span id="name-description" className="sr-only">Введите ваше полное имя</span>
-        </div>
-        <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-card-foreground mb-2">
-            Телефон
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            autoComplete="tel"
-            aria-describedby="phone-description"
-            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-            placeholder="+375 (XX) XXX-XX-XX"
-          />
-          <span id="phone-description" className="sr-only">Введите номер телефона для связи</span>
-        </div>
-      </div>
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-card-foreground mb-2">
-          Email
-        </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            autoComplete="email"
-            aria-describedby="email-description"
-            className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300"
-            placeholder="your@email.com"
-          />
-          <span id="email-description" className="sr-only">Введите адрес электронной почты</span>
-      </div>
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-card-foreground mb-2">
-          Сообщение
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          rows={4}
-          aria-describedby="message-description"
-          className="w-full px-4 py-3 bg-background border border-border rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-300 resize-none"
-          placeholder="Расскажите о вашем проекте..."
-        />
-        <span id="message-description" className="sr-only">Опишите ваш проект или задайте вопрос</span>
-      </div>
-      <div>
-        <Button type="submit" size="lg" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg py-4 sm:py-6 shadow-lg hover:shadow-xl transition-all whitespace-normal break-words">
-          Отправить заявку
-        </Button>
-        <p className="text-sm text-muted-foreground mt-3 text-center">
-          Вы получите консультацию
-        </p>
-      </div>
-    </form>
-  );
-};
 
 const PHONE_NUMBER = "+375296745773";
 
@@ -272,7 +108,7 @@ const Contact = () => {
               Начнем работу над вашим проектом
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-2 break-words px-2">
-              Получите бесплатную консультацию
+              Позвоните для бесплатной консультации
             </p>
             <p className="text-base sm:text-lg text-muted-foreground/80 break-words px-2">
               Работаем по всей Могилевской области и не только
@@ -447,14 +283,32 @@ const Contact = () => {
             </DialogContent>
           </Dialog>
 
-          <div id="contact-form" className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden scroll-mt-20 sm:scroll-mt-24">
+          <div className="bg-card p-6 sm:p-8 md:p-12 rounded-lg shadow-[var(--shadow-elegant)] w-full overflow-x-hidden scroll-mt-20 sm:scroll-mt-24">
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-card-foreground mb-2 text-center break-words">
-              Оставьте заявку
+              Позвоните нам
             </h3>
             <p className="text-center text-muted-foreground mb-6 text-sm sm:text-base break-words">
-              Заполните форму, и мы свяжемся с вами в ближайшее время
+              Позвоните — бесплатная консультация и расчёт стоимости
             </p>
-            <ContactForm />
+            <div className="flex flex-col items-center gap-6">
+              <a
+                href={`tel:${PHONE_NUMBER}`}
+                className="inline-flex items-center gap-3 text-2xl sm:text-3xl font-bold text-accent hover:text-accent/90 transition-colors"
+              >
+                <Phone className="h-8 w-8 sm:h-9 sm:w-9" />
+                +375 (29) 674-57-73
+              </a>
+              <Button
+                asChild
+                size="lg"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-base sm:text-lg py-4 sm:py-6 px-8 shadow-lg hover:shadow-xl transition-all"
+              >
+                <a href={`tel:${PHONE_NUMBER}`}>
+                  <Phone className="mr-2 h-5 w-5" />
+                  Позвонить
+                </a>
+              </Button>
+            </div>
           </div>
         </div>
       </div>

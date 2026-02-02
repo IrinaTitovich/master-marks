@@ -26,10 +26,6 @@ const ProjectsCatalog = () => {
     }
   }, [location.state]);
 
-  const handleContactClick = () => {
-    navigate("/", { state: { scrollToContact: true } });
-  };
-
   const categories = [
     {
       id: "single-story",
@@ -268,14 +264,14 @@ const ProjectsCatalog = () => {
               Проекты будут добавлены в ближайшее время
             </p>
             <p className="text-muted-foreground">
-              Свяжитесь с нами для получения информации о готовых проектах
+              Позвоните нам для информации о готовых проектах
             </p>
             <Button
-              onClick={handleContactClick}
+              onClick={() => (window.location.href = "tel:+375296745773")}
               className="mt-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
               size="lg"
             >
-              Получить консультацию
+              Позвонить
             </Button>
           </div>
         )}

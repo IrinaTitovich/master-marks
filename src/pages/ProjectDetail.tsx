@@ -158,15 +158,6 @@ const ProjectDetail = () => {
     );
   }
 
-  const handleWantThis = () => {
-    navigate("/", { 
-      state: { 
-        scrollToContact: true,
-        prefillMessage: `Хочу такой проект: ${project.title}`
-      } 
-    });
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <PageNavigation />
@@ -282,7 +273,7 @@ const ProjectDetail = () => {
                   Заинтересовал этот проект?
                 </h3>
                 <p className="text-muted-foreground text-sm mb-4">
-                  Получите консультацию и расчет стоимости адаптации проекта под ваш участок
+                  Позвоните для консультации и расчёта стоимости адаптации проекта под ваш участок
                 </p>
                 <div className="mb-6 space-y-2 text-xs text-muted-foreground">
                   <div className="flex items-center gap-2">
@@ -299,19 +290,12 @@ const ProjectDetail = () => {
                   </div>
                 </div>
                 <Button
-                  onClick={handleWantThis}
+                  onClick={() => (window.location.href = "tel:+375296745773")}
                   className="w-full mb-3 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl transition-all text-base py-6"
                   size="lg"
                 >
-                  Получить консультацию
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.href = "tel:+375296745773"}
-                  className="w-full mb-2"
-                >
                   <Phone className="mr-2 h-4 w-4" />
-                  Позвонить сейчас
+                  Позвонить для консультации
                 </Button>
                 <Button
                   variant="outline"

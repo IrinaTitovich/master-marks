@@ -7,6 +7,7 @@ import {
   Eye,
   Map,
   ArrowRight,
+  Phone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +15,6 @@ import { useNavigate } from "react-router-dom";
 const Services = () => {
   const navigate = useNavigate();
 
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-  };
   const services = [
     {
       icon: PenTool,
@@ -92,11 +90,12 @@ const Services = () => {
             Готовы начать работу над вашим проектом?
           </p>
           <Button
-            onClick={scrollToContact}
+            onClick={() => (window.location.href = "tel:+375296745773")}
             size="lg"
             className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
           >
-            Получить консультацию
+            <Phone className="mr-2 h-5 w-5" />
+            Позвонить
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>

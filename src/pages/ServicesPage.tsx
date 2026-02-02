@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Phone,
-  ArrowRight,
-  ArrowLeft,
-  CheckCircle2,
-  MessageSquare,
-} from "lucide-react";
+import { Phone, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PageNavigation from "@/components/PageNavigation";
 import { Button } from "@/components/ui/button";
@@ -55,10 +49,6 @@ const ServicesPage = () => {
         behavior: "smooth",
       });
     }
-  };
-
-  const scrollToContact = () => {
-    navigate("/", { state: { scrollToContact: true } });
   };
 
   const services = [
@@ -540,17 +530,14 @@ const ServicesPage = () => {
                                 <div className="pt-4">
                                   <Button
                                     onClick={() =>
-                                      navigate("/", {
-                                        state: {
-                                          scrollToContact: true,
-                                          prefillMessage: `Мне нужна услуга: ${service.title}`,
-                                        },
-                                      })
+                                      (window.location.href =
+                                        "tel:+375296745773")
                                     }
                                     className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
                                     size="lg"
                                   >
-                                    Получить консультацию по этой услуге
+                                    <Phone className="mr-2 h-4 w-4" />
+                                    Позвонить по этой услуге
                                     <ArrowRight className="ml-2 h-4 w-4" />
                                   </Button>
                                 </div>
@@ -616,17 +603,13 @@ const ServicesPage = () => {
                     </div>
                     <Button
                       onClick={() =>
-                        navigate("/", {
-                          state: {
-                            scrollToContact: true,
-                            prefillMessage: `Мне нужен пакет услуг: Эскизный проект`,
-                          },
-                        })
+                        (window.location.href = "tel:+375296745773")
                       }
                       className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
                       size="lg"
                     >
-                      Заказать пакет
+                      <Phone className="mr-2 h-4 w-4" />
+                      Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
@@ -660,17 +643,13 @@ const ServicesPage = () => {
                     </div>
                     <Button
                       onClick={() =>
-                        navigate("/", {
-                          state: {
-                            scrollToContact: true,
-                            prefillMessage: `Мне нужен пакет услуг: Базовый`,
-                          },
-                        })
+                        (window.location.href = "tel:+375296745773")
                       }
                       className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
                       size="lg"
                     >
-                      Заказать пакет
+                      <Phone className="mr-2 h-4 w-4" />
+                      Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
@@ -716,17 +695,13 @@ const ServicesPage = () => {
                     </div>
                     <Button
                       onClick={() =>
-                        navigate("/", {
-                          state: {
-                            scrollToContact: true,
-                            prefillMessage: `Мне нужен пакет услуг: Рабочая документация`,
-                          },
-                        })
+                        (window.location.href = "tel:+375296745773")
                       }
                       className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
                       size="lg"
                     >
-                      Заказать пакет
+                      <Phone className="mr-2 h-4 w-4" />
+                      Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
@@ -767,17 +742,13 @@ const ServicesPage = () => {
                     </div>
                     <Button
                       onClick={() =>
-                        navigate("/", {
-                          state: {
-                            scrollToContact: true,
-                            prefillMessage: `Мне нужен пакет услуг: Полный комплект`,
-                          },
-                        })
+                        (window.location.href = "tel:+375296745773")
                       }
                       className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
                       size="lg"
                     >
-                      Заказать пакет
+                      <Phone className="mr-2 h-4 w-4" />
+                      Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
@@ -792,33 +763,16 @@ const ServicesPage = () => {
               Готовы начать работу над вашим проектом?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Свяжитесь с нами для получения консультации и расчета стоимости
-              услуг
+              Позвоните нам для бесплатной консультации
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-start sm:items-center">
-              <Button
-                onClick={() => (window.location.href = "tel:+375296745773")}
-                size="lg"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6"
-              >
-                <Phone className="mr-2 h-5 w-5" />
-                Позвонить
-              </Button>
-              <div className="flex flex-col items-center sm:items-start">
-                <Button
-                  variant="outline"
-                  onClick={scrollToContact}
-                  size="lg"
-                  className="text-lg px-8 py-6"
-                >
-                  <MessageSquare className="mr-2 h-5 w-5" />
-                  Оставить заявку
-                </Button>
-                <p className="text-sm text-muted-foreground mt-2 text-center sm:text-left">
-                  Вы получите бесплатную консультацию
-                </p>
-              </div>
-            </div>
+            <Button
+              onClick={() => (window.location.href = "tel:+375296745773")}
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6"
+            >
+              <Phone className="mr-2 h-5 w-5" />
+              Позвонить
+            </Button>
           </div>
         </div>
       </main>

@@ -41,22 +41,16 @@ const Index = () => {
       return;
     }
 
-    // Прокрутка к форме контакта, если перешли с других страниц
+    // Прокрутка к секции контактов, если перешли с других страниц
     if (location.state?.scrollToContact) {
-      // Используем двойной requestAnimationFrame для гарантии рендеринга
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          // Сначала пытаемся найти форму, если нет - используем секцию контакта
-          const formElement = document.getElementById("contact-form");
           const contactElement = document.getElementById("contact");
-          const targetElement = formElement || contactElement;
-          
-          if (targetElement) {
+          if (contactElement) {
             // Для мобильных устройств используем instant прокрутку для четкости
             const isMobile = window.innerWidth < 768;
-            const offset = isMobile ? 20 : 80; // Меньший отступ на мобильных
-            
-            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offset = isMobile ? 20 : 80;
+            const elementPosition = contactElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - offset;
 
             window.scrollTo({
@@ -232,7 +226,7 @@ const Index = () => {
       <div className="bg-accent/10 border-t border-accent/20 py-6">
         <div className="container mx-auto px-6">
           <p className="text-center text-muted-foreground text-sm">
-            💡 <span className="font-semibold text-foreground">Бесплатная консультация</span> — получите профессиональную консультацию и расчет стоимости вашего проекта
+            💡 <span className="font-semibold text-foreground">Бесплатная консультация</span> — позвоните для профессиональной консультации и расчёта стоимости вашего проекта
           </p>
         </div>
       </div>

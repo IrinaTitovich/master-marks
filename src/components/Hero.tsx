@@ -1,14 +1,10 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-architecture.jpg";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const navigate = useNavigate();
-  
-  const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-  };
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 scroll-mt-0">
@@ -60,8 +56,9 @@ const Hero = () => {
           
           {/* Что дальше - CTA */}
           <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
-            <Button variant="hero" size="lg" onClick={scrollToContact} className="text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal">
-              Получить консультацию
+            <Button variant="hero" size="lg" onClick={() => (window.location.href = "tel:+375296745773")} className="text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal">
+              <Phone className="mr-2 h-5 w-5 flex-shrink-0" />
+              Позвонить
               <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
             </Button>
             <Button variant="heroOutline" size="lg" onClick={() => navigate('/projects')} className="text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-6 w-full sm:w-auto whitespace-normal">
