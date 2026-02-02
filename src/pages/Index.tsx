@@ -122,7 +122,7 @@ const Index = () => {
       "@type": "PostalAddress",
       addressLocality: "Могилев",
       addressRegion: "Могилевская область",
-      streetAddress: "пер. 1ый Хвойный д.3",
+      streetAddress: "пер. 1 Хвойный д. 3",
       postalCode: "",
       addressCountry: "BY",
       addressCountryName: "Беларусь"

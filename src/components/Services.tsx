@@ -1,12 +1,21 @@
-import { PenTool, Home, Ruler, FileText, Lightbulb, Eye, Map, ArrowRight } from "lucide-react";
+import {
+  PenTool,
+  Home,
+  Ruler,
+  FileText,
+  Lightbulb,
+  Eye,
+  Map,
+  ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const Services = () => {
   const navigate = useNavigate();
-  
+
   const scrollToContact = () => {
-    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
   const services = [
     {
@@ -34,20 +43,13 @@ const Services = () => {
       title: "Реконструкция и перепланировка",
       description: "Улучшение и изменение существующего дома",
     },
-    {
-      icon: Eye,
-      title: "Авторский надзор",
-      description: "Контроль качества строительства на всех этапах",
-    },
-    {
-      icon: Map,
-      title: "Генеральный план (генплан)",
-      description: "Планировка участка и расположение всех построек",
-    },
   ];
 
   return (
-    <section id="services" className="pt-12 md:pt-16 pb-24 bg-background scroll-mt-16">
+    <section
+      id="services"
+      className="pt-12 md:pt-16 pb-24 bg-background scroll-mt-16"
+    >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
@@ -58,7 +60,7 @@ const Services = () => {
           </p>
           <Button
             variant="outline"
-            onClick={() => navigate('/services')}
+            onClick={() => navigate("/services")}
             className="text-base"
           >
             Подробнее об услугах

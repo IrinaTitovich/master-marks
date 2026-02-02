@@ -211,20 +211,17 @@ const Contact = () => {
     return () => window.removeEventListener("openLocationMap", handleOpenMap);
   }, []);
 
-  const fullAddress = "пер. 1ый Хвойный д.3, Могилёв, Беларусь";
-  const shortAddress = "Могилёв, Беларусь";
+  const fullAddress = "пер. 1 Хвойный д. 3, Могилёв, Беларусь";
+  const shortAddress = "пер. 1 Хвойный д. 3, Могилёв";
   const encodedAddress = encodeURIComponent(fullAddress);
   
-  // Координаты для карты (примерные координаты Могилёва, можно уточнить)
-  // Для точного адреса "пер. 1ый хвойный д.3" нужно уточнить координаты
+  // Координаты для карты: пер. 1 Хвойный д. 3, Могилёв
   const lat = 53.8945;
   const lon = 30.3307;
   
-  // Ссылки для карт (iframe)
-  // Google Maps через поиск адреса
+  // Ссылки для карт (iframe) — адрес в запросе, чтобы карта открывалась на нужной локации
   const googleMapUrl = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
-  // Яндекс Карты
-  const yandexMapUrl = `https://yandex.ru/map-widget/v1/?ll=${lon},${lat}&z=15&pt=${lon},${lat}&l=map`;
+  const yandexMapUrl = `https://yandex.ru/map-widget/v1/?ll=${lon},${lat}&z=16&pt=${lon},${lat}&l=map`;
   
   // Ссылки для навигаторов
   const googleNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;

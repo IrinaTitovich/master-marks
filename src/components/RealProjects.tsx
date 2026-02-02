@@ -7,7 +7,7 @@ const RealProjects = () => {
   const projects = [
     {
       image: realProject1,
-      title: "пер. 1-ый Хвойный в Могилеве",
+      title: "пер. 1 Хвойный д. 3, Могилёв",
       description: "Реализованный проект с индивидуальным подходом к планировке и дизайну",
     },
     {
