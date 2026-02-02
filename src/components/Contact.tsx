@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { Phone, MapPin, Navigation, RotateCcw, Instagram } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "@/components/ui/tooltip";
+import { Phone, MapPin, Navigation, RotateCcw, Instagram, Copy, Check } from "lucide-react";
 
 const ContactForm = () => {
   const location = useLocation();
@@ -167,10 +168,26 @@ const ContactForm = () => {
   );
 };
 
+const PHONE_NUMBER = "+375296745773";
+
 const Contact = () => {
   const [mapOpen, setMapOpen] = useState(false);
   const [mapProvider, setMapProvider] = useState<"google" | "yandex">("google");
   const [mapKey, setMapKey] = useState(0);
+  const [phoneCopied, setPhoneCopied] = useState(false);
+
+  const copyPhone = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      await navigator.clipboard.writeText(PHONE_NUMBER);
+      setPhoneCopied(true);
+      setTimeout(() => setPhoneCopied(false), 2000);
+    } catch {
+      // fallback: открыть tel: если clipboard недоступен
+      window.location.href = `tel:${PHONE_NUMBER}`;
+    }
+  };
 
   // Определяем источник трафика при монтировании
   useEffect(() => {
@@ -229,7 +246,7 @@ const Contact = () => {
       icon: Phone,
       label: "Телефон",
       value: "+375 (29) 674-57-73",
-      href: "tel:+375296745773",
+      href: `tel:${PHONE_NUMBER}`,
     },
     {
       icon: MapPin,
@@ -258,10 +275,10 @@ const Contact = () => {
               Начнем работу над вашим проектом
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-2 break-words px-2">
-              Получите консультацию и расчет стоимости проекта
+              Получите бесплатную консультацию
             </p>
             <p className="text-base sm:text-lg text-muted-foreground/80 break-words px-2">
-              Работаем по всей Могилевской области
+              Работаем по всей Могилевской области и не только
             </p>
           </div>
 
@@ -287,6 +304,52 @@ const Contact = () => {
                   </button>
                 );
               }
+              if (isPhone) {
+                return (
+                  <div
+                    key={index}
+                    className="group relative flex flex-col items-center text-center p-4 sm:p-6 bg-card rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-2"
+                  >
+                    <a
+                      href={item.href}
+                      className="flex flex-col items-center flex-1"
+                    >
+                      <div className="w-12 h-12 bg-gradient-to-br from-accent to-secondary rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                        <item.icon className="h-6 w-6 text-accent-foreground" />
+                      </div>
+                      <div className="text-sm text-muted-foreground mb-2 break-words">
+                        {item.label}
+                      </div>
+                      <div className="font-semibold text-foreground text-sm sm:text-base whitespace-nowrap">
+                        {item.value}
+                      </div>
+                    </a>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          onClick={copyPhone}
+                          className="absolute top-2 right-2 h-8 w-8 text-muted-foreground hover:text-foreground"
+                          aria-label={phoneCopied ? "Номер скопирован" : "Копировать номер телефона"}
+                        >
+                          {phoneCopied ? (
+                            <Check className="h-4 w-4 text-green-600" />
+                          ) : (
+                            <Copy className="h-4 w-4" />
+                          )}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipPortal>
+                        <TooltipContent>
+                          {phoneCopied ? "Номер скопирован" : "Скопировать телефон"}
+                        </TooltipContent>
+                      </TooltipPortal>
+                    </Tooltip>
+                  </div>
+                );
+              }
               return (
                 <a
                   key={index}
@@ -299,7 +362,7 @@ const Contact = () => {
                   <div className="text-sm text-muted-foreground mb-2 break-words">
                     {item.label}
                   </div>
-                  <div className={`font-semibold text-foreground text-sm sm:text-base ${isPhone ? "whitespace-nowrap" : "break-words"}`}>
+                  <div className={`font-semibold text-foreground text-sm sm:text-base break-words`}>
                     {item.value}
                   </div>
                 </a>
@@ -309,8 +372,8 @@ const Contact = () => {
 
           {/* Диалог с картой */}
           <Dialog open={mapOpen} onOpenChange={setMapOpen}>
-            <DialogContent className="max-w-4xl w-full p-0">
-              <div className="p-6">
+            <DialogContent className="fixed inset-0 left-0 top-0 right-0 bottom-0 max-w-none w-auto p-0 flex items-center justify-center translate-x-0 translate-y-0 bg-transparent border-none shadow-none pointer-events-none [&>*]:pointer-events-auto [&>button]:absolute [&>button]:right-4 [&>button]:top-4 [&>button]:z-10 [&>button]:bg-black/70 [&>button]:text-white [&>button]:hover:bg-black/90 [&>button]:rounded-full [&>button]:h-10 [&>button]:w-10">
+              <div className="max-w-4xl w-full max-h-[90vh] overflow-auto mx-4 bg-background rounded-lg shadow-lg border p-6 pointer-events-auto">
                 <h3 className="font-serif text-2xl font-bold text-card-foreground mb-4">
                   Консультации по адресу
                 </h3>

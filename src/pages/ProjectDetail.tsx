@@ -238,24 +238,24 @@ const ProjectDetail = () => {
 
           {/* Модальное окно для увеличенного просмотра */}
           <Dialog open={selectedImage !== null} onOpenChange={(open) => !open && setSelectedImage(null)}>
-            <DialogContent className="max-w-7xl w-full p-0 bg-transparent border-none [&>button]:hidden">
+            <DialogContent className="fixed inset-0 left-0 top-0 right-0 bottom-0 max-w-none w-auto p-0 bg-transparent border-none shadow-none flex items-center justify-center [&>button:not(.image-dialog-close)]:hidden translate-x-0 translate-y-0">
               {selectedImage && (
-                <>
-                  <DialogClose asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="fixed top-4 right-4 z-[60] bg-black/70 hover:bg-black/90 text-white rounded-full h-10 w-10"
-                    >
-                      <X className="h-5 w-5" />
-                    </Button>
-                  </DialogClose>
+                <div className="relative max-w-7xl w-full max-h-[90vh] flex items-center justify-center p-4">
                   <WatermarkImage
                     src={selectedImage}
                     alt={`${project.title} - увеличенное изображение`}
                     className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
                   />
-                </>
+                  <DialogClose asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="image-dialog-close absolute top-2 right-2 z-10 bg-black/70 hover:bg-black/90 text-white rounded-full h-10 w-10 shrink-0"
+                    >
+                      <X className="h-5 w-5" />
+                    </Button>
+                  </DialogClose>
+                </div>
               )}
             </DialogContent>
           </Dialog>
