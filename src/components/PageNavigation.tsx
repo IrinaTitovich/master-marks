@@ -10,7 +10,11 @@ const PageNavigation = () => {
   const [activeSection, setActiveSection] = useState(() => {
     // Устанавливаем начальное состояние в зависимости от текущего URL
     if (location.pathname === "/services") return "services";
-    if (location.pathname === "/projects" || location.pathname.startsWith("/projects/")) return "projects";
+    if (
+      location.pathname === "/projects" ||
+      location.pathname.startsWith("/projects/")
+    )
+      return "projects";
     if (location.pathname === "/about") return "about-page";
     if (location.pathname === "/client-guide") return "client-guide";
     return "hero";
@@ -27,8 +31,18 @@ const PageNavigation = () => {
     { id: "hero", label: "Главная", isSection: true },
     { id: "about-page", label: "Об архитекторе", isPage: true, path: "/about" },
     { id: "services", label: "Услуги", isPage: true, path: "/services" },
-    { id: "client-guide", label: "Памятка заказчику", isPage: true, path: "/client-guide" },
-    { id: "projects", label: "Готовые проекты", isPage: true, path: "/projects" },
+    {
+      id: "client-guide",
+      label: "Памятка заказчику",
+      isPage: true,
+      path: "/client-guide",
+    },
+    {
+      id: "projects",
+      label: "Готовые проекты",
+      isPage: true,
+      path: "/projects",
+    },
     { id: "contact", label: "Контакты", isSection: true },
     { id: "location", label: "Локация", isLocation: true },
   ];
@@ -40,7 +54,10 @@ const PageNavigation = () => {
       return;
     }
 
-    if (location.pathname === "/projects" || location.pathname.startsWith("/projects/")) {
+    if (
+      location.pathname === "/projects" ||
+      location.pathname.startsWith("/projects/")
+    ) {
       setActiveSection("projects");
       return;
     }
@@ -65,7 +82,7 @@ const PageNavigation = () => {
           for (let i = sections.length - 1; i >= 0; i--) {
             // Пропускаем location и страницы, так как это не реальные секции
             if (sections[i].isLocation || sections[i].isPage) continue;
-            
+
             const section = document.getElementById(sections[i].id);
             if (section && section.offsetTop <= scrollPosition) {
               setActiveSection(sections[i].id);
@@ -87,7 +104,13 @@ const PageNavigation = () => {
     }
   }, [location.pathname]);
 
-  const scrollToSection = (sectionId: string, isLocation?: boolean, isPage?: boolean, path?: string, isSection?: boolean) => {
+  const scrollToSection = (
+    sectionId: string,
+    isLocation?: boolean,
+    isPage?: boolean,
+    path?: string,
+    isSection?: boolean
+  ) => {
     if (isPage && path) {
       // Для страниц переходим по маршруту
       navigate(path);
@@ -108,7 +131,7 @@ const PageNavigation = () => {
             top: offsetPosition,
             behavior: "smooth",
           });
-          
+
           // Открываем карту через событие
           setTimeout(() => {
             window.dispatchEvent(new CustomEvent("openLocationMap"));
@@ -161,9 +184,9 @@ const PageNavigation = () => {
   };
 
   return (
-    <nav 
+    <nav
       id="navigation"
-      role="navigation" 
+      role="navigation"
       aria-label="Основная навигация"
       className="fixed top-0 left-0 right-0 z-50 bg-primary/85 backdrop-blur-sm border-b border-primary-foreground/20 shadow-sm transition-all duration-300 overflow-visible"
     >
@@ -179,11 +202,11 @@ const PageNavigation = () => {
                   navigate("/");
                 }
               }}
-              className="font-serif text-lg font-bold text-primary-foreground hover:text-accent transition-colors"
+              className="font-sans text-lg font-semibold text-primary-foreground hover:text-accent transition-colors antialiased"
             >
               Ваш проект
             </button>
-            <a 
+            <a
               href="tel:+375296745773"
               className="text-primary-foreground/80 hover:text-accent text-xs font-semibold flex items-center gap-1 transition-colors mt-0.5"
             >
@@ -197,13 +220,21 @@ const PageNavigation = () => {
             {sections.map((section) => (
               <button
                 key={section.id}
-                onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
+                onClick={() =>
+                  scrollToSection(
+                    section.id,
+                    section.isLocation,
+                    section.isPage,
+                    section.path,
+                    section.isSection
+                  )
+                }
                 className={`relative rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm overflow-visible ${
                   activeSection === section.id
                     ? "bg-accent text-accent-foreground"
                     : section.id === "services"
-                      ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
-                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                    ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                    : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                 }`}
               >
                 {section.isLocation && <MapPin className="h-4 w-4" />}
@@ -231,15 +262,25 @@ const PageNavigation = () => {
               {sections.map((section) => (
                 <button
                   key={section.id}
-                  onClick={() => scrollToSection(section.id, section.isLocation, section.isPage, section.path, section.isSection)}
+                  onClick={() =>
+                    scrollToSection(
+                      section.id,
+                      section.isLocation,
+                      section.isPage,
+                      section.path,
+                      section.isSection
+                    )
+                  }
                   role="menuitem"
-                  aria-current={activeSection === section.id ? "page" : undefined}
+                  aria-current={
+                    activeSection === section.id ? "page" : undefined
+                  }
                   className={`relative px-4 py-3 rounded-lg text-left transition-all flex items-center gap-2 font-medium focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-primary ${
                     activeSection === section.id
                       ? "bg-accent text-accent-foreground"
                       : section.id === "services"
-                        ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
-                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                      ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                   }`}
                 >
                   {section.isLocation && <MapPin className="h-4 w-4" />}
