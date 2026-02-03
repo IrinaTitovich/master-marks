@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   BadgeCheck,
   Users,
@@ -20,9 +20,20 @@ const About = () => {
   }, []);
 
   const stats = [
-    { icon: Building2, value: "600+", label: "Реализованных проектов" },
+    {
+      icon: Building2,
+      value: "600+",
+      label: "Реализованных проектов",
+      to: "/projects",
+    },
     { icon: Users, value: "20+", label: "Лет опыта" },
-    { icon: BadgeCheck, value: "Аттестат", label: "в области проектирования" },
+    {
+      icon: BadgeCheck,
+      value: "Аттестат",
+      label: "в области проектирования",
+      to: "/about",
+      state: { openTab: "attestats" },
+    },
     { icon: Target, value: "100%", label: "Качество работы" },
   ];
 
@@ -81,20 +92,38 @@ const About = () => {
           </div>
 
           <div className="grid grid-cols-2 gap-4 sm:gap-6 min-w-0">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="bg-background p-4 sm:p-6 rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1 min-w-0"
-              >
-                <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-accent mb-3 sm:mb-4" />
-                <div className="font-serif text-sm sm:text-2xl md:text-3xl font-bold text-foreground mb-1 sm:mb-2 break-words leading-tight">
-                  {stat.value}
+            {stats.map((stat, index) => {
+              const content = (
+                <>
+                  <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-accent mb-3 sm:mb-4" />
+                  <div className="font-serif text-sm sm:text-2xl md:text-3xl font-bold text-foreground mb-1 sm:mb-2 break-words leading-tight">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs sm:text-sm text-muted-foreground">
+                    {stat.label}
+                  </div>
+                </>
+              );
+              const className =
+                "bg-background p-4 sm:p-6 rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1 min-w-0";
+              if ("to" in stat) {
+                return (
+                  <Link
+                    key={index}
+                    to={stat.to}
+                    state={"state" in stat ? stat.state : undefined}
+                    className={`${className} block text-foreground no-underline hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-lg`}
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+              return (
+                <div key={index} className={className}>
+                  {content}
                 </div>
-                <div className="text-xs sm:text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

@@ -1,11 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Briefcase, BadgeCheck, Clock, Banknote } from "lucide-react";
 import PageNavigation from "@/components/PageNavigation";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import architectPhoto from "@/assets/hero-architecture.jpg";
 import certificateImage from "@/assets/about/certificate.jpg";
+import attestat1Side1 from "@/assets/about/1.jpg";
+import attestat1Side2 from "@/assets/about/2.jpg";
+import attestat2Side1 from "@/assets/about/3.jpg";
+import attestat2Side2 from "@/assets/about/4.jpg";
 
 const AboutArchitectPage = () => {
   const location = useLocation();
@@ -13,9 +18,17 @@ const AboutArchitectPage = () => {
   const siteUrl =
     typeof window !== "undefined" ? window.location.origin + baseUrl : "";
 
+  const openTabFromState =
+    location.state?.openTab === "certificate" ? "certificate" : "attestats";
+  const [docsTab, setDocsTab] = useState(openTabFromState);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (location.state?.openTab) setDocsTab(location.state.openTab);
+  }, [location.state?.openTab]);
 
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -59,8 +72,12 @@ const AboutArchitectPage = () => {
     {
       title:
         "Главный специалист, осуществляющий разработку раздела проектной документации (конструктивные решения)",
+      images: [attestat1Side1, attestat1Side2],
     },
-    { title: "Главный инженер проекта" },
+    {
+      title: "Главный инженер проекта",
+      images: [attestat2Side1, attestat2Side2],
+    },
   ];
 
   return (
@@ -148,52 +165,69 @@ const AboutArchitectPage = () => {
             </div>
           </section>
 
-          {/* Блок 3 — Свидетельство о регистрации ИП */}
-          <section className="mb-12 md:mb-16" aria-labelledby="ip-cert-heading">
-            <h2
-              id="ip-cert-heading"
-              className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-6"
-            >
-              Свидетельство о регистрации ИП
-            </h2>
-            <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 max-w-2xl">
-              <img
-                src={certificateImage}
-                alt="Свидетельство о регистрации ИП"
-                className="w-full h-auto rounded-lg object-contain"
-              />
-            </div>
-          </section>
-
-          {/* Блок 4 — Квалификационные аттестаты */}
+          {/* Табы: Аттестаты и Свидетельство о регистрации */}
           <section
-            className="mb-12 md:mb-16"
-            aria-labelledby="attestats-heading"
+            className="mb-12 md:mb-16 mt-8 sm:mt-0 relative z-0"
+            aria-labelledby="docs-heading"
           >
             <h2
-              id="attestats-heading"
+              id="docs-heading"
               className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-6"
             >
-              Квалификационные аттестаты
+              Документы
             </h2>
-            <ul className="space-y-6">
-              {attestats.map((item, index) => (
-                <li key={index}>
-                  <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 hover:shadow-[var(--shadow-elegant)] transition-shadow">
-                    <div className="flex flex-col sm:flex-row gap-6">
-                      <div className="flex-shrink-0 w-full sm:w-48 aspect-[3/4] bg-muted rounded-lg flex items-center justify-center text-muted-foreground text-xs text-center px-2">
-                        Изображение аттестата
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-serif text-lg font-semibold text-foreground">
+            <Tabs value={docsTab} onValueChange={setDocsTab} className="w-full">
+              <TabsList className="flex flex-col sm:flex-row w-full h-auto min-h-[2.5rem] p-1.5 gap-1.5 rounded-md bg-muted mb-6 shrink-0">
+                <TabsTrigger
+                  value="attestats"
+                  className="flex-1 w-full sm:w-auto py-3 sm:py-1.5 rounded-sm"
+                >
+                  Аттестаты
+                </TabsTrigger>
+                <TabsTrigger
+                  value="certificate"
+                  className="flex-1 w-full sm:w-auto py-3 sm:py-1.5 rounded-sm whitespace-normal sm:whitespace-nowrap text-center"
+                >
+                  Свидетельство о регистрации
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="attestats" className="mt-0 pt-0">
+                <ul className="space-y-8">
+                  {attestats.map((item, index) => (
+                    <li key={index}>
+                      <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 hover:shadow-[var(--shadow-elegant)] transition-shadow">
+                        <h3 className="font-serif text-lg font-semibold text-foreground mb-4">
                           {item.title}
                         </h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {item.images.map((img, imgIndex) => (
+                            <div
+                              key={imgIndex}
+                              className="rounded-lg overflow-hidden bg-muted aspect-[3/4] max-w-sm"
+                            >
+                              <img
+                                src={img}
+                                alt={`${item.title}, сторона ${imgIndex + 1}`}
+                                className="w-full h-full object-contain -rotate-90"
+                              />
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                    </li>
+                  ))}
+                </ul>
+              </TabsContent>
+              <TabsContent value="certificate" className="mt-0 pt-0">
+                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 max-w-2xl">
+                  <img
+                    src={certificateImage}
+                    alt="Свидетельство о регистрации ИП"
+                    className="w-full h-auto rounded-lg object-contain"
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
           </section>
         </div>
       </main>
