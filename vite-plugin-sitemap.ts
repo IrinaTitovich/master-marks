@@ -93,10 +93,10 @@ export default function sitemapPlugin(): Plugin {
         "project-478": [
           `${SITE_URL}${
             BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-478/0-02-05-97170d467324589d2d44a01aa351436dc72c61178c6d6765ee79d1f1b097a6cc_23ba46deb1df8f10.jpg`,
+          }src/assets/projects/single-story/project-478/project-478-1.jpg`,
           `${SITE_URL}${
             BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-478/0-02-05-9c6bf787d0eb03e032e90447e201ae6b347f85bae4397b3958cd7b73ba503353_469c50cd9854cade.jpg`,
+          }src/assets/projects/single-story/project-478/project-478-2.jpg`,
         ],
         "project-244": [
           `${SITE_URL}${

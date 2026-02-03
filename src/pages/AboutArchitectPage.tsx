@@ -5,11 +5,13 @@ import PageNavigation from "@/components/PageNavigation";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import architectPhoto from "@/assets/hero-architecture.jpg";
+import certificateImage from "@/assets/about/certificate.jpg";
 
 const AboutArchitectPage = () => {
   const location = useLocation();
   const baseUrl = import.meta.env.BASE_URL || "/";
-  const siteUrl = typeof window !== "undefined" ? window.location.origin + baseUrl : "";
+  const siteUrl =
+    typeof window !== "undefined" ? window.location.origin + baseUrl : "";
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -20,7 +22,12 @@ const AboutArchitectPage = () => {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Главная", item: siteUrl },
-      { "@type": "ListItem", position: 2, name: "Об архитекторе", item: `${siteUrl}about` },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Об архитекторе",
+        item: `${siteUrl}about`,
+      },
     ],
   };
 
@@ -93,20 +100,29 @@ const AboutArchitectPage = () => {
               </div>
               <div className="space-y-4 text-muted-foreground text-lg">
                 <p>
-                  Профессиональный архитектор-конструктор с более чем 20-летним опытом работы в области проектирования жилых домов и коттеджей.
+                  Профессиональный архитектор-конструктор с более чем 20-летним
+                  опытом работы в области проектирования жилых домов и
+                  коттеджей.
                 </p>
                 <p>
-                  Каждый проект — это уникальное решение, созданное с учетом индивидуальных пожеланий клиента, особенностей участка и современных строительных технологий.
+                  Каждый проект — это уникальное решение, созданное с учетом
+                  индивидуальных пожеланий клиента, особенностей участка и
+                  современных строительных технологий.
                 </p>
                 <p>
-                  Специализируюсь на создании функциональных, эстетичных и безопасных конструкций, которые становятся настоящим домом для их владельцев.
+                  Специализируюсь на создании функциональных, эстетичных и
+                  безопасных конструкций, которые становятся настоящим домом для
+                  их владельцев.
                 </p>
               </div>
             </div>
           </section>
 
           {/* Блок 2 — Почему выбирают нашего архитектора */}
-          <section className="mb-12 md:mb-16" aria-labelledby="why-choose-heading">
+          <section
+            className="mb-12 md:mb-16"
+            aria-labelledby="why-choose-heading"
+          >
             <h2
               id="why-choose-heading"
               className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-6"
@@ -141,14 +157,19 @@ const AboutArchitectPage = () => {
               Свидетельство о регистрации ИП
             </h2>
             <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 max-w-2xl">
-              <div className="aspect-[4/3] bg-muted rounded-lg flex items-center justify-center text-muted-foreground text-sm text-center px-4">
-                Изображение свидетельства можно добавить (файл certificate-ip.jpg в src/assets)
-              </div>
+              <img
+                src={certificateImage}
+                alt="Свидетельство о регистрации ИП"
+                className="w-full h-auto rounded-lg object-contain"
+              />
             </div>
           </section>
 
           {/* Блок 4 — Квалификационные аттестаты */}
-          <section className="mb-12 md:mb-16" aria-labelledby="attestats-heading">
+          <section
+            className="mb-12 md:mb-16"
+            aria-labelledby="attestats-heading"
+          >
             <h2
               id="attestats-heading"
               className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-6"

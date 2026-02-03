@@ -1,20 +1,28 @@
 import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { BadgeCheck, Users, Building2, Target, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
+import {
+  BadgeCheck,
+  Users,
+  Building2,
+  Target,
+  ChevronDown,
+  ChevronUp,
+  ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const About = () => {
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
-  
+
   const toggleExpanded = useCallback(() => {
-    setIsExpanded(prev => !prev);
+    setIsExpanded((prev) => !prev);
   }, []);
 
   const stats = [
     { icon: Building2, value: "600+", label: "Реализованных проектов" },
     { icon: Users, value: "20+", label: "Лет опыта" },
-    { icon: BadgeCheck, value: "Аттестованный специалист", label: "ГИП + ГС" },
+    { icon: BadgeCheck, value: "Аттестат", label: "в области проектирования" },
     { icon: Target, value: "100%", label: "Качество работы" },
   ];
 
@@ -72,17 +80,17 @@ const About = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6 min-w-0">
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="bg-background p-6 rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1"
+                className="bg-background p-4 sm:p-6 rounded-lg shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-elegant)] transition-all duration-300 hover:-translate-y-1 min-w-0"
               >
-                <stat.icon className="h-8 w-8 text-accent mb-4" />
-                <div className="font-serif text-3xl font-bold text-foreground mb-2">
+                <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-accent mb-3 sm:mb-4" />
+                <div className="font-serif text-sm sm:text-2xl md:text-3xl font-bold text-foreground mb-1 sm:mb-2 break-words leading-tight">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-xs sm:text-sm text-muted-foreground">
                   {stat.label}
                 </div>
               </div>
