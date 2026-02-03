@@ -204,7 +204,8 @@ const PageNavigation = () => {
               }}
               className="font-sans text-lg font-semibold text-primary-foreground hover:text-accent transition-colors antialiased"
             >
-              Ваш проект
+              <span className="text-accent">Ваш</span>{" "}
+              <span className="font-bold tracking-tight">Проект</span>
             </button>
             <a
               href="tel:+375296745773"
@@ -238,7 +239,9 @@ const PageNavigation = () => {
                 }`}
               >
                 {section.isLocation && <MapPin className="h-4 w-4" />}
-                {section.label}
+                {section.id === "location" && location.pathname === "/"
+                  ? "Могилев, Беларусь"
+                  : section.label}
               </button>
             ))}
           </div>
@@ -284,7 +287,9 @@ const PageNavigation = () => {
                   }`}
                 >
                   {section.isLocation && <MapPin className="h-4 w-4" />}
-                  {section.label}
+                  {section.id === "location" && location.pathname === "/"
+                    ? "Могилев, Беларусь"
+                    : section.label}
                 </button>
               ))}
             </div>

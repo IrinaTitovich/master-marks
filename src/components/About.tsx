@@ -96,10 +96,10 @@ const About = () => {
               const content = (
                 <>
                   <stat.icon className="h-6 w-6 sm:h-8 sm:w-8 text-accent mb-3 sm:mb-4" />
-                  <div className="font-serif text-sm sm:text-2xl md:text-3xl font-bold text-foreground mb-1 sm:mb-2 break-words leading-tight">
+                  <div className="font-serif text-xl sm:text-2xl md:text-4xl font-bold text-foreground mb-1 sm:mb-2 break-words leading-tight">
                     {stat.value}
                   </div>
-                  <div className="text-xs sm:text-sm text-muted-foreground">
+                  <div className="text-xs sm:text-sm text-muted-foreground break-words">
                     {stat.label}
                   </div>
                 </>

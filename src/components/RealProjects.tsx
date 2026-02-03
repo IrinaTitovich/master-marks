@@ -8,7 +8,8 @@ const RealProjects = () => {
     {
       image: realProject1,
       title: "пер. 1 Хвойный д. 3, Могилёв",
-      description: "Реализованный проект с индивидуальным подходом к планировке и дизайну",
+      description:
+        "Реализованный проект с индивидуальным подходом к планировке и дизайну",
     },
     {
       image: realProject2,
@@ -27,7 +28,7 @@ const RealProjects = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Реальные проекты
+            Реализованные проекты
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Реализованные проекты, которые уже воплощены в жизнь

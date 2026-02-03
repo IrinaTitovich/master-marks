@@ -10,7 +10,6 @@ const Hero = lazy(() => import("@/components/Hero"));
 const About = lazy(() => import("@/components/About"));
 const Services = lazy(() => import("@/components/Services"));
 const ProjectExamples = lazy(() => import("@/components/ProjectExamples"));
-const Portfolio = lazy(() => import("@/components/Portfolio"));
 const RealProjects = lazy(() => import("@/components/RealProjects"));
 const Contact = lazy(() => import("@/components/Contact"));
 
@@ -226,9 +225,6 @@ const Index = () => {
           <ProjectExamples />
         </Suspense>
         <Suspense fallback={<div className="h-96" />}>
-          <Portfolio />
-        </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
           <RealProjects />
         </Suspense>
         <Suspense fallback={<div className="h-96" />}>
@@ -255,7 +251,8 @@ const Index = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
               <div className="font-sans text-lg font-semibold mb-1 antialiased">
-                Ваш проект
+                <span className="text-accent">Ваш</span>{" "}
+                <span className="font-bold tracking-tight">Проект</span>
               </div>
               <div className="text-sm text-primary-foreground/80 mb-2">
                 Проектирование домов
