@@ -1,11 +1,20 @@
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollToTop from "./components/ScrollToTop";
+import { YandexMetrika } from "./components/YandexMetrika";
 
 // Lazy loading для UI компонентов, которые не критичны для первоначальной отрисовки
-const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
-const Sonner = lazy(() => import("@/components/ui/sonner").then(m => ({ default: m.Toaster })));
-const TooltipProvider = lazy(() => import("@/components/ui/tooltip").then(m => ({ default: m.TooltipProvider })));
+const Toaster = lazy(() =>
+  import("@/components/ui/toaster").then((m) => ({ default: m.Toaster }))
+);
+const Sonner = lazy(() =>
+  import("@/components/ui/sonner").then((m) => ({ default: m.Toaster }))
+);
+const TooltipProvider = lazy(() =>
+  import("@/components/ui/tooltip").then((m) => ({
+    default: m.TooltipProvider,
+  }))
+);
 
 // Lazy loading для страниц для улучшения производительности
 const Index = lazy(() => import("./pages/Index"));
@@ -27,13 +36,14 @@ const PageLoader = () => (
 );
 
 const App = () => (
-  <BrowserRouter 
+  <BrowserRouter
     basename={import.meta.env.BASE_URL}
     future={{
       v7_startTransition: true,
     }}
   >
     <ScrollToTop />
+    <YandexMetrika />
     <Suspense fallback={<PageLoader />}>
       <TooltipProvider>
         <Toaster />
