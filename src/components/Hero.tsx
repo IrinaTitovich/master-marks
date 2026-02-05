@@ -7,8 +7,11 @@ const Hero = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 scroll-mt-0">
-      <div 
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 scroll-mt-0"
+    >
+      <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url(${heroImage})` }}
         role="img"
@@ -16,31 +19,37 @@ const Hero = () => {
       >
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
       </div>
-      
+
       <div className="relative z-10 container mx-auto px-4 sm:px-6 py-20 sm:py-32 w-full max-w-full overflow-x-hidden">
         <div className="max-w-4xl mx-auto w-full">
           {/* Кто я */}
-          <div className="mb-4 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-2 break-words">
               Архитектор-Конструктор • Могилев, Могилевская область
             </p>
           </div>
-          
+
           {/* Чем занимаюсь */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 leading-tight break-words">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 leading-tight break-words">
             Проектирование домов
           </h1>
-          
+
           {/* Для кого - скрыто визуально, но доступно для поисковиков */}
           <p className="sr-only">
-            Для владельцев участков, семей и всех, кто мечтает о собственном доме
+            Для владельцев участков, семей и всех, кто мечтает о собственном
+            доме
           </p>
-          
+
           {/* Детали */}
-          <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 space-y-3">
-            <p className="text-base sm:text-lg md:text-xl text-primary-foreground/90 font-medium break-words">
-              Более 20 лет опыта в архитектуре и конструировании
-            </p>
+          <div className="mb-10 sm:mb-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 space-y-4 sm:space-y-5">
+            <div className="space-y-0 leading-snug">
+              <p className="text-base sm:text-lg md:text-xl text-primary-foreground/90 font-medium break-words">
+                Более 20 лет опыта в архитектуре и конструировании
+              </p>
+              <p className="text-base sm:text-lg text-primary-foreground/80 break-words">
+                Превращаю ваши идеи в реальность с вниманием к каждой детали
+              </p>
+            </div>
             <div className="flex flex-wrap gap-3 sm:gap-4">
               <span className="inline-flex items-center text-sm sm:text-base text-primary-foreground/80 bg-primary-foreground/10 px-3 py-1.5 rounded-full">
                 Индивидуальное проектирование
@@ -49,19 +58,26 @@ const Hero = () => {
                 Готовые проекты
               </span>
             </div>
-            <p className="text-base sm:text-lg text-primary-foreground/80 break-words">
-              Превращаю ваши идеи в реальность с вниманием к каждой детали
-            </p>
           </div>
-          
+
           {/* Что дальше - CTA */}
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
-            <Button variant="hero" size="lg" onClick={() => (window.location.href = "tel:+375296745773")} className="text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal">
+          <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+            <Button
+              variant="hero"
+              size="lg"
+              onClick={() => (window.location.href = "tel:+375296745773")}
+              className="text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal"
+            >
               <Phone className="mr-2 h-5 w-5 flex-shrink-0" />
               Позвонить
               <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
             </Button>
-            <Button variant="heroOutline" size="lg" onClick={() => navigate('/projects')} className="text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-6 w-full sm:w-auto whitespace-normal">
+            <Button
+              variant="heroOutline"
+              size="lg"
+              onClick={() => navigate("/projects")}
+              className="text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-6 w-full sm:w-auto whitespace-normal"
+            >
               Выбрать готовый проект
             </Button>
           </div>

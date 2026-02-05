@@ -46,7 +46,7 @@ const Services = () => {
   return (
     <section
       id="services"
-      className="pt-12 md:pt-16 pb-24 bg-background scroll-mt-16"
+      className="pt-12 md:pt-16 pb-10 md:pb-12 bg-background scroll-mt-16"
     >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
@@ -83,21 +83,6 @@ const Services = () => {
               </p>
             </div>
           ))}
-        </div>
-
-        <div className="text-center">
-          <p className="text-lg text-muted-foreground mb-6">
-            Готовы начать работу над вашим проектом?
-          </p>
-          <Button
-            onClick={() => (window.location.href = "tel:+375296745773")}
-            size="lg"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-          >
-            <Phone className="mr-2 h-5 w-5" />
-            Позвонить
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
         </div>
       </div>
     </section>

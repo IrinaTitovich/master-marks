@@ -125,7 +125,7 @@ const Contact = () => {
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-12 sm:mb-16">
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 break-words px-2">
-              Начну работу над вашим проектом
+              Начнем работу над вашим проектом
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-2 break-words px-2">
               Позвоните для бесплатной консультации

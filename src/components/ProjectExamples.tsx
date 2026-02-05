@@ -11,33 +11,42 @@ import WatermarkImage from "@/components/WatermarkImage";
 const ProjectExamples = () => {
   const navigate = useNavigate();
 
-  const categories = useMemo(() => [
-    {
-      id: "single-story",
-      title: "Одноэтажные дома",
-      description: "Комфортные одноэтажные дома для комфортной жизни",
-      image: readyProject1,
-    },
-    {
-      id: "two-story",
-      title: "Двухэтажные дома",
-      description: "Просторные двухэтажные дома для большой семьи",
-      image: readyProject2,
-    },
-    {
-      id: "mansard",
-      title: "Мансардные дома",
-      description: "Экономичные проекты с мансардным этажом",
-      image: readyProject3,
-    },
-  ], []);
+  const categories = useMemo(
+    () => [
+      {
+        id: "single-story",
+        title: "Одноэтажные дома",
+        description: "Комфортные одноэтажные дома для комфортной жизни",
+        image: readyProject1,
+      },
+      {
+        id: "two-story",
+        title: "Двухэтажные дома",
+        description: "Просторные двухэтажные дома для большой семьи",
+        image: readyProject2,
+      },
+      {
+        id: "mansard",
+        title: "Мансардные дома",
+        description: "Экономичные проекты с мансардным этажом",
+        image: readyProject3,
+      },
+    ],
+    []
+  );
 
-  const handleCategoryClick = useCallback((categoryId: string) => {
-    navigate("/projects", { state: { categoryId } });
-  }, [navigate]);
+  const handleCategoryClick = useCallback(
+    (categoryId: string) => {
+      navigate("/projects", { state: { categoryId } });
+    },
+    [navigate]
+  );
 
   return (
-    <section id="project-examples" className="py-24 bg-background scroll-mt-16">
+    <section
+      id="project-examples"
+      className="pt-10 pb-14 md:pt-12 md:pb-16 bg-background scroll-mt-16"
+    >
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
@@ -78,8 +87,8 @@ const ProjectExamples = () => {
                     <p className="text-muted-foreground mb-4">
                       {category.description}
                     </p>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full group-hover:bg-accent group-hover:text-accent-foreground transition-colors font-semibold"
                     >
                       Посмотреть проекты →
