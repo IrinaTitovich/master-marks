@@ -5,13 +5,14 @@
 
 declare global {
   interface Window {
-    ym?: (id: number, method: string, ...args: unknown[]) => void;
+    ym?: ((id: number, method: string, ...args: unknown[]) => void) & { a?: unknown[] };
   }
 }
 
 const SCRIPT_URL = "https://mc.yandex.ru/metrika/tag.js";
 
 export type YandexMetrikaOptions = {
+  defer?: boolean;
   clickmap?: boolean;
   trackLinks?: boolean;
   accurateTrackBounce?: boolean;
@@ -20,11 +21,12 @@ export type YandexMetrikaOptions = {
 };
 
 const defaultOptions: YandexMetrikaOptions = {
+  defer: true, // SPA: отключаем автоотправку просмотров, используем hit() при смене маршрута
   clickmap: true,
   trackLinks: true,
   accurateTrackBounce: true,
   webvisor: true,
-  trackHash: false, // для SPA лучше отправлять hit вручную при смене маршрута
+  trackHash: false,
 };
 
 /**
@@ -47,7 +49,8 @@ export function initYandexMetrika(
       (function (...args: unknown[]) {
         (window.ym!.a = window.ym!.a || []).push(args);
       } as Window["ym"]);
-    window.ym(id, "init", { ...defaultOptions, ...options });
+    // Для SPA обязательно defer: true и вызов hit() при смене страницы
+    window.ym(id, "init", { ...defaultOptions, ...options } as Record<string, unknown>);
   };
 
   if (
