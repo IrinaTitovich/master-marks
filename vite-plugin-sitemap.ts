@@ -22,8 +22,13 @@ export default function sitemapPlugin(): Plugin {
 
       const BASE_URL = process.env.VITE_BASE_URL || "/";
       // Для GitHub Pages нужно указать полный URL вашего сайта
-      // Можно настроить через переменную окружения VITE_SITE_URL
-      const SITE_URL = process.env.VITE_SITE_URL || "https://vashproekt.by";
+      const SITE_URL = (
+        process.env.VITE_SITE_URL || "https://vashproekt.by"
+      ).replace(/\/$/, "");
+
+      /** Собирает полный URL: между базой и путём всегда один слэш */
+      const fullUrl = (path: string) =>
+        path ? `${SITE_URL}/${path.replace(/^\//, "")}` : SITE_URL;
 
       const currentDate = new Date().toISOString().split("T")[0];
 
@@ -66,85 +71,81 @@ export default function sitemapPlugin(): Plugin {
       const allPages = [...staticPages, ...projectPages];
 
       // Изображения для главной страницы
+      const basePath = BASE_URL === "/" ? "" : BASE_URL.replace(/\/$/, "");
       const mainPageImages = [
-        `${SITE_URL}${
-          BASE_URL === "/" ? "" : BASE_URL
-        }src/assets/hero-architecture.jpg`,
+        fullUrl(
+          basePath
+            ? `${basePath}/src/assets/hero-architecture.jpg`
+            : "src/assets/hero-architecture.jpg"
+        ),
       ];
 
       // Изображения для проектов (примерные пути)
+      const imgPath = (p: string) => fullUrl(basePath ? `${basePath}/${p}` : p);
       const projectImages: Record<string, string[]> = {
         "project-350": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-350/project-350-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-350/project-350-2.jpg`,
+          imgPath(
+            "src/assets/projects/single-story/project-350/project-350-1.jpg"
+          ),
+          imgPath(
+            "src/assets/projects/single-story/project-350/project-350-2.jpg"
+          ),
         ],
         "project-333": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-333/project-333-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-333/project-333-2.jpg`,
+          imgPath(
+            "src/assets/projects/single-story/project-333/project-333-1.jpg"
+          ),
+          imgPath(
+            "src/assets/projects/single-story/project-333/project-333-2.jpg"
+          ),
         ],
         "project-478": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-478/project-478-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/single-story/project-478/project-478-2.jpg`,
+          imgPath(
+            "src/assets/projects/single-story/project-478/project-478-1.jpg"
+          ),
+          imgPath(
+            "src/assets/projects/single-story/project-478/project-478-2.jpg"
+          ),
         ],
         "project-244": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-244/project-244-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-244/project-244-2.jpg`,
+          imgPath(
+            "src/assets/projects/two-story/project-244/project-244-1.jpg"
+          ),
+          imgPath(
+            "src/assets/projects/two-story/project-244/project-244-2.jpg"
+          ),
         ],
         "project-245": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-245/project-245-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-245/project-245-2.jpg`,
+          imgPath(
+            "src/assets/projects/two-story/project-245/project-245-1.jpg"
+          ),
+          imgPath(
+            "src/assets/projects/two-story/project-245/project-245-2.jpg"
+          ),
         ],
         "project-251": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-251/project-251-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-251/project-251-2.jpg`,
+          imgPath(
+            "src/assets/projects/two-story/project-251/project-251-1.jpg"
+          ),
+          imgPath(
+            "src/assets/projects/two-story/project-251/project-251-2.jpg"
+          ),
         ],
         "project-321": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-321/project-321-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/two-story/project-321/project-321-2.jpg`,
+          imgPath(
+            "src/assets/projects/two-story/project-321/project-321-1.jpg"
+          ),
+          imgPath(
+            "src/assets/projects/two-story/project-321/project-321-2.jpg"
+          ),
         ],
         "project-307": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/mansard/project-307/project-307-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/mansard/project-307/project-307-2.jpg`,
+          imgPath("src/assets/projects/mansard/project-307/project-307-1.jpg"),
+          imgPath("src/assets/projects/mansard/project-307/project-307-2.jpg"),
         ],
         "project-282": [
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/mansard/project-282/project-282-1.jpg`,
-          `${SITE_URL}${
-            BASE_URL === "/" ? "" : BASE_URL
-          }src/assets/projects/mansard/project-282/project-282-2.jpg`,
+          imgPath("src/assets/projects/mansard/project-282/project-282-1.jpg"),
+          imgPath("src/assets/projects/mansard/project-282/project-282-2.jpg"),
         ],
       };
 
@@ -174,8 +175,9 @@ ${allPages
             .join("\n")
         : "";
 
+    const pagePath = basePath ? `${basePath}/${page.url}` : page.url;
     return `  <url>
-    <loc>${SITE_URL}${BASE_URL === "/" ? "" : BASE_URL}${page.url}</loc>
+    <loc>${fullUrl(pagePath)}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>${imageTags ? "\n" + imageTags : ""}
