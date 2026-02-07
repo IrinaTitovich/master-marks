@@ -11,7 +11,7 @@ declare global {
   }
 }
 
-const SCRIPT_URL = "https://mc.yandex.ru/metrika/tag.js";
+const SCRIPT_BASE = "https://mc.yandex.ru/metrika/tag.js";
 
 export type YandexMetrikaOptions = {
   defer?: boolean;
@@ -65,11 +65,18 @@ export function initYandexMetrika(
       url: location.href,
     } as Record<string, unknown>;
     window.ym(id, "init", initOptions);
+    // Первый просмотр отправляем сразу после инициализации (проверка Метрики и отчёты)
+    const initialPath =
+      window.location.pathname + window.location.search + window.location.hash;
+    window.ym(id, "hit", initialPath);
   };
 
+  const scriptUrl = `${SCRIPT_BASE}?id=${id}`;
   if (
     document.scripts &&
-    Array.from(document.scripts).some((s) => s.src === SCRIPT_URL)
+    Array.from(document.scripts).some(
+      (s) => s.src === scriptUrl || s.src.startsWith(SCRIPT_BASE)
+    )
   ) {
     init();
     return;
@@ -77,7 +84,7 @@ export function initYandexMetrika(
 
   const script = document.createElement("script");
   script.async = true;
-  script.src = SCRIPT_URL;
+  script.src = scriptUrl;
   script.onload = init;
   const first = document.getElementsByTagName("script")[0];
   first?.parentNode?.insertBefore(script, first);
