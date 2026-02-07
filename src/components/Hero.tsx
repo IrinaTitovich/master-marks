@@ -63,16 +63,14 @@ const Hero = () => {
 
           {/* Что дальше - CTA */}
           <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
-            <Button
-              variant="hero"
-              size="lg"
-              onClick={() => (window.location.href = "tel:+375296745773")}
-              className="text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal"
+            <a
+              href="tel:+375296745773"
+              className="inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors bg-accent text-accent-foreground hover:bg-accent/90 shadow-[var(--shadow-elegant)] hover:shadow-[var(--shadow-soft)] hover:scale-105 text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal [&_svg]:shrink-0"
             >
-              <Phone className="mr-2 h-5 w-5 flex-shrink-0" />
+              <Phone className="mr-2 h-5 w-5" />
               Позвонить
-              <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
-            </Button>
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </a>
             <Button
               variant="heroOutline"
               size="lg"

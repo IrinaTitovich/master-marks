@@ -6,7 +6,13 @@ import { initYandexMetrika } from "@/lib/yandex-metrika";
 
 // Счётчик загружается сразу при открытии страницы (нужно для проверки в интерфейсе Метрики)
 const counterId = import.meta.env.VITE_YANDEX_METRIKA_ID;
-if (counterId) initYandexMetrika(counterId);
+if (counterId) {
+  initYandexMetrika(counterId);
+} else {
+  console.log(
+    "[Yandex Metrika] не запущен: VITE_YANDEX_METRIKA_ID не задан (должен быть в .env.development или .env.production)"
+  );
+}
 
 // GitHub Pages 404.html workaround: handle redirect from 404.html
 const urlParams = new URLSearchParams(window.location.search);

@@ -279,13 +279,12 @@ const ProjectsCatalog = () => {
               <p className="text-muted-foreground">
                 Позвоните мне для информации о готовых проектах
               </p>
-              <Button
-                onClick={() => (window.location.href = "tel:+375296745773")}
-                className="mt-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                size="lg"
+              <a
+                href="tel:+375296745773"
+                className="inline-flex items-center justify-center gap-2 mt-6 h-11 rounded-md px-8 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors"
               >
                 Позвонить
-              </Button>
+              </a>
             </div>
           )}
         </div>

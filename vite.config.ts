@@ -7,15 +7,12 @@ import sitemapPlugin from "./vite-plugin-sitemap";
 export default defineConfig({
   // Для GitHub Pages используем имя репозитория как base path
   // В GitHub Actions будет установлена переменная VITE_BASE_URL
-  base: process.env.VITE_BASE_URL || '/',
+  base: process.env.VITE_BASE_URL || "/",
   server: {
     host: "::",
     port: 2000,
   },
-  plugins: [
-    react(),
-    sitemapPlugin()
-  ],
+  plugins: [react(), sitemapPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -23,16 +20,16 @@ export default defineConfig({
   },
   build: {
     // Убеждаемся, что пути обрабатываются правильно
-    assetsDir: 'assets',
-    outDir: 'dist',
+    assetsDir: "assets",
+    outDir: "dist",
     rollupOptions: {
       output: {
         // Позволяем Vite автоматически управлять разделением чанков
         // Оптимизация имен файлов для лучшего кэширования
-        chunkFileNames: 'assets/js/[name]-[hash].js',
-        entryFileNames: 'assets/js/[name]-[hash].js',
+        chunkFileNames: "assets/js/[name]-[hash].js",
+        entryFileNames: "assets/js/[name]-[hash].js",
         assetFileNames: (assetInfo) => {
-          const info = assetInfo.name?.split('.') || [];
+          const info = assetInfo.name?.split(".") || [];
           const ext = info[info.length - 1];
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
             return `assets/images/[name]-[hash][extname]`;
@@ -45,10 +42,10 @@ export default defineConfig({
       },
     },
     // Оптимизация для уменьшения размера бандла и работы основного потока
-    minify: 'esbuild',
-    target: 'es2015',
+    minify: "esbuild",
+    target: "es2015",
     cssCodeSplit: true, // Разделяем CSS для лучшего кэширования и параллельной загрузки
-    cssMinify: 'esbuild', // Минификация CSS для уменьшения времени парсинга
+    cssMinify: "esbuild", // Минификация CSS для уменьшения времени парсинга
     sourcemap: false,
     // Увеличиваем лимит предупреждений для больших бандлов
     chunkSizeWarningLimit: 1000,
@@ -63,19 +60,16 @@ export default defineConfig({
   },
   // Оптимизация зависимостей - упрощенная конфигурация
   optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-    ],
+    include: ["react", "react-dom", "react-router-dom"],
   },
   // Оптимизация esbuild для уменьшения размера бандла и работы основного потока
   esbuild: {
-    legalComments: 'none', // Удаляем комментарии
+    legalComments: "none", // Удаляем комментарии
     treeShaking: true,
-    drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
+    // Оставляем console в проде, чтобы на выложенном сайте можно было проверить инициализацию Метрики (F12 → Console)
+    drop: process.env.NODE_ENV === "production" ? ["debugger"] : [],
     // Оптимизация для уменьшения времени парсинга
-    target: 'es2015',
+    target: "es2015",
     // Улучшенная минификация
     minifyIdentifiers: true,
     minifySyntax: true,

@@ -500,20 +500,12 @@ const ClientGuidePage = () => {
                 >
                   {PHONE}
                 </p>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6 no-print"
+                <a
+                  href={`tel:${PHONE.replace(/[\s()]/g, "").replace(/-/g, "")}`}
+                  className="inline-flex items-center justify-center gap-2 h-11 rounded-md px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg transition-colors no-print"
                 >
-                  <a
-                    href={`tel:${PHONE.replace(/[\s()]/g, "").replace(
-                      /-/g,
-                      ""
-                    )}`}
-                  >
-                    {PHONE}
-                  </a>
-                </Button>
+                  {PHONE}
+                </a>
               </div>
             </section>
           </div>

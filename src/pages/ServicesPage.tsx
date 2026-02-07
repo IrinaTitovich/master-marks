@@ -528,18 +528,14 @@ const ServicesPage = () => {
 
                                 {/* CTA для услуги */}
                                 <div className="pt-4">
-                                  <Button
-                                    onClick={() =>
-                                      (window.location.href =
-                                        "tel:+375296745773")
-                                    }
-                                    className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                                    size="lg"
+                                  <a
+                                    href="tel:+375296745773"
+                                    className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-md bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors [&_svg]:shrink-0"
                                   >
                                     <Phone className="mr-2 h-4 w-4" />
                                     Позвонить по этой услуге
                                     <ArrowRight className="ml-2 h-4 w-4" />
-                                  </Button>
+                                  </a>
                                 </div>
                               </div>
                             </AccordionContent>
@@ -601,17 +597,14 @@ const ServicesPage = () => {
                         </li>
                       </ul>
                     </div>
-                    <Button
-                      onClick={() =>
-                        (window.location.href = "tel:+375296745773")
-                      }
-                      className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                      size="lg"
+                    <a
+                      href="tel:+375296745773"
+                      className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-md bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors [&_svg]:shrink-0"
                     >
                       <Phone className="mr-2 h-4 w-4" />
                       Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    </a>
                   </div>
 
                   {/* Пакет 2: Базовый */}
@@ -641,17 +634,14 @@ const ServicesPage = () => {
                         </li>
                       </ul>
                     </div>
-                    <Button
-                      onClick={() =>
-                        (window.location.href = "tel:+375296745773")
-                      }
-                      className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                      size="lg"
+                    <a
+                      href="tel:+375296745773"
+                      className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-md bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors [&_svg]:shrink-0"
                     >
                       <Phone className="mr-2 h-4 w-4" />
                       Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    </a>
                   </div>
 
                   {/* Пакет 2: Рабочая документация */}
@@ -693,17 +683,14 @@ const ServicesPage = () => {
                         </li>
                       </ul>
                     </div>
-                    <Button
-                      onClick={() =>
-                        (window.location.href = "tel:+375296745773")
-                      }
-                      className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                      size="lg"
+                    <a
+                      href="tel:+375296745773"
+                      className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-md bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors [&_svg]:shrink-0"
                     >
                       <Phone className="mr-2 h-4 w-4" />
                       Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    </a>
                   </div>
 
                   {/* Пакет 3: Полный комплект */}
@@ -740,17 +727,14 @@ const ServicesPage = () => {
                         </li>
                       </ul>
                     </div>
-                    <Button
-                      onClick={() =>
-                        (window.location.href = "tel:+375296745773")
-                      }
-                      className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
-                      size="lg"
+                    <a
+                      href="tel:+375296745773"
+                      className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-md bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors [&_svg]:shrink-0"
                     >
                       <Phone className="mr-2 h-4 w-4" />
                       Позвонить для заказа пакета
                       <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -765,14 +749,13 @@ const ServicesPage = () => {
             <p className="text-lg text-muted-foreground mb-8">
               Позвоните мне для бесплатной консультации
             </p>
-            <Button
-              onClick={() => (window.location.href = "tel:+375296745773")}
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6"
+            <a
+              href="tel:+375296745773"
+              className="inline-flex items-center justify-center gap-2 h-11 rounded-md px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg transition-colors [&_svg]:shrink-0"
             >
               <Phone className="mr-2 h-5 w-5" />
               Позвонить
-            </Button>
+            </a>
           </div>
         </div>
       </main>

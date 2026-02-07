@@ -321,14 +321,13 @@ const Contact = () => {
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-card-foreground mb-4">
               Готовы начать работу над вашим проектом?
             </h2>
-            <Button
-              onClick={() => (window.location.href = `tel:${PHONE_NUMBER}`)}
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg px-8 py-6"
+            <a
+              href={`tel:${PHONE_NUMBER.replace(/\s/g, "")}`}
+              className="inline-flex items-center justify-center gap-2 h-11 rounded-md px-8 py-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold text-lg transition-colors [&_svg]:shrink-0"
             >
               <Phone className="mr-2 h-5 w-5" />
               Позвонить
-            </Button>
+            </a>
           </div>
         </div>
       </div>
