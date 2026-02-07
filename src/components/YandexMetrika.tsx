@@ -13,8 +13,11 @@ export function YandexMetrika() {
 
   useEffect(() => {
     if (!COUNTER_ID) return;
-    yandexMetrikaHit(COUNTER_ID, location.pathname + location.search);
-  }, [location.pathname, location.search]);
+    yandexMetrikaHit(
+      COUNTER_ID,
+      location.pathname + location.search + location.hash
+    );
+  }, [location.pathname, location.search, location.hash]);
 
   return null;
 }

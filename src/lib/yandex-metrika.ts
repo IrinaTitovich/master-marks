@@ -5,7 +5,9 @@
 
 declare global {
   interface Window {
-    ym?: ((id: number, method: string, ...args: unknown[]) => void) & { a?: unknown[] };
+    ym?: ((id: number, method: string, ...args: unknown[]) => void) & {
+      a?: unknown[];
+    };
   }
 }
 
@@ -18,6 +20,10 @@ export type YandexMetrikaOptions = {
   accurateTrackBounce?: boolean;
   webvisor?: boolean;
   trackHash?: boolean;
+  ssr?: boolean;
+  ecommerce?: string;
+  referrer?: string;
+  url?: string;
 };
 
 const defaultOptions: YandexMetrikaOptions = {
@@ -26,7 +32,9 @@ const defaultOptions: YandexMetrikaOptions = {
   trackLinks: true,
   accurateTrackBounce: true,
   webvisor: true,
-  trackHash: false,
+  trackHash: true,
+  ssr: true,
+  ecommerce: "dataLayer",
 };
 
 /**
@@ -50,7 +58,13 @@ export function initYandexMetrika(
         (window.ym!.a = window.ym!.a || []).push(args);
       } as Window["ym"]);
     // Для SPA обязательно defer: true и вызов hit() при смене страницы
-    window.ym(id, "init", { ...defaultOptions, ...options } as Record<string, unknown>);
+    const initOptions = {
+      ...defaultOptions,
+      ...options,
+      referrer: document.referrer,
+      url: location.href,
+    } as Record<string, unknown>;
+    window.ym(id, "init", initOptions);
   };
 
   if (
