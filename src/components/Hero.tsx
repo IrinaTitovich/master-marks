@@ -62,10 +62,10 @@ const Hero = () => {
           </div>
 
           {/* Что дальше - CTA */}
-          <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+          <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
             <a
               href="tel:+375296745773"
-              className="inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors bg-accent text-accent-foreground hover:bg-accent/90 shadow-[var(--shadow-elegant)] hover:shadow-[var(--shadow-soft)] hover:scale-105 text-base sm:text-lg px-4 sm:px-8 py-4 sm:py-6 w-full sm:w-auto whitespace-normal [&_svg]:shrink-0"
+              className="inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors bg-accent text-accent-foreground hover:bg-accent/90 shadow-[var(--shadow-elegant)] hover:shadow-[var(--shadow-soft)] hover:scale-105 text-base sm:text-lg px-4 sm:px-8 min-h-[3.25rem] sm:min-h-[3.75rem] w-full sm:w-auto whitespace-normal [&_svg]:shrink-0"
             >
               <Phone className="mr-2 h-5 w-5" />
               Позвонить
@@ -75,7 +75,7 @@ const Hero = () => {
               variant="heroOutline"
               size="lg"
               onClick={() => navigate("/projects")}
-              className="text-base sm:text-lg px-4 sm:px-6 py-4 sm:py-6 w-full sm:w-auto whitespace-normal"
+              className="text-base sm:text-lg px-4 sm:px-6 min-h-[3.25rem] sm:min-h-[3.75rem] w-full sm:w-auto whitespace-normal"
             >
               Выбрать готовый проект
             </Button>

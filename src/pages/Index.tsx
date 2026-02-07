@@ -287,7 +287,7 @@ const Index = () => {
                 className="text-[10px] text-primary-foreground/40 mt-3 font-normal tracking-wide"
                 aria-hidden="true"
               >
-                v1.0.5
+                v1.0.6
               </p>
             </div>
           </div>
