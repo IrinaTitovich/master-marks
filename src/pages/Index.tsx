@@ -283,6 +283,12 @@ const Index = () => {
               <p className="text-sm text-primary-foreground/70 mt-2">
                 ИП Мацукова Л.Е. УНП 790798662
               </p>
+              <p
+                className="text-[10px] text-primary-foreground/40 mt-3 font-normal tracking-wide"
+                aria-hidden="true"
+              >
+                v1.0.0
+              </p>
             </div>
           </div>
         </div>

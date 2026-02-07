@@ -65,10 +65,11 @@ export function initYandexMetrika(
       url: location.href,
     } as Record<string, unknown>;
     window.ym(id, "init", initOptions);
-    // Первый просмотр отправляем сразу после инициализации (проверка Метрики и отчёты)
-    const initialPath =
-      window.location.pathname + window.location.search + window.location.hash;
-    window.ym(id, "hit", initialPath);
+    // Первый просмотр — с задержкой, чтобы счётчик успел обработать init (иначе в отчётах могут быть нули)
+    const initialUrl = location.href;
+    setTimeout(() => {
+      if (window.ym) window.ym(id, "hit", initialUrl);
+    }, 150);
   };
 
   const scriptUrl = `${SCRIPT_BASE}?id=${id}`;
@@ -104,8 +105,7 @@ export function yandexMetrikaHit(
     typeof counterId === "string" ? parseInt(counterId, 10) : counterId;
   if (!id || Number.isNaN(id)) return;
 
-  const path =
-    url ??
-    window.location.pathname + window.location.search + window.location.hash;
-  window.ym(id, "hit", path);
+  // Передаём полный URL (как по умолчанию в документации) — иначе отчёты могут не заполняться
+  const hitUrl = url ?? location.href;
+  window.ym(id, "hit", hitUrl);
 }

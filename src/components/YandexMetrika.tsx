@@ -17,7 +17,7 @@ export function YandexMetrika() {
     const key = location.pathname + location.search + location.hash;
     // Отправляем hit только при смене маршрута (первый просмотр уже отправлен в init)
     if (prevKey.current !== null && prevKey.current !== key) {
-      yandexMetrikaHit(COUNTER_ID, key);
+      yandexMetrikaHit(COUNTER_ID); // url подставится как location.href
     }
     prevKey.current = key;
   }, [location.pathname, location.search, location.hash]);
