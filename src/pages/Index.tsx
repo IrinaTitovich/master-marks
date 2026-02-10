@@ -9,7 +9,6 @@ import SkipLinks from "@/components/SkipLinks";
 const Hero = lazy(() => import("@/components/Hero"));
 const About = lazy(() => import("@/components/About"));
 const Services = lazy(() => import("@/components/Services"));
-const GoogleRating = lazy(() => import("@/components/GoogleRating"));
 const ProjectExamples = lazy(() => import("@/components/ProjectExamples"));
 const RealProjects = lazy(() => import("@/components/RealProjects"));
 const Contact = lazy(() => import("@/components/Contact"));
@@ -218,9 +217,6 @@ const Index = () => {
         <Suspense fallback={<div className="min-h-screen" />}>
           <Hero />
         </Suspense>
-        <Suspense fallback={<div className="h-32" />}>
-          <GoogleRating />
-        </Suspense>
         <Suspense fallback={<div className="h-96" />}>
           <About />
         </Suspense>
@@ -291,7 +287,7 @@ const Index = () => {
                 className="text-[10px] text-primary-foreground/40 mt-3 font-normal tracking-wide"
                 aria-hidden="true"
               >
-                v1.1.0
+                v1.1.1
               </p>
             </div>
           </div>
