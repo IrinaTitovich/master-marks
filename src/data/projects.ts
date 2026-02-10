@@ -29,6 +29,9 @@ import project496Image1 from "@/assets/projects/two-story/project-496/project-49
 import project496Image2 from "@/assets/projects/two-story/project-496/project-496-2.jpg";
 import project496Image3 from "@/assets/projects/two-story/project-496/project-496-3.jpg";
 // Мансардные дома
+import project472Image1 from "@/assets/projects/mansard/project-472/project-472-1.jpg";
+import project472Image2 from "@/assets/projects/mansard/project-472/project-472-2.jpg";
+import project472Image3 from "@/assets/projects/mansard/project-472/project-472-3.jpg";
 import project483Image1 from "@/assets/projects/mansard/project-483/project-483-1.jpg";
 import project483Image2 from "@/assets/projects/mansard/project-483/project-483-2.jpg";
 import project483Image3 from "@/assets/projects/mansard/project-483/project-483-3.jpg";
@@ -90,7 +93,7 @@ export const projects: Project[] = [
     description:
       "Проект №478. Дом одноэтажный с двумя спальнями, двумя санузлами, террасой, навесом и подвалом. Наружные стены – блоки газосиликатные с последующей отделкой; перекрытия – ж/б плиты, монолит; кровля – скатная сложная с покрытием из металлочерепицы.",
     details:
-      "Площадь 1 этажа – 101,7 кв.м, террасы – 24,4 кв.м, навеса – 27,9 кв.м, подвала – 14,7 кв.м.",
+      "Площадь 1 этажа – 101,7кв.м, террасы – 24,4кв.м, навеса – 27,9кв.м, подвала – 14,7кв.м.",
   },
   {
     id: "project-244",
@@ -180,6 +183,17 @@ export const projects: Project[] = [
     area: "59,7 м² (1 этаж) + 63,9 м² (2 этаж) + 9,5 м² (терраса)",
     description: "Проект №496. Дом двухэтажный с 3 спальнями, 2 санузлами, террасой. Стены – блок. Перекрытия – ж/б плиты, деревянные балки.",
     details: "Площадь 1 этажа – 59,7кв.м, 2 этажа – 63,9кв.м, террасы – 9,5кв.м.",
+  },
+  {
+    id: "project-472",
+    title: "Проект мансардного дома № 472",
+    category: "mansard",
+    projectNumber: "472",
+    image: project472Image1,
+    images: [project472Image1, project472Image2, project472Image3],
+    area: "74,3 м² (1 этаж) + 55,0 м² (2 этаж) + 25,1 м² (терраса)",
+    description: "Проект №472. Дом мансардный с 4 спальнями, 2 санузлами, террасой. Стены – блок с последующим утеплением. Перекрытия – деревянные балки.",
+    details: "Площадь 1 этажа – 74,3кв.м, 2 этажа – 55,0кв.м, террасы – 25,1кв.м.",
   },
   {
     id: "project-483",
