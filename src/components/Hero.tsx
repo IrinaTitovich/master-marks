@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-architecture.jpg";
-import { ArrowRight, Phone } from "lucide-react";
+import { ArrowRight, Phone, Star, Award } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
@@ -24,9 +24,35 @@ const Hero = () => {
         <div className="max-w-4xl mx-auto w-full">
           {/* Кто я */}
           <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
-            <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-2 break-words">
+            <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-4 break-words">
               Архитектор-Конструктор • Могилев, Могилевская область
             </p>
+            
+            {/* Рейтинг Google */}
+            <div className="flex flex-wrap items-center gap-4 mb-4 bg-primary-foreground/10 backdrop-blur-sm rounded-lg p-3 sm:p-4 border border-primary-foreground/20">
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-4 w-4 sm:h-5 sm:w-5 fill-accent text-accent"
+                    />
+                  ))}
+                </div>
+                <span className="font-serif text-xl sm:text-2xl font-bold text-primary-foreground">
+                  5.0
+                </span>
+                <span className="text-sm sm:text-base text-primary-foreground/80">
+                  из 5
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-primary-foreground/90">
+                <Award className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
+                <span className="text-xs sm:text-sm font-semibold">
+                  Больше всех отзывов в Google
+                </span>
+              </div>
+            </div>
           </div>
 
           {/* Чем занимаюсь */}

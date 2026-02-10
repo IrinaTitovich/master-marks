@@ -9,6 +9,7 @@ import SkipLinks from "@/components/SkipLinks";
 const Hero = lazy(() => import("@/components/Hero"));
 const About = lazy(() => import("@/components/About"));
 const Services = lazy(() => import("@/components/Services"));
+const GoogleRating = lazy(() => import("@/components/GoogleRating"));
 const ProjectExamples = lazy(() => import("@/components/ProjectExamples"));
 const RealProjects = lazy(() => import("@/components/RealProjects"));
 const Contact = lazy(() => import("@/components/Contact"));
@@ -158,7 +159,7 @@ const Index = () => {
       },
       aggregateRating: {
         "@type": "AggregateRating",
-        ratingValue: "4.9",
+        ratingValue: "5.0",
         reviewCount: "50",
         bestRating: "5",
         worstRating: "1",
@@ -216,6 +217,9 @@ const Index = () => {
       <main id="main-content" role="main" tabIndex={-1}>
         <Suspense fallback={<div className="min-h-screen" />}>
           <Hero />
+        </Suspense>
+        <Suspense fallback={<div className="h-32" />}>
+          <GoogleRating />
         </Suspense>
         <Suspense fallback={<div className="h-96" />}>
           <About />
