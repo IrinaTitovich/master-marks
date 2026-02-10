@@ -22,6 +22,9 @@ import project321Image1 from "@/assets/projects/two-story/project-321/project-32
 import project321Image2 from "@/assets/projects/two-story/project-321/project-321-2.jpg";
 import project321Image3 from "@/assets/projects/two-story/project-321/project-321-3.jpg";
 import project321Image4 from "@/assets/projects/two-story/project-321/project-321-4.jpg";
+import project501Image1 from "@/assets/projects/two-story/project-501/project-501-1.jpg";
+import project501Image2 from "@/assets/projects/two-story/project-501/project-501-2.jpg";
+import project501Image3 from "@/assets/projects/two-story/project-501/project-501-3.jpg";
 // Мансардные дома
 import project282Image1 from "@/assets/projects/mansard/project-282/project-282-1.jpg";
 import project282Image2 from "@/assets/projects/mansard/project-282/project-282-2.jpg";
@@ -149,6 +152,17 @@ export const projects: Project[] = [
       "Проект №321. Дом двухэтажный с 3 спальнями, кабинетом, 2 санузлами, гаражом, подвалом и террасой. Наружные стены – блоки газосиликатные с последующей отделкой по системе утепления. Перекрытия межэтажные – плиты железобетонные многопустотные. Кровля – вальмовая с покрытием металлочерепицей.",
     details:
       "Площадь 1 этажа – 72,8кв.м, 2 этажа – 68,3кв.м, террасы –14,8кв.м., гаража – 24,8кв.м, подвала – 8,2кв.м.",
+  },
+  {
+    id: "project-501",
+    title: "Проект двухэтажного дома № 501",
+    category: "two-story",
+    projectNumber: "501",
+    image: project501Image1,
+    images: [project501Image1, project501Image2, project501Image3],
+    area: "99,4 м² (1 этаж) + 89,6 м² (2 этаж) + 16,1 м² (терраса)",
+    description: "Проект №501. Дом двухэтажный с 4 спальнями, 4 санузлами, 2 кабинетами и террасой. Стены – блок с последующим утеплением. Перекрытия – ж/б плиты, деревянные балки.",
+    details: "Площадь 1 этажа – 99,4кв.м, 2 этажа – 89,6кв.м, террасы – 16,1кв.м.",
   },
   {
     id: "project-307",
