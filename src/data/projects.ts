@@ -29,6 +29,9 @@ import project496Image1 from "@/assets/projects/two-story/project-496/project-49
 import project496Image2 from "@/assets/projects/two-story/project-496/project-496-2.jpg";
 import project496Image3 from "@/assets/projects/two-story/project-496/project-496-3.jpg";
 // Мансардные дома
+import project483Image1 from "@/assets/projects/mansard/project-483/project-483-1.jpg";
+import project483Image2 from "@/assets/projects/mansard/project-483/project-483-2.jpg";
+import project483Image3 from "@/assets/projects/mansard/project-483/project-483-3.jpg";
 import project282Image1 from "@/assets/projects/mansard/project-282/project-282-1.jpg";
 import project282Image2 from "@/assets/projects/mansard/project-282/project-282-2.jpg";
 import project282Image3 from "@/assets/projects/mansard/project-282/project-282-3.jpg";
@@ -177,6 +180,17 @@ export const projects: Project[] = [
     area: "59,7 м² (1 этаж) + 63,9 м² (2 этаж) + 9,5 м² (терраса)",
     description: "Проект №496. Дом двухэтажный с 3 спальнями, 2 санузлами, террасой. Стены – блок. Перекрытия – ж/б плиты, деревянные балки.",
     details: "Площадь 1 этажа – 59,7кв.м, 2 этажа – 63,9кв.м, террасы – 9,5кв.м.",
+  },
+  {
+    id: "project-483",
+    title: "Проект мансардного дома № 483",
+    category: "mansard",
+    projectNumber: "483",
+    image: project483Image1,
+    images: [project483Image1, project483Image2, project483Image3],
+    area: "46,8 м² (1 этаж) + 14,7 м² (мансарда)",
+    description: "Проект №483. Дом мансардный с 1 спальней, 1 санузлом. Стены – блок с последующим утеплением. Перекрытия – деревянные балки.",
+    details: "Площадь 1 этажа – 46,8кв.м, мансарды – 14,7кв.м.",
   },
   {
     id: "project-307",
