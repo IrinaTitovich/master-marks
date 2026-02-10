@@ -25,6 +25,9 @@ import project321Image4 from "@/assets/projects/two-story/project-321/project-32
 import project501Image1 from "@/assets/projects/two-story/project-501/project-501-1.jpg";
 import project501Image2 from "@/assets/projects/two-story/project-501/project-501-2.jpg";
 import project501Image3 from "@/assets/projects/two-story/project-501/project-501-3.jpg";
+import project496Image1 from "@/assets/projects/two-story/project-496/project-496-1.jpg";
+import project496Image2 from "@/assets/projects/two-story/project-496/project-496-2.jpg";
+import project496Image3 from "@/assets/projects/two-story/project-496/project-496-3.jpg";
 // Мансардные дома
 import project282Image1 from "@/assets/projects/mansard/project-282/project-282-1.jpg";
 import project282Image2 from "@/assets/projects/mansard/project-282/project-282-2.jpg";
@@ -163,6 +166,17 @@ export const projects: Project[] = [
     area: "99,4 м² (1 этаж) + 89,6 м² (2 этаж) + 16,1 м² (терраса)",
     description: "Проект №501. Дом двухэтажный с 4 спальнями, 4 санузлами, 2 кабинетами и террасой. Стены – блок с последующим утеплением. Перекрытия – ж/б плиты, деревянные балки.",
     details: "Площадь 1 этажа – 99,4кв.м, 2 этажа – 89,6кв.м, террасы – 16,1кв.м.",
+  },
+  {
+    id: "project-496",
+    title: "Проект двухэтажного дома № 496",
+    category: "two-story",
+    projectNumber: "496",
+    image: project496Image1,
+    images: [project496Image1, project496Image2, project496Image3],
+    area: "59,7 м² (1 этаж) + 63,9 м² (2 этаж) + 9,5 м² (терраса)",
+    description: "Проект №496. Дом двухэтажный с 3 спальнями, 2 санузлами, террасой. Стены – блок. Перекрытия – ж/б плиты, деревянные балки.",
+    details: "Площадь 1 этажа – 59,7кв.м, 2 этажа – 63,9кв.м, террасы – 9,5кв.м.",
   },
   {
     id: "project-307",
