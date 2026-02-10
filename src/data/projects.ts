@@ -5,6 +5,8 @@ import project333Image1 from "@/assets/projects/single-story/project-333/project
 import project333Image2 from "@/assets/projects/single-story/project-333/project-333-2.jpg";
 import project478Image1 from "@/assets/projects/single-story/project-478/project-478-1.jpg";
 import project478Image2 from "@/assets/projects/single-story/project-478/project-478-2.jpg";
+import project459Image1 from "@/assets/projects/single-story/project-459/project-459-1.jpg";
+import project459Image2 from "@/assets/projects/single-story/project-459/project-459-2.jpg";
 
 // Двухэтажные дома
 import project244Image1 from "@/assets/projects/two-story/project-244/project-244-1.jpg";
@@ -94,6 +96,19 @@ export const projects: Project[] = [
       "Проект №478. Дом одноэтажный с двумя спальнями, двумя санузлами, террасой, навесом и подвалом. Наружные стены – блоки газосиликатные с последующей отделкой; перекрытия – ж/б плиты, монолит; кровля – скатная сложная с покрытием из металлочерепицы.",
     details:
       "Площадь 1 этажа – 101,7кв.м, террасы – 24,4кв.м, навеса – 27,9кв.м, подвала – 14,7кв.м.",
+  },
+  {
+    id: "project-459",
+    title: "Проект одноэтажного дома № 459",
+    category: "single-story",
+    projectNumber: "459",
+    image: project459Image1,
+    images: [project459Image1, project459Image2],
+    area: "128,2 м² (1 этаж) + 21,9 м² (терраса) + 33,0 м² (гараж)",
+    description:
+      "Проект №459. Дом одноэтажный из блока газосиликатного с 4 спальнями, 2 санузлами, гаражом, террасой. Перекрытия – ж/б плиты.",
+    details:
+      "Площадь 1 этажа – 128,2кв.м, террасы – 21,9кв.м, гаража – 33,0кв.м.",
   },
   {
     id: "project-244",
