@@ -1,6 +1,9 @@
 import realProject1 from "@/assets/real-project-1.jpg";
 import realProject2 from "@/assets/real-project-2.jpg";
 import realProject3 from "@/assets/real-project-3.jpg";
+import realProject4 from "@/assets/real-project-4.jpg";
+import realProject5 from "@/assets/real-project-5.jpg";
+import realProject6 from "@/assets/real-project-6.jpg";
 import WatermarkImage from "@/components/WatermarkImage";
 
 const RealProjects = () => {
@@ -20,6 +23,21 @@ const RealProjects = () => {
       image: realProject3,
       title: "ул. Березовая в Могилеве",
       description: "Комплексное решение от проектирования до реализации",
+    },
+    {
+      image: realProject4,
+      title: "Реализованный проект в Могилевском районе",
+      description: "Двухэтажный дом с мансардной кровлей, построенный по нашему проекту",
+    },
+    {
+      image: realProject5,
+      title: "пер. 2-й Хвойный д. 3, Могилёв",
+      description: "Двухэтажный дом с гаражом, построенный по нашему проекту",
+    },
+    {
+      image: realProject6,
+      title: "Реализованный проект в Могилевском районе",
+      description: "Двухэтажный дом с кирпичным фасадом, построенный по нашему проекту",
     },
   ];
 
