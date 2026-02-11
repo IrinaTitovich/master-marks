@@ -1,4 +1,4 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, type ReactNode } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -9,7 +9,9 @@ import { HelpCircle } from "lucide-react";
 
 interface FAQItem {
   question: string;
-  answer: string;
+  answer: string | ReactNode;
+  /** Текст ответа для JSON-LD (если answer — JSX, укажите здесь плоский текст) */
+  answerPlainText?: string;
 }
 
 interface FAQProps {
@@ -33,7 +35,9 @@ const FAQ = ({
         name: item.question,
         acceptedAnswer: {
           "@type": "Answer",
-          text: item.answer,
+          text:
+            item.answerPlainText ??
+            (typeof item.answer === "string" ? item.answer : ""),
         },
       })),
     }),
@@ -96,7 +100,11 @@ const FAQ = ({
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed pt-2 pb-4">
-                  {item.answer}
+                  {typeof item.answer === "string" ? (
+                    item.answer
+                  ) : (
+                    <div className="space-y-4">{item.answer}</div>
+                  )}
                 </AccordionContent>
               </AccordionItem>
             ))}
