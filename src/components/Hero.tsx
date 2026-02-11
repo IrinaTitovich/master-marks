@@ -25,7 +25,7 @@ const Hero = () => {
           {/* Кто я */}
           <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-4 break-words">
-              Архитектор-Конструктор • Могилев, Могилевская область
+              Архитектор-Конструктор • Могилев, Могилевская область • Работаем в Бобруйске, Орше, Горках, Кричеве, Шклове
             </p>
             
             {/* Рейтинг Google */}

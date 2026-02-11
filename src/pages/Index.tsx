@@ -12,6 +12,7 @@ const Services = lazy(() => import("@/components/Services"));
 const ProjectExamples = lazy(() => import("@/components/ProjectExamples"));
 const RealProjects = lazy(() => import("@/components/RealProjects"));
 const Contact = lazy(() => import("@/components/Contact"));
+const FAQ = lazy(() => import("@/components/FAQ"));
 
 const Index = () => {
   const location = useLocation();
@@ -109,78 +110,213 @@ const Index = () => {
   );
 
   const localBusinessJsonLd = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: "Ваш проект - Проектирование домов",
-      alternateName: "Архитектор-Конструктор",
-      description:
-        "Проект Могилев, проектирование Могилев, проект дома Могилев, архитектор Могилев. Профессиональное проектирование жилых домов в Могилеве, Могилевской области. Архитектурное проектирование, готовые проекты домов.",
-      url: siteUrl,
-      telephone: "+375-29-674-57-73",
-      email: "vashproekt.by@gmail.com",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Могилев",
-        addressRegion: "Могилевская область",
-        streetAddress: "пер. 1 Хвойный д. 3",
-        postalCode: "",
-        addressCountry: "BY",
-        addressCountryName: "Беларусь",
-      },
-      areaServed: {
-        "@type": "City",
-        name: "Могилев",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: "53.8945",
-        longitude: "30.3307",
-        addressLocality: "Могилев",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      priceRange: "$$",
-      openingHoursSpecification: {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        opens: "09:00",
-        closes: "18:00",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "5.0",
-        reviewCount: "50",
-        bestRating: "5",
-        worstRating: "1",
-      },
-      review: [
-        {
-          "@type": "Review",
-          author: {
-            "@type": "Person",
-            name: "Клиент",
-          },
-          datePublished: "2024-01-15",
-          reviewBody:
-            "Отличная работа! Проект выполнен качественно и в срок. Рекомендую!",
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: "5",
-            bestRating: "5",
-          },
+    () => [
+      // Первый адрес: пер. 1 Хвойный д. 3
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Ваш проект - Проектирование домов",
+        alternateName: "Архитектор-Конструктор",
+        description:
+          "Проект Могилев, проектирование Могилев, проект дома Могилев, архитектор Могилев. Профессиональное проектирование жилых домов в Могилеве, Могилевской области. Архитектурное проектирование, готовые проекты домов.",
+        url: siteUrl,
+        telephone: "+375-29-674-57-73",
+        email: "vashproekt.by@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "пер. 1 Хвойный д. 3",
+          postalCode: "",
+          addressCountry: "BY",
+          addressCountryName: "Беларусь",
         },
-      ],
-    }),
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Могилев",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Бобруйск",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Орша",
+            addressRegion: "Витебская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Горки",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Кричев",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Шклов",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Могилевский район",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+        ],
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: "53.8945",
+          longitude: "30.3307",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          addressCountry: "BY",
+        },
+        priceRange: "$$",
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          opens: "09:00",
+          closes: "18:00",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          reviewCount: "50",
+          bestRating: "5",
+          worstRating: "1",
+        },
+        review: [
+          {
+            "@type": "Review",
+            author: {
+              "@type": "Person",
+              name: "Клиент",
+            },
+            datePublished: "2024-01-15",
+            reviewBody:
+              "Отличная работа! Проект выполнен качественно и в срок. Рекомендую!",
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "5",
+              bestRating: "5",
+            },
+          },
+        ],
+      },
+      // Второй адрес: ул. Первомайская д. 31
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Ваш проект - Проектирование домов",
+        alternateName: "Архитектор-Конструктор",
+        description:
+          "Проект Могилев, проектирование Могилев, проект дома Могилев, архитектор Могилев. Профессиональное проектирование жилых домов в Могилеве, Могилевской области. Архитектурное проектирование, готовые проекты домов.",
+        url: siteUrl,
+        telephone: "+375-29-674-57-73",
+        email: "vashproekt.by@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "ул. Первомайская д. 31",
+          postalCode: "",
+          addressCountry: "BY",
+          addressCountryName: "Беларусь",
+        },
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Могилев",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Бобруйск",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Орша",
+            addressRegion: "Витебская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Горки",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Кричев",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "City",
+            name: "Шклов",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Могилевский район",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+        ],
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: "53.8945",
+          longitude: "30.3307",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          addressCountry: "BY",
+        },
+        priceRange: "$$",
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          opens: "09:00",
+          closes: "18:00",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          reviewCount: "50",
+          bestRating: "5",
+          worstRating: "1",
+        },
+      },
+    ],
     [siteUrl]
   );
 
@@ -201,6 +337,90 @@ const Index = () => {
     [siteUrl]
   );
 
+  const howToJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Как заказать проект дома в Могилеве",
+      description:
+        "Пошаговая инструкция по заказу проекта дома у архитектора-конструктора в Могилеве и Могилевской области",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Консультация и обсуждение требований",
+          text: "Свяжитесь с архитектором по телефону или через форму обратной связи. Обсудите ваши пожелания: площадь дома, количество этажей, стиль, бюджет, особенности участка.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Выезд на участок и замеры",
+          text: "Архитектор выезжает на ваш участок для проведения замеров, анализа рельефа, ориентации по сторонам света и существующих коммуникаций.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Разработка эскизного проекта",
+          text: "На основе ваших требований и особенностей участка разрабатывается эскизный проект с планировками, фасадами и основными архитектурными решениями.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Согласование эскиза",
+          text: "Вы просматриваете эскизный проект, вносите корректировки и изменения. После согласования переходим к следующему этапу.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 5,
+          name: "Разработка рабочего проекта",
+          text: "Создается полный рабочий проект с архитектурными и конструктивными решениями, планами, разрезами, спецификациями материалов и всеми необходимыми чертежами.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 6,
+          name: "Согласование проекта",
+          text: "Проект согласовывается в соответствующих инстанциях (исполком, архитектура) для получения разрешения на строительство.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 7,
+          name: "Авторский надзор (опционально)",
+          text: "При необходимости архитектор может осуществлять авторский надзор за строительством для контроля соответствия проекта и консультаций.",
+        },
+      ],
+      totalTime: "PT4W",
+    }),
+    []
+  );
+
+  const faqItems = [
+    {
+      question: "Где вы находитесь? В каких городах работаете?",
+      answer:
+        "Я работаю в Могилеве и Могилевской области. Офисы расположены по адресам: пер. 1 Хвойный д. 3 и ул. Первомайская д. 31, Могилев. Также выполняю проекты для клиентов из Бобруйска, Орши, Горок, Кричева, Шклова и Могилевского района. Выезжаю на объекты для консультаций и замеров.",
+    },
+    {
+      question: "Какие услуги по проектированию вы предоставляете?",
+      answer:
+        "Я предоставляю полный спектр услуг по проектированию жилых домов: архитектурное проектирование, конструктивное проектирование, разработка индивидуальных проектов, адаптация готовых проектов под ваш участок, консультации по строительству, разработка проектов одноэтажных, двухэтажных и мансардных домов.",
+    },
+    {
+      question: "Как проходит процесс проектирования дома?",
+      answer:
+        "Процесс начинается с консультации и обсуждения ваших пожеланий. Затем я выезжаю на участок для замеров и анализа условий. Разрабатываю эскизный проект, который согласовываем с вами. После утверждения создаю рабочий проект с архитектурными и конструктивными решениями, планами, разрезами и спецификациями. Длительность процесса зависит от уровня сложности.",
+    },
+    {
+      question: "Можно ли адаптировать готовый проект под мой участок?",
+      answer:
+        "Не каждый проект можно удачно адаптировать под конкретно ваш участок. Однако, учитывая что у нас более 600 готовых проектов в каталоге и возможность индивидуального проектирования, мы обязательно найдем решение. Я могу адаптировать готовый проект под особенности вашего участка: рельеф, размеры, ориентацию по сторонам света, требования местных строительных норм. Если готовый проект не подойдет идеально, разработаю индивидуальный проект по вашим пожеланиям и особенностям участка.",
+    },
+    {
+      question: "Работаете ли вы с заказчиками из других городов?",
+      answer:
+        "Да, я работаю с клиентами из Могилева, Бобруйска, Орши, Горок, Кричева, Шклова и других городов Могилевской области. Для удаленных заказчиков возможна работа через онлайн-консультации и выезды на объект по договоренности. Также имею опыт работы с клиентами из других областей Беларуси и других стран (без выезда на объект).",
+    },
+  ];
+
   return (
     <div className="min-h-screen w-full overflow-x-hidden max-w-full">
       <SkipLinks />
@@ -211,7 +431,7 @@ const Index = () => {
         keywords="проект могилев, проектирование могилев, проект дома могилев, архитектор могилев, конструктор Могилев, проектирование домов Могилев, архитектурное проектирование Могилевская область, проектирование жилых домов Могилев, индивидуальное проектирование Могилев, архитектура Могилев, строительство Могилев, проекты домов Могилев, готовые проекты домов Могилевская область"
         url="/"
         canonical="/"
-        jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd]}
+        jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd, howToJsonLd]}
       />
       <main id="main-content" role="main" tabIndex={-1}>
         <Suspense fallback={<div className="min-h-screen" />}>
@@ -228,6 +448,13 @@ const Index = () => {
         </Suspense>
         <Suspense fallback={<div className="h-96" />}>
           <RealProjects />
+        </Suspense>
+        <Suspense fallback={<div className="h-96" />}>
+          <FAQ
+            items={faqItems}
+            title="Часто задаваемые вопросы"
+            description="Ответы на популярные вопросы об услугах проектирования домов в Могилеве и Могилевской области"
+          />
         </Suspense>
         <Suspense fallback={<div className="h-96" />}>
           <Contact />

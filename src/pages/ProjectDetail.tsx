@@ -96,12 +96,22 @@ const ProjectDetail = () => {
       manufacturer: {
         "@type": "Organization",
         name: "Ваш проект - Проектирование домов",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Могилев",
-          addressRegion: "Могилевская область",
-          addressCountry: "BY",
-        },
+        address: [
+          {
+            "@type": "PostalAddress",
+            addressLocality: "Могилев",
+            addressRegion: "Могилевская область",
+            streetAddress: "пер. 1 Хвойный д. 3",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "PostalAddress",
+            addressLocality: "Могилев",
+            addressRegion: "Могилевская область",
+            streetAddress: "ул. Первомайская д. 31",
+            addressCountry: "BY",
+          },
+        ],
       },
       offers: {
         "@type": "Offer",

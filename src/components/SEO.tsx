@@ -93,6 +93,12 @@ const SEO = ({
       updateMetaTag("twitter:description", description);
       updateMetaTag("twitter:image", imageUrl);
 
+      // GEO мета-теги для поисковых систем
+      updateMetaTag("geo.region", "BY-MG", "name");
+      updateMetaTag("geo.placename", "Могилев", "name");
+      updateMetaTag("geo.position", "53.8945;30.3307", "name");
+      updateMetaTag("ICBM", "53.8945, 30.3307", "name");
+
       // Canonical URL
       updateLinkTag("canonical", canonicalUrl);
 

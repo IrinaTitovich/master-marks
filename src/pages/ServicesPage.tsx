@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Phone, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PageNavigation from "@/components/PageNavigation";
@@ -243,6 +243,85 @@ const ServicesPage = () => {
   const siteUrl =
     typeof window !== "undefined" ? window.location.origin + baseUrl : "";
 
+  // Создаем массив Service объектов для каждой услуги
+  const servicesJsonLd = useMemo(() => {
+    const provider = {
+      "@type": "LocalBusiness",
+      name: "Ваш проект - Проектирование домов",
+      address: [
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "пер. 1 Хвойный д. 3",
+          addressCountry: "BY",
+        },
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "ул. Первомайская д. 31",
+          addressCountry: "BY",
+        },
+      ],
+    };
+
+    const areaServed = [
+      {
+        "@type": "City",
+        name: "Могилев",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Бобруйск",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Орша",
+        addressRegion: "Витебская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Горки",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Кричев",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Шклов",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Могилевский район",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+    ];
+
+    return services.map((service) => ({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      serviceType: service.title,
+      name: service.title,
+      description: service.shortDescription,
+      provider,
+      areaServed,
+    }));
+  }, []);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -250,18 +329,67 @@ const ServicesPage = () => {
     provider: {
       "@type": "LocalBusiness",
       name: "Ваш проект - Проектирование домов",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Могилев",
+      address: [
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "пер. 1 Хвойный д. 3",
+          addressCountry: "BY",
+        },
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "ул. Первомайская д. 31",
+          addressCountry: "BY",
+        },
+      ],
+    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "Могилев",
         addressRegion: "Могилевская область",
         addressCountry: "BY",
       },
-    },
-    areaServed: {
-      "@type": "City",
-      name: "Могилев",
-      addressRegion: "Могилевская область",
-    },
+      {
+        "@type": "City",
+        name: "Бобруйск",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Орша",
+        addressRegion: "Витебская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Горки",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Кричев",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "City",
+        name: "Шклов",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Могилевский район",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Услуги по проектированию домов",
@@ -306,7 +434,7 @@ const ServicesPage = () => {
           keywords="услуги архитектора Могилев, проектирование домов услуги, архитектурное проектирование Могилев, конструктивные решения, рабочая документация АР КР, эскизный проект, реконструкция перепланировка, авторский надзор, генеральный план участка Могилев"
           url="/services"
           canonical="/services"
-          jsonLd={[jsonLd, breadcrumbJsonLd]}
+          jsonLd={[jsonLd, ...servicesJsonLd, breadcrumbJsonLd]}
         />
 
         <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -320,7 +448,13 @@ const ServicesPage = () => {
             <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground">
               Услуги по проектированию
             </h1>
-            <p className="text-xl text-muted-foreground mt-2">
+            <p className="text-xl text-muted-foreground mt-2 mb-3">
+              Я предоставляю полный спектр услуг по проектированию жилых домов: архитектурное проектирование, конструктивное проектирование, разработка индивидуальных проектов, адаптация готовых проектов под ваш участок, консультации по строительству, разработка проектов любой сложности.
+            </p>
+            <p className="text-lg text-muted-foreground mt-2 mb-3">
+              Процесс начинается с консультации и обсуждения ваших пожеланий. Затем я выезжаю на участок для замеров и анализа условий. Разрабатываю эскизный проект, который согласовываем с вами. После утверждения создаю рабочий проект с архитектурными и конструктивными решениями, планами, разрезами и спецификациями. Длительность процесса зависит от уровня сложности.
+            </p>
+            <p className="text-base text-muted-foreground mt-2">
               Полный цикл проектирования от эскиза до согласования в исполкоме и
               последующих корректировок в случае необходимости.
             </p>
