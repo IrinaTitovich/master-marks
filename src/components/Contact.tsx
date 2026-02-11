@@ -159,8 +159,8 @@ const Contact = () => {
     },
     {
       icon: MapPin,
-      label: "Адрес",
-      value: addresses[0].short,
+      label: "Локация",
+      value: "Могилев, Беларусь",
       href: "#",
       onClick: (e: React.MouseEvent) => {
         e.preventDefault();
