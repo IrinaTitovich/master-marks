@@ -21,6 +21,7 @@ export type YandexMetrikaOptions = {
   accurateTrackBounce?: boolean;
   webvisor?: boolean;
   ecommerce?: string;
+  cookie?: boolean;
 };
 
 /**
@@ -73,12 +74,14 @@ export function initYandexMetrika(
 
   // trackLinks: false — иначе Метрика перехватывает клики по ссылкам (в т.ч. tel:)
   // и браузер показывает «сайт инициирует вызов»
+  // cookie: false — отключаем использование сторонних кук для соответствия новым требованиям браузеров
   const initParams = {
     clickmap: true,
     trackLinks: false,
     accurateTrackBounce: true,
     webvisor: true,
     ecommerce: "dataLayer",
+    cookie: false, // Отключаем сторонние куки для соответствия новым требованиям браузеров
     ...options,
   };
 
