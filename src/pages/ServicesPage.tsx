@@ -22,36 +22,7 @@ import {
   Map,
 } from "lucide-react";
 
-const ServicesPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [openService, setOpenService] = useState<string>("");
-  const [activeSection, setActiveSection] = useState<"services" | "packages">(
-    "services"
-  );
-
-  // Прокрутка вверх при переходе на страницу
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }, [location.pathname]);
-
-  const scrollToSection = (
-    sectionId: "services-section" | "packages-section"
-  ) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const services = [
+const services = [
     {
       icon: PenTool,
       title: "Архитектурное проектирование",
@@ -138,7 +109,7 @@ const ServicesPage = () => {
         "Этот комплект документов необходим для получения разрешения на строительство и для работы строительной бригады.",
       ],
       whyImportant:
-        "Рабочая документация (АР+КР) объединяет все преимущества архитектурного и конструктивного проектирования в единый комплект документов для строителей. Без нее невозможно получить разрешение на строительство и правильно построить дом.",
+        "Рабочая документация (АР+КР) объединяет все преимущества архитектурного и конструктивного проектирования в единый комплект документов для строителей. Без нее невозможно правильно построить дом.",
     },
     {
       icon: Lightbulb,
@@ -218,15 +189,10 @@ const ServicesPage = () => {
         "• Требования пожарной безопасности",
         "• Санитарные нормы и отступы",
         "",
-        "Генеральный план необходим для получения разрешения на строительство и правильной организации работ на участке.",
+        "Генеральный план необходим для правильной организации работ на участке.",
       ],
       whyImportant: [
-        "Генеральный план — обязательный документ для строительства в городе и критически важен для правильной организации участка:",
-        "",
-        "Обязательность для городского строительства:",
-        "• В городе без генерального плана нельзя получить разрешение на строительство",
-        "• Генплан необходимо согласовать в соответствующих инстанциях",
-        "• Без согласованного генплана строительство невозможно",
+        "Генеральный план — обязательный документ для строительства и критически важен для правильной организации участка:",
         "",
         "Пожарная безопасность:",
         "• Учет противопожарных разрывов между постройками",
@@ -238,6 +204,35 @@ const ServicesPage = () => {
       ],
     },
   ];
+
+const ServicesPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [openService, setOpenService] = useState<string>("");
+  const [activeSection, setActiveSection] = useState<"services" | "packages">(
+    "services",
+  );
+
+  // Прокрутка вверх при переходе на страницу
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname]);
+
+  const scrollToSection = (
+    sectionId: "services-section" | "packages-section",
+  ) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
 
   const baseUrl = import.meta.env.BASE_URL || "/";
   const siteUrl =
@@ -274,40 +269,14 @@ const ServicesPage = () => {
         addressCountry: "BY",
       },
       {
-        "@type": "City",
-        name: "Бобруйск",
-        addressRegion: "Могилевская область",
+        "@type": "Country",
+        name: "Беларусь",
         addressCountry: "BY",
       },
       {
-        "@type": "City",
-        name: "Орша",
-        addressRegion: "Витебская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "City",
-        name: "Горки",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "City",
-        name: "Кричев",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "City",
-        name: "Шклов",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "Могилевский район",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
+        "@type": "Country",
+        name: "Российская Федерация",
+        addressCountry: "RU",
       },
     ];
 
@@ -354,40 +323,14 @@ const ServicesPage = () => {
         addressCountry: "BY",
       },
       {
-        "@type": "City",
-        name: "Бобруйск",
-        addressRegion: "Могилевская область",
+        "@type": "Country",
+        name: "Беларусь",
         addressCountry: "BY",
       },
       {
-        "@type": "City",
-        name: "Орша",
-        addressRegion: "Витебская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "City",
-        name: "Горки",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "City",
-        name: "Кричев",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "City",
-        name: "Шклов",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      {
-        "@type": "AdministrativeArea",
-        name: "Могилевский район",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
+        "@type": "Country",
+        name: "Российская Федерация",
+        addressCountry: "RU",
       },
     ],
     hasOfferCatalog: {
@@ -482,7 +425,7 @@ const ServicesPage = () => {
             onValueChange={(value) => {
               setActiveSection(value as "services" | "packages");
               scrollToSection(
-                value === "services" ? "services-section" : "packages-section"
+                value === "services" ? "services-section" : "packages-section",
               );
             }}
             className="w-full"
@@ -517,7 +460,7 @@ const ServicesPage = () => {
                                 key={index}
                                 onClick={() => {
                                   setOpenService(
-                                    isActive ? "" : `service-${index}`
+                                    isActive ? "" : `service-${index}`,
                                   );
                                 }}
                                 className={`w-full text-left p-3 rounded-lg transition-all duration-200 flex items-start gap-3 ${
@@ -611,7 +554,7 @@ const ServicesPage = () => {
                                         >
                                           {paragraph}
                                         </p>
-                                      )
+                                      ),
                                     )}
                                   </div>
                                 </div>
@@ -646,7 +589,7 @@ const ServicesPage = () => {
                                               <p key={pIndex}>{paragraph}</p>
                                             );
                                           }
-                                        }
+                                        },
                                       )
                                     ) : (
                                       <p>{service.whyImportant}</p>
