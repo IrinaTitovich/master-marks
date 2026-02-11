@@ -1,7 +1,18 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-architecture.jpg";
 import { ArrowRight, Phone, Star, Award } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
+const base = typeof import.meta.env.BASE_URL === "string" ? import.meta.env.BASE_URL : "/";
+const heroImageUrl = base + "hero-architecture.jpg";
+const heroImageUrlMobile = base + "hero-architecture-mobile.jpg";
+
+declare global {
+  interface Window {
+    __SKIP_HERO_IMAGE?: boolean;
+  }
+}
+
+const skipHeroImage = typeof window !== "undefined" && window.__SKIP_HERO_IMAGE === true;
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -10,20 +21,30 @@ const Hero = () => {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 scroll-mt-0"
+      style={{ contain: "layout style paint" }}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-        role="img"
-        aria-label="Архитектурное проектирование домов - профессиональные услуги в Могилеве"
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
+      <div className="absolute inset-0 min-h-[100dvh]">
+        {!skipHeroImage && (
+          <picture>
+            <source media="(max-width: 768px)" srcSet={heroImageUrlMobile} />
+            <img
+              src={heroImageUrl}
+              alt="Архитектурное проектирование домов - профессиональные услуги в Могилеве"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              width={1920}
+              height={1080}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" aria-hidden="true" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 py-20 sm:py-32 w-full max-w-full overflow-x-hidden">
         <div className="max-w-4xl mx-auto w-full">
-          {/* Кто я */}
-          <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          {/* Кто я — без анимации для быстрого FCP/LCP */}
+          <div className="mb-6 sm:mb-8">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-4 break-words">
               Архитектор-Конструктор • Могилев и другие регионы Республики Беларусь и РФ
             </p>
@@ -56,7 +77,7 @@ const Hero = () => {
           </div>
 
           {/* Чем занимаюсь */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 leading-tight break-words">
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-6 sm:mb-8 leading-tight break-words">
             Проектирование домов
           </h1>
 
@@ -68,7 +89,7 @@ const Hero = () => {
           </p>
 
           {/* Детали */}
-          <div className="mb-10 sm:mb-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 space-y-4 sm:space-y-5">
+          <div className="mb-10 sm:mb-12 space-y-4 sm:space-y-5">
             <div className="space-y-0 leading-snug">
               <p className="text-base sm:text-lg md:text-xl text-primary-foreground/90 font-medium break-words">
                 Более 20 лет опыта в архитектуре и конструировании
@@ -88,7 +109,7 @@ const Hero = () => {
           </div>
 
           {/* Что дальше - CTA */}
-          <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+          <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center">
             <a
               href="tel:+375296745773"
               className="inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors bg-accent text-accent-foreground hover:bg-accent/90 shadow-[var(--shadow-elegant)] hover:shadow-[var(--shadow-soft)] hover:scale-105 text-base sm:text-lg px-4 sm:px-8 min-h-[3.25rem] sm:min-h-[3.75rem] w-full sm:w-auto whitespace-normal [&_svg]:shrink-0"

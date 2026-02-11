@@ -4,9 +4,9 @@ import { Phone, Instagram } from "lucide-react";
 import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
 import SkipLinks from "@/components/SkipLinks";
+import Hero from "@/components/Hero";
 
-// Lazy loading компонентов для уменьшения первоначального бандла
-const Hero = lazy(() => import("@/components/Hero"));
+// Lazy loading секций ниже первого экрана для уменьшения первоначального бандла
 const About = lazy(() => import("@/components/About"));
 const Services = lazy(() => import("@/components/Services"));
 const ProjectExamples = lazy(() => import("@/components/ProjectExamples"));
@@ -85,6 +85,26 @@ const Index = () => {
       alternateName: "Архитектор-Конструктор",
       url: siteUrl,
       logo: `${siteUrl}placeholder.svg`,
+      foundingDate: "2006",
+      areaServed: [
+        {
+          "@type": "City",
+          name: "Могилев",
+          addressRegion: "Могилевская область",
+          addressCountry: "BY",
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Могилевская область",
+          addressCountry: "BY",
+        },
+      ],
+      knowsAbout: [
+        "Проектирование",
+        "Архитектура",
+        "Конструкции",
+        "Реконструкции",
+      ],
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+375-29-674-57-73",
@@ -106,7 +126,7 @@ const Index = () => {
         addressCountryName: "Беларусь",
       },
     }),
-    [siteUrl]
+    [siteUrl],
   );
 
   const localBusinessJsonLd = useMemo(
@@ -265,7 +285,7 @@ const Index = () => {
         },
       },
     ],
-    [siteUrl]
+    [siteUrl],
   );
 
   const websiteJsonLd = useMemo(
@@ -282,7 +302,7 @@ const Index = () => {
         "query-input": "required name=search_term_string",
       },
     }),
-    [siteUrl]
+    [siteUrl],
   );
 
   const howToJsonLd = useMemo(
@@ -338,24 +358,24 @@ const Index = () => {
       ],
       totalTime: "PT4W",
     }),
-    []
+    [],
   );
 
   const faqItems = [
     {
       question: "Где вы находитесь? В каких городах работаете?",
       answer:
-        "Места проектирования: Могилев и другие регионы Республики Беларусь и РФ. Офисы расположены по адресам: пер. 1 Хвойный д. 3 и ул. Первомайская д. 31, Могилев. Выезжаю на объекты для консультаций и замеров.",
+        "Места проектирования: Могилев и другие регионы Республики Беларусь и РФ. Офис расположен по адресу: пер. 1 Хвойный д. 3, Могилев. Выезжаю на объекты для консультаций и замеров.",
     },
     {
       question: "Какие услуги по проектированию вы предоставляете?",
       answer:
-        "Я предоставляю полный спектр услуг по проектированию жилых домов: архитектурное проектирование, конструктивное проектирование, разработка индивидуальных проектов, адаптация готовых проектов под ваш участок, консультации по строительству, разработка проектов одноэтажных, двухэтажных и мансардных домов.",
+        "Я предоставляю полный спектр услуг по проектированию жилых домов: архитектурное проектирование, конструктивное проектирование, разработка индивидуальных проектов, адаптация готовых проектов под ваш участок, консультации по строительству, разработка проектов одноэтажных, двухэтажных и мансардных домов, различных хозяйственных построек(баня, гараж, сарай, беседка, летняя кухня и прочее), а также рекоменструкция существующих строений.",
     },
     {
       question: "Как проходит процесс проектирования дома?",
       answer:
-        "Процесс начинается с консультации и обсуждения ваших пожеланий. Затем я выезжаю на участок для замеров и анализа условий. Разрабатываю эскизный проект, который согласовываем с вами. После утверждения создаю рабочий проект с архитектурными и конструктивными решениями, планами, разрезами и спецификациями. Длительность процесса зависит от уровня сложности.",
+        "Процесс начинается с консультации и обсуждения ваших пожеланий. При необходимости я выезжаю на участок для замеров и анализа условий. Разрабатываю эскизный проект, который согласовываем с вами. После утверждения создаю рабочий проект с архитектурными и конструктивными решениями, планами, разрезами и спецификациями. Длительность процесса зависит от уровня сложности.",
     },
     {
       question: "Можно ли адаптировать готовый проект под мой участок?",
@@ -375,39 +395,66 @@ const Index = () => {
       <PageNavigation />
       <SEO
         title="Проектирование Домов в Могилеве | Архитектор-Конструктор"
-        description="Профессиональное проектирование жилых домов в Могилеве и Могилевской области. 20+ лет опыта. Индивидуальные и готовые проекты одноэтажных, двухэтажных и мансардных домов."
+        description="Профессиональное проектирование жилых домов в Могилеве и Могилевской области. С 2006 года. Более 600 реализованных проектов. 20+ лет опыта. Индивидуальные и готовые проекты одноэтажных, двухэтажных и мансардных домов."
         keywords="проект могилев, проектирование могилев, проект дома могилев, архитектор могилев, конструктор Могилев, проектирование домов Могилев, архитектурное проектирование Могилевская область, проектирование жилых домов Могилев, индивидуальное проектирование Могилев, архитектура Могилев, строительство Могилев, проекты домов Могилев, готовые проекты домов Могилевская область"
         url="/"
         canonical="/"
         jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd, howToJsonLd]}
       />
       <main id="main-content" role="main" tabIndex={-1}>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <Hero />
-        </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
+        <Hero />
+        <Suspense
+          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
+        >
           <About />
         </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
+        <Suspense
+          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
+        >
           <Services />
         </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
+        <Suspense
+          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
+        >
           <ProjectExamples />
         </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
+        <Suspense
+          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
+        >
           <RealProjects />
         </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
+        <Suspense
+          fallback={<div className="min-h-[20rem]" aria-hidden="true" />}
+        >
           <FAQ
             items={faqItems}
             title="Часто задаваемые вопросы"
             description="Ответы на популярные вопросы об услугах проектирования домов в Могилеве и Могилевской области"
           />
         </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
+        <Suspense
+          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
+        >
           <Contact />
         </Suspense>
       </main>
+
+      {/* Скрытый SEO-блок: E-E-A-T, согласование, авторитет (без визуальных изменений) */}
+      <div className="sr-only" aria-hidden="true">
+        <p>
+          Ваш Проект — Проектирование домов в Могилеве с 2006 года. Более 600
+          реализованных проектов.
+        </p>
+        <p>
+          Согласование проектов в Могилеве. Проект дома для Могилевского
+          облисполкома/горисполкома. Архитектурное бюро Могилев. Конструкторское
+          бюро Могилев.
+        </p>
+        <p>
+          Старейшее частное архитектурное бюро Могилева с опытом работы более 20
+          лет.
+        </p>
+      </div>
 
       {/* Hint перед footer */}
       <div className="bg-accent/10 border-t border-accent/20 py-6">

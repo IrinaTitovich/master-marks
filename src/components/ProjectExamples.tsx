@@ -81,6 +81,8 @@ const ProjectExamples = () => {
                         category.id === "single-story" ? "object-left" : ""
                       }`}
                       subtle={true}
+                      width={800}
+                      height={600}
                     />
                   </div>
                   <div className="p-6">

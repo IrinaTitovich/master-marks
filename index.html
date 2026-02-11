@@ -6,7 +6,7 @@
     <title>Проектирование Домов | Архитектор-Конструктор</title>
     <meta
       name="description"
-      content="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. Большой опыт в архитектуре и конструировании. Индивидуальный подход к каждому проекту."
+      content="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. С 2006 года. Более 600 реализованных проектов. Большой опыт в архитектуре и конструировании. Индивидуальный подход к каждому проекту."
     />
     <meta
       name="keywords"
@@ -28,7 +28,7 @@
     />
     <meta
       property="og:description"
-      content="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. Большой опыт в архитектуре и конструировании. Индивидуальный подход к каждому проекту."
+      content="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. С 2006 года. Более 600 реализованных проектов. Большой опыт в архитектуре и конструировании."
     />
     <meta property="og:url" content="https://vashproekt.by/" />
     <meta property="og:image" content="https://vashproekt.by/placeholder.svg" />
@@ -43,30 +43,34 @@
     />
     <meta
       name="twitter:description"
-      content="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. Большой опыт в архитектуре и конструировании."
+      content="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. С 2006 года. Более 600 реализованных проектов. Большой опыт в архитектуре и конструировании."
     />
 
-    <!-- DNS prefetch для внешних ресурсов -->
-    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <!-- Hero: preload только при хорошем соединении; при saveData/2g картинку не грузим -->
+    <script>
+      (function () {
+        var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        var skip = conn && (conn.saveData === true || (conn.effectiveType && ['slow-2g', '2g'].includes(conn.effectiveType)));
+        if (skip) {
+          window.__SKIP_HERO_IMAGE = true;
+        } else {
+          var m = document.createElement('link');
+          m.rel = 'preload'; m.as = 'image'; m.href = 'hero-architecture-mobile.jpg'; m.media = '(max-width: 768px)'; m.fetchPriority = 'high';
+          document.head.appendChild(m);
+          var d = document.createElement('link');
+          d.rel = 'preload'; d.as = 'image'; d.href = 'hero-architecture.jpg'; d.media = '(min-width: 769px)'; d.fetchPriority = 'high';
+          document.head.appendChild(d);
+        }
+      })();
+    </script>
 
-    <!-- Preconnect для внешних ресурсов -->
+    <!-- Шрифты в head: подгружаются сразу, display=swap — текст виден с fallback, затем смена на шрифт -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Шрифты загружаются асинхронно для предотвращения блокировки рендеринга -->
     <link
-      rel="preload"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
-      as="style"
-      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
     <!-- Fallback скрипт для старых браузеров -->
     <script>
       /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
@@ -144,14 +148,12 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <!-- Статический hero: без картинки (при слабом соединении не грузим; при хорошем — preload выше) -->
+    <div id="root"><div class="min-h-screen w-full overflow-x-hidden max-w-full" style="min-height:100vh;min-height:100dvh;background:hsl(0 0% 98%);position:relative"><header style="height:4rem;flex-shrink:0" aria-hidden="true"></header><div style="position:absolute;top:4rem;left:0;right:0;bottom:0;overflow:hidden;background:hsl(220 30% 20%)" aria-hidden="true"></div><main style="min-height:calc(100dvh - 4rem)" aria-hidden="true"></main></div></div>
     <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
       <div>
-        <img
-          src="https://mc.yandex.ru/watch/48202565"
-          style="position: absolute; left: -9999px"
-          alt=""
-        />
+        <img src="https://mc.yandex.ru/watch/48202565" style="position: absolute; left: -9999px" alt="" />
       </div>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>

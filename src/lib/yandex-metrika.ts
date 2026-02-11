@@ -25,26 +25,50 @@ export type YandexMetrikaOptions = {
 };
 
 /**
- * Официальный загрузчик Метрики (как в коде «Скопировать» в настройках счётчика).
- * Создаёт window.ym, ставит в очередь вызовы и подключает tag.js.
+ * Создаёт очередь window.ym как в официальном сниппете.
+ * tag.js при загрузке обрабатывает ym.a и выполняет все отложенные вызовы (init, hit и т.д.).
  */
-function injectMetrikaLoader(): void {
-  (function (m: Window, e: Document, t: string, r: string, i: string) {
-    const w = m as unknown as Record<string, unknown>;
-    w[i] =
-      w[i] ||
-      function (...args: unknown[]) {
-        const ym = w[i] as { a?: unknown[] };
-        ym.a = ym.a || [];
-        ym.a.push(args);
-      };
-    (w[i] as { l?: number }).l = 1 * Date.now();
-    const k = e.createElement(t) as HTMLScriptElement;
-    const a = e.getElementsByTagName(t)[0];
-    k.async = true;
-    k.src = r;
-    a.parentNode?.insertBefore(k, a);
-  })(window, document, "script", METRIKA_SCRIPT_URL, "ym");
+function ensureMetrikaQueue(): void {
+  if (typeof window === "undefined") return;
+  const w = window as unknown as Record<string, unknown>;
+  if (w.ym) return;
+  w.ym = function (...args: unknown[]) {
+    const ym = w.ym as { a?: unknown[] };
+    ym.a = ym.a || [];
+    ym.a.push(args); // массив аргументов, как при push(arguments) в официальном коде
+  } as typeof window.ym;
+  (w.ym as { l?: number }).l = 1 * Date.now();
+}
+
+let metrikaScriptScheduled = false;
+
+/** Подключает tag.js (один раз). После загрузки tag.js обработает очередь ym.a и инициализирует счётчик. */
+function injectMetrikaScript(): void {
+  if (typeof document === "undefined") return;
+  if (metrikaScriptScheduled) return;
+  if (Array.from(document.scripts).some((s) => s.src?.startsWith("https://mc.yandex.ru/metrika/"))) return;
+  metrikaScriptScheduled = true;
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = METRIKA_SCRIPT_URL;
+  const first = document.getElementsByTagName("script")[0];
+  first?.parentNode?.insertBefore(script, first);
+}
+
+const DELAY_MS = 4000;
+
+/** Отложенная загрузка tag.js: через 4 с или по первому scroll/click/keydown. Счётчик заработает после загрузки tag.js. */
+function scheduleMetrikaScript(): void {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  const run = () => {
+    injectMetrikaScript();
+    if (timeoutId !== null) clearTimeout(timeoutId);
+    ["scroll", "click", "keydown"].forEach((ev) => window.removeEventListener(ev, run));
+  };
+
+  timeoutId = setTimeout(run, DELAY_MS);
+  ["scroll", "click", "keydown"].forEach((ev) => window.addEventListener(ev, run, { once: true, passive: true }));
 }
 
 /**
@@ -60,28 +84,20 @@ export function initYandexMetrika(
     typeof counterId === "string" ? parseInt(counterId, 10) : counterId;
   if (!id || Number.isNaN(id)) return;
 
-  // Если скрипт уже есть — только init (повторный вызов при hot reload и т.п.)
-  const hasScript = Array.from(document.scripts).some(
-    (s) =>
-      s.src === METRIKA_SCRIPT_URL ||
-      s.src.startsWith("https://mc.yandex.ru/metrika/")
-  );
-  if (!hasScript) {
-    injectMetrikaLoader();
-  }
-
+  ensureMetrikaQueue();
+  scheduleMetrikaScript();
   if (!window.ym) return;
 
   // trackLinks: false — иначе Метрика перехватывает клики по ссылкам (в т.ч. tel:)
-  // и браузер показывает «сайт инициирует вызов»
-  // cookie: false — отключаем использование сторонних кук для соответствия новым требованиям браузеров
+  // cookie: false — отключаем сторонние куки
+  // webvisor: false — Вебвизор использует WebSocket и блокирует back/forward cache (bfcache)
   const initParams = {
     clickmap: true,
     trackLinks: false,
     accurateTrackBounce: true,
-    webvisor: true,
+    webvisor: false,
     ecommerce: "dataLayer",
-    cookie: false, // Отключаем сторонние куки для соответствия новым требованиям браузеров
+    cookie: false,
     ...options,
   };
 

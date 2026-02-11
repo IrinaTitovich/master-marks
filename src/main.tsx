@@ -4,10 +4,15 @@ import App from "./App.tsx";
 import "./index.css";
 import { initYandexMetrika } from "@/lib/yandex-metrika";
 
-// Счётчик загружается сразу при открытии страницы (нужно для проверки в интерфейсе Метрики)
+// Инициализация Метрики после первого рендера, чтобы не блокировать LCP и не мешать bfcache
 const counterId = import.meta.env.VITE_YANDEX_METRIKA_ID;
 if (counterId) {
-  initYandexMetrika(counterId);
+  const runMetrika = () => initYandexMetrika(counterId);
+  if (typeof requestIdleCallback !== "undefined") {
+    requestIdleCallback(runMetrika, { timeout: 3000 });
+  } else {
+    setTimeout(runMetrika, 0);
+  }
 } else {
   console.log(
     "[Yandex Metrika] не запущен: VITE_YANDEX_METRIKA_ID не задан (должен быть в .env.development или .env.production)"
