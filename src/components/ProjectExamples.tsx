@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tag } from "lucide-react";
 import readyProject1 from "@/assets/1.jpg";
 import readyProject2 from "@/assets/2.jpg";
-import readyProject3 from "@/assets/3.png";
+import readyProject3 from "@/assets/3.jpg";
 import WatermarkImage from "@/components/WatermarkImage";
 
 const ProjectExamples = () => {

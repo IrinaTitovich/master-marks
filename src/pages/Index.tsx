@@ -5,6 +5,7 @@ import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
 import SkipLinks from "@/components/SkipLinks";
 import Hero from "@/components/Hero";
+import ViewportSection from "@/components/ViewportSection";
 
 // Lazy loading секций ниже первого экрана для уменьшения первоначального бандла
 const About = lazy(() => import("@/components/About"));
@@ -436,40 +437,40 @@ const Index = () => {
       />
       <main id="main-content" role="main" tabIndex={-1}>
         <Hero />
-        <Suspense
-          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
-        >
-          <About />
-        </Suspense>
-        <Suspense
-          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
-        >
-          <Services />
-        </Suspense>
-        <Suspense
-          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
-        >
-          <ProjectExamples />
-        </Suspense>
-        <Suspense
-          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
-        >
-          <RealProjects />
-        </Suspense>
-        <Suspense
-          fallback={<div className="min-h-[20rem]" aria-hidden="true" />}
-        >
-          <FAQ
-            items={faqItems}
-            title="Часто задаваемые вопросы"
-            description="Ответы на популярные вопросы об услугах проектирования домов в Могилеве и Могилевской области"
-          />
-        </Suspense>
-        <Suspense
-          fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
-        >
-          <Contact />
-        </Suspense>
+        <ViewportSection id="about" minHeight="40rem">
+          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+            <About />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="services" minHeight="40rem">
+          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+            <Services />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="project-examples" minHeight="40rem">
+          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+            <ProjectExamples />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="real-projects" minHeight="40rem">
+          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+            <RealProjects />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="faq" minHeight="28rem">
+          <Suspense fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
+            <FAQ
+              items={faqItems}
+              title="Часто задаваемые вопросы"
+              description="Ответы на популярные вопросы об услугах проектирования домов в Могилеве и Могилевской области"
+            />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="contact" minHeight="40rem">
+          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+            <Contact />
+          </Suspense>
+        </ViewportSection>
       </main>
 
       {/* Скрытый SEO-блок: E-E-A-T, согласование, авторитет (без визуальных изменений) */}
@@ -542,7 +543,7 @@ const Index = () => {
                 className="text-[10px] text-primary-foreground/40 mt-3 font-normal tracking-wide"
                 aria-hidden="true"
               >
-                v1.2.1
+                v1.2.2
               </p>
             </div>
           </div>

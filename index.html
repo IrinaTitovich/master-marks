@@ -46,7 +46,7 @@
       content="Профессиональное проектирование жилых домов в Могилеве, Могилевской области, Беларусь. С 2006 года. Более 600 реализованных проектов. Большой опыт в архитектуре и конструировании."
     />
 
-    <!-- Hero: preload только при хорошем соединении; при saveData/2g картинку не грузим -->
+    <!-- Hero: preload только при хорошем соединении; при saveData/2g картинку не грузим; base из pathname; WebP preload при поддержке -->
     <script>
       (function () {
         var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
@@ -54,23 +54,42 @@
         if (skip) {
           window.__SKIP_HERO_IMAGE = true;
         } else {
+          var p = location.pathname;
+          if (p.indexOf('.') !== -1) p = p.replace(/\/[^/]*$/, '');
+          var __B = (p.endsWith('/') ? p : p + '/');
+          var supportsWebP = document.createElement('canvas').toDataURL('image/webp').indexOf('data:image/webp') === 0;
+          var mobileExt = supportsWebP ? 'hero-architecture-mobile.webp' : 'hero-architecture-mobile.jpg';
+          var desktopExt = supportsWebP ? 'hero-architecture.webp' : 'hero-architecture.jpg';
           var m = document.createElement('link');
-          m.rel = 'preload'; m.as = 'image'; m.href = 'hero-architecture-mobile.jpg'; m.media = '(max-width: 768px)'; m.fetchPriority = 'high';
+          m.rel = 'preload'; m.as = 'image'; m.href = __B + mobileExt; m.media = '(max-width: 768px)'; m.fetchPriority = 'high';
+          if (supportsWebP) m.type = 'image/webp';
           document.head.appendChild(m);
           var d = document.createElement('link');
-          d.rel = 'preload'; d.as = 'image'; d.href = 'hero-architecture.jpg'; d.media = '(min-width: 769px)'; d.fetchPriority = 'high';
+          d.rel = 'preload'; d.as = 'image'; d.href = __B + desktopExt; d.media = '(min-width: 769px)'; d.fetchPriority = 'high';
+          if (supportsWebP) d.type = 'image/webp';
           document.head.appendChild(d);
         }
       })();
     </script>
 
-    <!-- Шрифты в head: подгружаются сразу, display=swap — текст виден с fallback, затем смена на шрифт -->
+    <!-- Шрифты: preload woff2 (Lighthouse CLS culprit) и CSS для ранней загрузки, затем асинхронное применение -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload ключевых шрифтов hero/body (cyrillic) — уменьшает сдвиг при применении шрифта -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTjYgFE_.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      as="style"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" /></noscript>
     <!-- Fallback скрипт для старых браузеров -->
     <script>
       /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
@@ -148,8 +167,8 @@
   </head>
 
   <body>
-    <!-- Статический hero: без картинки (при слабом соединении не грузим; при хорошем — preload выше) -->
-    <div id="root"><div class="min-h-screen w-full overflow-x-hidden max-w-full" style="min-height:100vh;min-height:100dvh;background:hsl(0 0% 98%);position:relative"><header style="height:4rem;flex-shrink:0" aria-hidden="true"></header><div style="position:absolute;top:4rem;left:0;right:0;bottom:0;overflow:hidden;background:hsl(220 30% 20%)" aria-hidden="true"></div><main style="min-height:calc(100dvh - 4rem)" aria-hidden="true"></main></div></div>
+    <!-- Статический hero: структура совпадает с первым кадром React (header 4rem, hero-зона pt-16, aspect-ratio 16/9) для меньшего CLS -->
+    <div id="root"><div class="min-h-screen w-full overflow-x-hidden max-w-full" style="min-height:100vh;min-height:100dvh;background:hsl(0 0% 98%);position:relative"><header style="height:4rem;flex-shrink:0" aria-hidden="true"></header><div style="position:absolute;top:4rem;left:0;right:0;bottom:0;overflow:hidden;background:hsl(220 30% 20%);min-height:100dvh;aspect-ratio:16/9" aria-hidden="true"></div><main style="min-height:calc(100dvh - 4rem);padding-top:4rem" aria-hidden="true"></main></div></div>
     <noscript>
       <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
       <div>

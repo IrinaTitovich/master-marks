@@ -28,6 +28,7 @@ export default defineConfig({
         // Выделяем vendor-чанк для кэширования и уменьшения начального парсинга
         manualChunks(id) {
           if (id.includes("node_modules")) {
+            // Только React core в начальном чанке; react-router уходит в чанк App — меньше unused JS
             if (
               id.includes("react-dom") ||
               id.includes("react/") ||
@@ -36,9 +37,7 @@ export default defineConfig({
             ) {
               return "react-vendor";
             }
-            if (id.includes("react-router")) {
-              return "react-vendor";
-            }
+            // react-router не в react-vendor — подгружается с App
           }
         },
         chunkFileNames: "assets/js/[name]-[hash].js",
