@@ -46,7 +46,7 @@ const Hero = () => {
           {/* Кто я — без анимации для быстрого FCP/LCP */}
           <div className="mb-6 sm:mb-8">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-4 break-words">
-              Архитектор-Конструктор • Могилев и другие регионы Республики Беларусь и РФ
+              Архитектор-Конструктор • Могилев, Могилевская область, Беларусь
             </p>
             
             {/* Рейтинг Google */}
