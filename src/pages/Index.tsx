@@ -5,6 +5,7 @@ import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
 import SkipLinks from "@/components/SkipLinks";
 import Hero from "@/components/Hero";
+import PromoBanner from "@/components/PromoBanner";
 import ViewportSection from "@/components/ViewportSection";
 
 // Lazy loading секций ниже первого экрана для уменьшения первоначального бандла
@@ -383,24 +384,16 @@ const Index = () => {
             <p className="font-semibold text-foreground mb-2">
               Индивидуальное проектирование
             </p>
-            <p className="mb-1">
-              Архитектурные решения (АР): одноэтажный дом — от 600 р.,
-              двухэтажный и мансардный — от 640 р.
-            </p>
-            <p className="mb-1">
-              Конструктивная часть (КР): одноэтажный — от 800 р., двухэтажный —
-              от 850 р.
-            </p>
-            <p>
-              Дополнительно оплачиваются генплан, хозпостройки, сметы и т.д.
-            </p>
+            <p className="mb-1">Индивидуальный проект дома — от 580 р.</p>
+            <p className="mb-1">До середины марта действует скидка</p>
           </div>
           <div>
             <p className="font-semibold text-foreground mb-2">
               Готовые проекты
             </p>
             <p>
-              В каталоге более 600 проектов. Готовые проекты идут со скидкой 50%.
+              В каталоге более 600 проектов. Готовые проекты идут со скидкой
+              50%.
             </p>
           </div>
         </>
@@ -437,28 +430,39 @@ const Index = () => {
       />
       <main id="main-content" role="main" tabIndex={-1}>
         <Hero />
+        <PromoBanner />
         <ViewportSection id="about" minHeight="40rem">
-          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
             <About />
           </Suspense>
         </ViewportSection>
         <ViewportSection id="services" minHeight="40rem">
-          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
             <Services />
           </Suspense>
         </ViewportSection>
         <ViewportSection id="project-examples" minHeight="40rem">
-          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
             <ProjectExamples />
           </Suspense>
         </ViewportSection>
         <ViewportSection id="real-projects" minHeight="40rem">
-          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
             <RealProjects />
           </Suspense>
         </ViewportSection>
         <ViewportSection id="faq" minHeight="28rem">
-          <Suspense fallback={<div className="min-h-[28rem]" aria-hidden="true" />}>
+          <Suspense
+            fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
+          >
             <FAQ
               items={faqItems}
               title="Часто задаваемые вопросы"
@@ -467,7 +471,9 @@ const Index = () => {
           </Suspense>
         </ViewportSection>
         <ViewportSection id="contact" minHeight="40rem">
-          <Suspense fallback={<div className="min-h-[40rem]" aria-hidden="true" />}>
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
             <Contact />
           </Suspense>
         </ViewportSection>
@@ -504,7 +510,7 @@ const Index = () => {
         </div>
       </div>
 
-      <footer className="bg-primary text-primary-foreground py-8">
+      <footer className="relative bg-primary text-primary-foreground pt-8 pb-16">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
@@ -539,15 +545,15 @@ const Index = () => {
               <p className="text-sm text-primary-foreground/70 mt-2">
                 ИП Мацукова Л.Е. УНП 790798662
               </p>
-              <p
-                className="text-[10px] text-primary-foreground/40 mt-3 font-normal tracking-wide"
-                aria-hidden="true"
-              >
-                v1.2.2
-              </p>
             </div>
           </div>
         </div>
+        <p
+          className="absolute bottom-2 right-3 text-[10px] text-primary-foreground/20 font-normal tracking-wide select-none"
+          aria-hidden="true"
+        >
+          v1.3.0
+        </p>
       </footer>
     </div>
   );
