@@ -37,7 +37,7 @@ const ScrollToTop = () => {
       {isVisible && (
         <Button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 rounded-full w-14 h-14 p-0 shadow-2xl hover:shadow-2xl transition-all duration-300 bg-background text-foreground hover:bg-accent hover:text-accent-foreground border-2 border-accent/50 hover:border-accent"
+          className="fixed bottom-8 right-6 z-50 rounded-full w-14 h-14 p-0 shadow-2xl hover:shadow-2xl transition-all duration-300 bg-background text-foreground hover:bg-accent hover:text-accent-foreground border-2 border-accent/50 hover:border-accent"
           aria-label="Наверх"
           style={{
             boxShadow: "0 10px 25px rgba(0, 0, 0, 0.3), 0 0 0 2px rgba(255, 255, 255, 0.1)",

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Phone, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import PageNavigation from "@/components/PageNavigation";
@@ -22,36 +22,7 @@ import {
   Map,
 } from "lucide-react";
 
-const ServicesPage = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const [openService, setOpenService] = useState<string>("");
-  const [activeSection, setActiveSection] = useState<"services" | "packages">(
-    "services"
-  );
-
-  // Прокрутка вверх при переходе на страницу
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
-  }, [location.pathname]);
-
-  const scrollToSection = (
-    sectionId: "services-section" | "packages-section"
-  ) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const services = [
+const services = [
     {
       icon: PenTool,
       title: "Архитектурное проектирование",
@@ -138,7 +109,7 @@ const ServicesPage = () => {
         "Этот комплект документов необходим для получения разрешения на строительство и для работы строительной бригады.",
       ],
       whyImportant:
-        "Рабочая документация (АР+КР) объединяет все преимущества архитектурного и конструктивного проектирования в единый комплект документов для строителей. Без нее невозможно получить разрешение на строительство и правильно построить дом.",
+        "Рабочая документация (АР+КР) объединяет все преимущества архитектурного и конструктивного проектирования в единый комплект документов для строителей. Без нее невозможно правильно построить дом.",
     },
     {
       icon: Lightbulb,
@@ -218,15 +189,10 @@ const ServicesPage = () => {
         "• Требования пожарной безопасности",
         "• Санитарные нормы и отступы",
         "",
-        "Генеральный план необходим для получения разрешения на строительство и правильной организации работ на участке.",
+        "Генеральный план необходим для правильной организации работ на участке.",
       ],
       whyImportant: [
-        "Генеральный план — обязательный документ для строительства в городе и критически важен для правильной организации участка:",
-        "",
-        "Обязательность для городского строительства:",
-        "• В городе без генерального плана нельзя получить разрешение на строительство",
-        "• Генплан необходимо согласовать в соответствующих инстанциях",
-        "• Без согласованного генплана строительство невозможно",
+        "Генеральный план — обязательный документ для строительства и критически важен для правильной организации участка:",
         "",
         "Пожарная безопасность:",
         "• Учет противопожарных разрывов между постройками",
@@ -239,9 +205,91 @@ const ServicesPage = () => {
     },
   ];
 
+const ServicesPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [openService, setOpenService] = useState<string>("");
+  const [activeSection, setActiveSection] = useState<"services" | "packages">(
+    "services",
+  );
+
+  // Прокрутка вверх при переходе на страницу
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [location.pathname]);
+
+  const scrollToSection = (
+    sectionId: "services-section" | "packages-section",
+  ) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const baseUrl = import.meta.env.BASE_URL || "/";
   const siteUrl =
     typeof window !== "undefined" ? window.location.origin + baseUrl : "";
+
+  // Создаем массив Service объектов для каждой услуги
+  const servicesJsonLd = useMemo(() => {
+    const provider = {
+      "@type": "LocalBusiness",
+      name: "Ваш проект - Проектирование домов",
+      address: [
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "пер. 1 Хвойный д. 3",
+          addressCountry: "BY",
+        },
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "ул. Первомайская д. 31",
+          addressCountry: "BY",
+        },
+      ],
+    };
+
+    const areaServed = [
+      {
+        "@type": "City",
+        name: "Могилев",
+        addressRegion: "Могилевская область",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "Country",
+        name: "Беларусь",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "Country",
+        name: "Российская Федерация",
+        addressCountry: "RU",
+      },
+    ];
+
+    return services.map((service) => ({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      serviceType: service.title,
+      name: service.title,
+      description: service.shortDescription,
+      provider,
+      areaServed,
+    }));
+  }, []);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -250,18 +298,41 @@ const ServicesPage = () => {
     provider: {
       "@type": "LocalBusiness",
       name: "Ваш проект - Проектирование домов",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Могилев",
+      address: [
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "пер. 1 Хвойный д. 3",
+          addressCountry: "BY",
+        },
+        {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "ул. Первомайская д. 31",
+          addressCountry: "BY",
+        },
+      ],
+    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "Могилев",
         addressRegion: "Могилевская область",
         addressCountry: "BY",
       },
-    },
-    areaServed: {
-      "@type": "City",
-      name: "Могилев",
-      addressRegion: "Могилевская область",
-    },
+      {
+        "@type": "Country",
+        name: "Беларусь",
+        addressCountry: "BY",
+      },
+      {
+        "@type": "Country",
+        name: "Российская Федерация",
+        addressCountry: "RU",
+      },
+    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Услуги по проектированию домов",
@@ -306,7 +377,7 @@ const ServicesPage = () => {
           keywords="услуги архитектора Могилев, проектирование домов услуги, архитектурное проектирование Могилев, конструктивные решения, рабочая документация АР КР, эскизный проект, реконструкция перепланировка, авторский надзор, генеральный план участка Могилев"
           url="/services"
           canonical="/services"
-          jsonLd={[jsonLd, breadcrumbJsonLd]}
+          jsonLd={[jsonLd, ...servicesJsonLd, breadcrumbJsonLd]}
         />
 
         <div className="container mx-auto px-4 sm:px-6 py-8 sm:py-12">
@@ -354,7 +425,7 @@ const ServicesPage = () => {
             onValueChange={(value) => {
               setActiveSection(value as "services" | "packages");
               scrollToSection(
-                value === "services" ? "services-section" : "packages-section"
+                value === "services" ? "services-section" : "packages-section",
               );
             }}
             className="w-full"
@@ -389,7 +460,7 @@ const ServicesPage = () => {
                                 key={index}
                                 onClick={() => {
                                   setOpenService(
-                                    isActive ? "" : `service-${index}`
+                                    isActive ? "" : `service-${index}`,
                                   );
                                 }}
                                 className={`w-full text-left p-3 rounded-lg transition-all duration-200 flex items-start gap-3 ${
@@ -483,7 +554,7 @@ const ServicesPage = () => {
                                         >
                                           {paragraph}
                                         </p>
-                                      )
+                                      ),
                                     )}
                                   </div>
                                 </div>
@@ -518,7 +589,7 @@ const ServicesPage = () => {
                                               <p key={pIndex}>{paragraph}</p>
                                             );
                                           }
-                                        }
+                                        },
                                       )
                                     ) : (
                                       <p>{service.whyImportant}</p>

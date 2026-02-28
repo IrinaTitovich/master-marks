@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, MapPin, Phone } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 const PageNavigation = () => {
   const location = useLocation();
@@ -109,7 +108,7 @@ const PageNavigation = () => {
     isLocation?: boolean,
     isPage?: boolean,
     path?: string,
-    isSection?: boolean
+    isSection?: boolean,
   ) => {
     if (isPage && path) {
       // Для страниц переходим по маршруту
@@ -227,15 +226,15 @@ const PageNavigation = () => {
                     section.isLocation,
                     section.isPage,
                     section.path,
-                    section.isSection
+                    section.isSection,
                   )
                 }
                 className={`relative rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm overflow-visible ${
                   activeSection === section.id
                     ? "bg-accent text-accent-foreground"
                     : section.id === "services"
-                    ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
-                    : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                      ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                 }`}
               >
                 {section.isLocation && <MapPin className="h-4 w-4" />}
@@ -283,7 +282,7 @@ const PageNavigation = () => {
                       section.isLocation,
                       section.isPage,
                       section.path,
-                      section.isSection
+                      section.isSection,
                     )
                   }
                   role="menuitem"
@@ -294,8 +293,8 @@ const PageNavigation = () => {
                     activeSection === section.id
                       ? "bg-accent text-accent-foreground"
                       : section.id === "services"
-                      ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
-                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                        ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                   }`}
                 >
                   {section.isLocation && <MapPin className="h-4 w-4" />}

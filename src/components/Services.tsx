@@ -53,7 +53,7 @@ const Services = () => {
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
             Услуги
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-4">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-6">
             Полный цикл проектирования — от первого эскиза до сдачи объекта
           </p>
           <Button

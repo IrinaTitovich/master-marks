@@ -16,8 +16,8 @@ const TooltipProvider = lazy(() =>
   }))
 );
 
-// Lazy loading для страниц для улучшения производительности
-const Index = lazy(() => import("./pages/Index"));
+// Главная загружается сразу для быстрого LCP/FCP; остальные страницы — lazy
+import Index from "./pages/Index";
 const ServicesPage = lazy(() => import("./pages/ServicesPage"));
 const ProjectsCatalog = lazy(() => import("./pages/ProjectsCatalog"));
 const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));

@@ -134,11 +134,12 @@ const WatermarkImage = ({
         onDragStart={(e) => e.preventDefault()}
         draggable={false}
         loading="lazy"
-        width={width}
-        height={height}
+        width={width ?? undefined}
+        height={height ?? undefined}
         sizes={sizes}
         srcSet={srcSet}
         decoding="async"
+        style={width && height ? { aspectRatio: `${width}/${height}` } : undefined}
       />
       <canvas ref={canvasRef} style={{ display: "none" }} />
       {children}

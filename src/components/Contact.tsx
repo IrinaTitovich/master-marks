@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import {
@@ -64,13 +64,72 @@ const Contact = () => {
     return () => window.removeEventListener("openLocationMap", handleOpenMap);
   }, []);
 
-  const fullAddress = "Могилев, пер. 1-й Хвойный, д. 3, Беларусь";
-  const shortAddress = "Могилев, пер. 1-й Хвойный, д. 3";
-  const encodedAddress = encodeURIComponent(fullAddress);
+  const addresses = [
+    {
+      full: "пер. 1 Хвойный д. 3, Могилёв, Беларусь",
+      short: "пер. 1 Хвойный д. 3, Могилёв",
+      lat: 53.861778,
+      lon: 30.457444,
+    },
+    {
+      full: "ул. Первомайская д. 31, Могилёв, Беларусь",
+      short: "ул. Первомайская д. 31, Могилёв",
+      lat: 53.8945, // TODO: уточнить координаты для второго адреса
+      lon: 30.3307, // TODO: уточнить координаты для второго адреса
+    },
+  ];
 
-  // Координаты: 53°51'42.4"N 30°27'26.8"E — Могилев, пер. 1-й Хвойный, д. 3
-  const lat = 53.861778;
-  const lon = 30.457444;
+  // Используем только первый адрес для визуального отображения
+  const selectedAddress = addresses[0];
+  const encodedAddress = encodeURIComponent(selectedAddress.full);
+  const lat = selectedAddress.lat;
+  const lon = selectedAddress.lon;
+
+  // Структурированные данные для адресов
+  const contactJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: "Ваш проект - Проектирование домов",
+      address: addresses.map((addr) => ({
+        "@type": "PostalAddress",
+        addressLocality: "Могилев",
+        addressRegion: "Могилевская область",
+        streetAddress: addr.short.split(",")[0].trim(),
+        addressCountry: "BY",
+        addressCountryName: "Беларусь",
+      })),
+      geo: addresses.map((addr) => ({
+        "@type": "GeoCoordinates",
+        latitude: addr.lat.toString(),
+        longitude: addr.lon.toString(),
+      })),
+      telephone: PHONE_NUMBER,
+      email: "vashproekt.by@gmail.com",
+    }),
+    []
+  );
+
+  // Добавляем JSON-LD в head
+  useEffect(() => {
+    const oldScripts = document.querySelectorAll(
+      'script[type="application/ld+json"][data-contact="true"]'
+    );
+    oldScripts.forEach((script) => script.remove());
+
+    const script = document.createElement("script");
+    script.setAttribute("type", "application/ld+json");
+    script.setAttribute("data-contact", "true");
+    script.textContent = JSON.stringify(contactJsonLd);
+    document.head.appendChild(script);
+
+    return () => {
+      const scripts = document.querySelectorAll(
+        'script[type="application/ld+json"][data-contact="true"]'
+      );
+      scripts.forEach((script) => script.remove());
+    };
+  }, [contactJsonLd]);
 
   // Ссылки для карт (iframe) — координаты для точной точки
   const googleMapUrl = `https://www.google.com/maps?q=${lat},${lon}&output=embed`;
@@ -121,6 +180,11 @@ const Contact = () => {
       id="contact"
       className="py-16 sm:py-24 bg-background overflow-x-hidden scroll-mt-20 sm:scroll-mt-24"
     >
+      {/* Скрытый текст для поисковиков - второй адрес */}
+      <div className="sr-only">
+        <p>Адрес офиса: {addresses[1].full}</p>
+        <p>ул. Первомайская д. 31, Могилёв, Беларусь</p>
+      </div>
       <div className="container mx-auto px-4 sm:px-6 w-full max-w-full">
         <div className="max-w-4xl mx-auto w-full">
           <div className="text-center mb-12 sm:mb-16">
@@ -238,11 +302,12 @@ const Contact = () => {
           <Dialog open={mapOpen} onOpenChange={setMapOpen}>
             <DialogContent className="fixed inset-0 left-0 top-0 right-0 bottom-0 max-w-none w-auto p-0 flex items-center justify-center translate-x-0 translate-y-0 bg-transparent border-none shadow-none pointer-events-none [&>*]:pointer-events-auto [&>button]:absolute [&>button]:right-4 [&>button]:top-4 [&>button]:z-10 [&>button]:bg-black/70 [&>button]:text-white [&>button]:hover:bg-black/90 [&>button]:rounded-full [&>button]:h-10 [&>button]:w-10 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:p-0">
               <div className="max-w-4xl w-full max-h-[90vh] overflow-auto mx-4 bg-background rounded-lg shadow-lg border p-6 pointer-events-auto">
-                <h3 className="font-serif text-2xl font-bold text-card-foreground mb-2">
-                  Могилев, Беларусь
+                <h3 className="font-serif text-2xl font-bold text-card-foreground mb-4">
+                  Адрес в Могилеве
                 </h3>
+
                 <p className="text-muted-foreground text-sm mb-4">
-                  {fullAddress}
+                  {selectedAddress.full}
                 </p>
 
                 {/* Карта */}

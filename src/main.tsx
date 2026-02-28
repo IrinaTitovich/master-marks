@@ -1,13 +1,20 @@
-import { startTransition } from "react";
+import { lazy, startTransition, Suspense } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
 import { initYandexMetrika } from "@/lib/yandex-metrika";
 
-// Счётчик загружается сразу при открытии страницы (нужно для проверки в интерфейсе Метрики)
+// App + Router грузятся отдельным чанком — меньше начальный JS (Lighthouse: Reduce unused JavaScript)
+const App = lazy(() => import("./App.tsx"));
+
+// Инициализация Метрики после первого рендера, чтобы не блокировать LCP и не мешать bfcache
 const counterId = import.meta.env.VITE_YANDEX_METRIKA_ID;
 if (counterId) {
-  initYandexMetrika(counterId);
+  const runMetrika = () => initYandexMetrika(counterId);
+  if (typeof requestIdleCallback !== "undefined") {
+    requestIdleCallback(runMetrika, { timeout: 3000 });
+  } else {
+    setTimeout(runMetrika, 0);
+  }
 } else {
   console.log(
     "[Yandex Metrika] не запущен: VITE_YANDEX_METRIKA_ID не задан (должен быть в .env.development или .env.production)"
@@ -27,11 +34,18 @@ if (!rootElement) {
   throw new Error("Root element not found");
 }
 
+const ShellFallback = () => (
+  <div style={{ minHeight: "100dvh", width: "100%", background: "hsl(0 0% 98%)" }} aria-hidden="true" />
+);
+
 try {
   const root = createRoot(rootElement);
-  // Используем startTransition для неблокирующего рендеринга
   startTransition(() => {
-    root.render(<App />);
+    root.render(
+      <Suspense fallback={<ShellFallback />}>
+        <App />
+      </Suspense>
+    );
   });
 } catch (error) {
   // Минимальная обработка ошибок для уменьшения размера бандла

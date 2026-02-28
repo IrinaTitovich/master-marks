@@ -4,6 +4,14 @@ import { Phone, Mail, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogClose } from "@/components/ui/dialog";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 import { projects, Project } from "@/data/projects";
 import WatermarkImage from "@/components/WatermarkImage";
 import SEO from "@/components/SEO";
@@ -22,11 +30,34 @@ const ProjectDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
   // Прокрутка вверх при переходе на страницу
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [location.pathname]);
+
+  // Сброс слайдера на первый слайд при переходе на другой проект
+  useEffect(() => {
+    if (api && id) {
+      api.scrollTo(0);
+      setCurrent(1);
+    }
+  }, [id, api]);
+
+  // Отслеживание текущего слайда
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
   const project = projects.find((p) => p.id === id);
 
@@ -96,12 +127,22 @@ const ProjectDetail = () => {
       manufacturer: {
         "@type": "Organization",
         name: "Ваш проект - Проектирование домов",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Могилев",
-          addressRegion: "Могилевская область",
-          addressCountry: "BY",
-        },
+        address: [
+          {
+            "@type": "PostalAddress",
+            addressLocality: "Могилев",
+            addressRegion: "Могилевская область",
+            streetAddress: "пер. 1 Хвойный д. 3",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "PostalAddress",
+            addressLocality: "Могилев",
+            addressRegion: "Могилевская область",
+            streetAddress: "ул. Первомайская д. 31",
+            addressCountry: "BY",
+          },
+        ],
       },
       offers: {
         "@type": "Offer",
@@ -200,11 +241,6 @@ const ProjectDetail = () => {
 
             {/* Заголовок */}
             <div className="mb-8">
-              {project.projectNumber && (
-                <span className="text-accent font-semibold text-sm mb-2 block">
-                  Проект №{project.projectNumber}
-                </span>
-              )}
               <h1 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-4">
                 {project.title}
               </h1>
@@ -225,26 +261,131 @@ const ProjectDetail = () => {
               )}
             </div>
 
-            {/* Изображения */}
-            {project.images && project.images.length > 0 && (
-              <div className="mb-8">
-                <div className="grid md:grid-cols-3 gap-4">
-                  {project.images.map((img, index) => (
-                    <div
-                      key={index}
-                      onClick={() => setSelectedImage(img)}
-                      className="aspect-[4/3] overflow-hidden rounded-lg shadow-[var(--shadow-soft)] cursor-pointer hover:shadow-[var(--shadow-elegant)] transition-all duration-300 group"
-                    >
-                      <WatermarkImage
-                        src={img}
-                        alt={`${project.title} - изображение ${index + 1}`}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
+            {/* Основной контент: слайдер слева, описание и CTA справа */}
+            <div className="grid lg:grid-cols-3 gap-4 lg:gap-8 mb-8">
+              {/* Левая колонка: Слайдер изображений */}
+              {project.images && project.images.length > 0 && (
+                <div className="lg:col-span-2 order-1">
+                  <Carousel setApi={setApi} className="w-full">
+                    <CarouselContent>
+                      {project.images.map((img, index) => {
+                        const isSpecialProject = project.id === "project-350" || project.id === "project-333";
+                        const isProjectWithRotatedPlans = project.id === "project-244" || project.id === "project-245" || project.id === "project-251" || project.id === "project-321" || project.id === "project-307" || project.id === "project-282";
+                        const isSecondImage = isSpecialProject && index === 1;
+                        const isNonFirstImage = isProjectWithRotatedPlans && index > 0;
+                        return (
+                          <CarouselItem key={index}>
+                            <div
+                              onClick={() => setSelectedImage(img)}
+                              className={`rounded-lg shadow-[var(--shadow-soft)] cursor-pointer hover:shadow-[var(--shadow-elegant)] transition-all duration-300 group flex items-center justify-center bg-muted/20 ${
+                                isSpecialProject || isProjectWithRotatedPlans
+                                  ? (isSecondImage || isNonFirstImage)
+                                    ? "p-2 min-h-[250px] md:min-h-[350px] lg:min-h-[500px]" 
+                                    : "aspect-[4/3] overflow-hidden"
+                                  : "aspect-[4/3] overflow-hidden"
+                              }`}
+                            >
+                              <WatermarkImage
+                                src={img}
+                                alt={`${project.title} - изображение ${index + 1}`}
+                                className={`group-hover:scale-110 transition-transform duration-500 ${
+                                  isSpecialProject || isProjectWithRotatedPlans
+                                    ? (isSecondImage || isNonFirstImage)
+                                      ? "w-full h-auto max-w-full object-contain rotate-[-90deg] scale-75"
+                                      : "w-full h-auto max-w-full object-contain"
+                                    : "w-full h-full object-cover"
+                                }`}
+                              />
+                            </div>
+                          </CarouselItem>
+                        );
+                      })}
+                    </CarouselContent>
+                    {project.images.length > 1 && (
+                      <>
+                        <CarouselPrevious className="left-1 lg:left-4 h-10 w-10 lg:h-12 lg:w-12" />
+                        <CarouselNext className="right-1 lg:right-4 h-10 w-10 lg:h-12 lg:w-12" />
+                      </>
+                    )}
+                    {/* Индикаторы слайдов */}
+                    {project.images.length > 1 && (
+                      <div className="flex justify-center gap-2 mt-2 lg:mt-4">
+                        {project.images.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => api?.scrollTo(index)}
+                            className={`h-2 rounded-full transition-all ${
+                              current === index + 1
+                                ? "w-8 bg-accent"
+                                : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                            }`}
+                            aria-label={`Перейти к слайду ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </Carousel>
+                </div>
+              )}
+
+              {/* Правая колонка: Описание и CTA */}
+              <div className="lg:col-span-1 order-2 space-y-6 lg:space-y-8">
+                {/* Описание проекта */}
+                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-8">
+                  <h2 className="font-serif text-2xl font-bold text-card-foreground mb-6">
+                    Описание проекта
+                  </h2>
+                  {project.description && (
+                    <div className="text-card-foreground text-lg leading-relaxed space-y-4">
+                      <p className="whitespace-pre-line">
+                        {project.description}
+                      </p>
                     </div>
-                  ))}
+                  )}
+                </div>
+
+                {/* Боковая панель CTA */}
+                <div className="lg:sticky lg:top-6">
+                  <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 border-2 border-accent/20">
+                    <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
+                      Заинтересовал этот проект?
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      Позвоните для консультации и расчёта стоимости адаптации
+                      проекта под ваш участок
+                    </p>
+                    <div className="mb-6 space-y-2 text-xs text-muted-foreground">
+                      <div className="flex items-center gap-2">
+                        <span className="text-accent">✓</span>
+                        <span>Бесплатная консультация</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-accent">✓</span>
+                        <span>Адаптация под ваш участок</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-accent">✓</span>
+                        <span>Расчет стоимости проекта</span>
+                      </div>
+                    </div>
+                    <a
+                      href="tel:+375296745773"
+                      className="inline-flex items-center justify-center gap-2 w-full mb-3 h-11 rounded-md py-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl transition-all text-base [&_svg]:shrink-0"
+                    >
+                      <Phone className="mr-2 h-4 w-4" />
+                      Позвонить для консультации
+                    </a>
+                    <a
+                      href="mailto:vashproekt.by@gmail.com"
+                      className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors [&_svg]:shrink-0"
+                    >
+                      <Mail className="mr-2 h-4 w-4" />
+                      Написать на email
+                    </a>
+                  </div>
                 </div>
               </div>
-            )}
+            </div>
 
             {/* Модальное окно для увеличенного просмотра */}
             <Dialog
@@ -257,7 +398,12 @@ const ProjectDetail = () => {
                     <WatermarkImage
                       src={selectedImage}
                       alt={`${project.title} - увеличенное изображение`}
-                      className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+                      className={`w-full h-auto max-h-[90vh] object-contain rounded-lg ${
+                        ((project.id === "project-350" || project.id === "project-333") && project.images.indexOf(selectedImage) === 1) ||
+                        ((project.id === "project-244" || project.id === "project-245" || project.id === "project-251" || project.id === "project-321" || project.id === "project-307" || project.id === "project-282") && project.images.indexOf(selectedImage) > 0)
+                          ? "rotate-[-90deg]"
+                          : ""
+                      }`}
                     />
                     <DialogClose asChild>
                       <Button
@@ -272,65 +418,6 @@ const ProjectDetail = () => {
                 )}
               </DialogContent>
             </Dialog>
-
-            {/* Описание и детали */}
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div className="md:col-span-2">
-                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-8">
-                  <h2 className="font-serif text-2xl font-bold text-card-foreground mb-6">
-                    Описание проекта
-                  </h2>
-                  {project.description && (
-                    <div className="text-card-foreground text-lg leading-relaxed space-y-4">
-                      <p className="whitespace-pre-line">
-                        {project.description}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Боковая панель */}
-              <div>
-                <div className="bg-card rounded-lg shadow-[var(--shadow-soft)] p-6 sticky top-6 border-2 border-accent/20">
-                  <h3 className="font-serif text-xl font-bold text-card-foreground mb-2">
-                    Заинтересовал этот проект?
-                  </h3>
-                  <p className="text-muted-foreground text-sm mb-4">
-                    Позвоните для консультации и расчёта стоимости адаптации
-                    проекта под ваш участок
-                  </p>
-                  <div className="mb-6 space-y-2 text-xs text-muted-foreground">
-                    <div className="flex items-center gap-2">
-                      <span className="text-accent">✓</span>
-                      <span>Бесплатная консультация</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-accent">✓</span>
-                      <span>Адаптация под ваш участок</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-accent">✓</span>
-                      <span>Расчет стоимости проекта</span>
-                    </div>
-                  </div>
-                  <a
-                    href="tel:+375296745773"
-                    className="inline-flex items-center justify-center gap-2 w-full mb-3 h-11 rounded-md py-6 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold shadow-lg hover:shadow-xl transition-all text-base [&_svg]:shrink-0"
-                  >
-                    <Phone className="mr-2 h-4 w-4" />
-                    Позвонить для консультации
-                  </a>
-                  <a
-                    href="mailto:vashproekt.by@gmail.com"
-                    className="inline-flex items-center justify-center gap-2 w-full h-11 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-colors [&_svg]:shrink-0"
-                  >
-                    <Mail className="mr-2 h-4 w-4" />
-                    Написать на email
-                  </a>
-                </div>
-              </div>
-            </div>
 
             {/* Связанные проекты */}
             {relatedProjects.length > 0 && (

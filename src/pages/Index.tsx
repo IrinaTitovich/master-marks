@@ -4,14 +4,17 @@ import { Phone, Instagram } from "lucide-react";
 import SEO from "@/components/SEO";
 import PageNavigation from "@/components/PageNavigation";
 import SkipLinks from "@/components/SkipLinks";
+import Hero from "@/components/Hero";
+import PromoBanner from "@/components/PromoBanner";
+import ViewportSection from "@/components/ViewportSection";
 
-// Lazy loading компонентов для уменьшения первоначального бандла
-const Hero = lazy(() => import("@/components/Hero"));
+// Lazy loading секций ниже первого экрана для уменьшения первоначального бандла
 const About = lazy(() => import("@/components/About"));
 const Services = lazy(() => import("@/components/Services"));
 const ProjectExamples = lazy(() => import("@/components/ProjectExamples"));
 const RealProjects = lazy(() => import("@/components/RealProjects"));
 const Contact = lazy(() => import("@/components/Contact"));
+const FAQ = lazy(() => import("@/components/FAQ"));
 
 const Index = () => {
   const location = useLocation();
@@ -84,6 +87,26 @@ const Index = () => {
       alternateName: "Архитектор-Конструктор",
       url: siteUrl,
       logo: `${siteUrl}placeholder.svg`,
+      foundingDate: "2006",
+      areaServed: [
+        {
+          "@type": "City",
+          name: "Могилев",
+          addressRegion: "Могилевская область",
+          addressCountry: "BY",
+        },
+        {
+          "@type": "AdministrativeArea",
+          name: "Могилевская область",
+          addressCountry: "BY",
+        },
+      ],
+      knowsAbout: [
+        "Проектирование",
+        "Архитектура",
+        "Конструкции",
+        "Реконструкции",
+      ],
       contactPoint: {
         "@type": "ContactPoint",
         telephone: "+375-29-674-57-73",
@@ -105,83 +128,166 @@ const Index = () => {
         addressCountryName: "Беларусь",
       },
     }),
-    [siteUrl]
+    [siteUrl],
   );
 
   const localBusinessJsonLd = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      name: "Ваш проект - Проектирование домов",
-      alternateName: "Архитектор-Конструктор",
-      description:
-        "Проект Могилев, проектирование Могилев, проект дома Могилев, архитектор Могилев. Профессиональное проектирование жилых домов в Могилеве, Могилевской области. Архитектурное проектирование, готовые проекты домов.",
-      url: siteUrl,
-      telephone: "+375-29-674-57-73",
-      email: "vashproekt.by@gmail.com",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Могилев",
-        addressRegion: "Могилевская область",
-        streetAddress: "Могилев, пер. 1-й Хвойный, д. 3",
-        postalCode: "",
-        addressCountry: "BY",
-        addressCountryName: "Беларусь",
-      },
-      areaServed: {
-        "@type": "City",
-        name: "Могилев",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: "53.861778",
-        longitude: "30.457444",
-        addressLocality: "Могилев",
-        addressRegion: "Могилевская область",
-        addressCountry: "BY",
-      },
-      priceRange: "$$",
-      openingHoursSpecification: {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-        ],
-        opens: "09:00",
-        closes: "18:00",
-      },
-      aggregateRating: {
-        "@type": "AggregateRating",
-        ratingValue: "5.0",
-        reviewCount: "50",
-        bestRating: "5",
-        worstRating: "1",
-      },
-      review: [
-        {
-          "@type": "Review",
-          author: {
-            "@type": "Person",
-            name: "Клиент",
-          },
-          datePublished: "2024-01-15",
-          reviewBody:
-            "Отличная работа! Проект выполнен качественно и в срок. Рекомендую!",
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue: "5",
-            bestRating: "5",
-          },
+    () => [
+      // Первый адрес: пер. 1 Хвойный д. 3
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Ваш проект - Проектирование домов",
+        alternateName: "Архитектор-Конструктор",
+        description:
+          "Проект Могилев, проектирование Могилев, проект дома Могилев, архитектор Могилев. Профессиональное проектирование жилых домов в Могилеве, Могилевской области. Архитектурное проектирование, готовые проекты домов.",
+        url: siteUrl,
+        telephone: "+375-29-674-57-73",
+        email: "vashproekt.by@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "пер. 1 Хвойный д. 3",
+          postalCode: "",
+          addressCountry: "BY",
+          addressCountryName: "Беларусь",
         },
-      ],
-    }),
-    [siteUrl]
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Могилев",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "Country",
+            name: "Беларусь",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "Country",
+            name: "Российская Федерация",
+            addressCountry: "RU",
+          },
+        ],
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: "53.8945",
+          longitude: "30.3307",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          addressCountry: "BY",
+        },
+        priceRange: "$$",
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          opens: "09:00",
+          closes: "18:00",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          reviewCount: "50",
+          bestRating: "5",
+          worstRating: "1",
+        },
+        review: [
+          {
+            "@type": "Review",
+            author: {
+              "@type": "Person",
+              name: "Клиент",
+            },
+            datePublished: "2024-01-15",
+            reviewBody:
+              "Отличная работа! Проект выполнен качественно и в срок. Рекомендую!",
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: "5",
+              bestRating: "5",
+            },
+          },
+        ],
+      },
+      // Второй адрес: ул. Первомайская д. 31
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        name: "Ваш проект - Проектирование домов",
+        alternateName: "Архитектор-Конструктор",
+        description:
+          "Проект Могилев, проектирование Могилев, проект дома Могилев, архитектор Могилев. Профессиональное проектирование жилых домов в Могилеве, Могилевской области. Архитектурное проектирование, готовые проекты домов.",
+        url: siteUrl,
+        telephone: "+375-29-674-57-73",
+        email: "vashproekt.by@gmail.com",
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          streetAddress: "ул. Первомайская д. 31",
+          postalCode: "",
+          addressCountry: "BY",
+          addressCountryName: "Беларусь",
+        },
+        areaServed: [
+          {
+            "@type": "City",
+            name: "Могилев",
+            addressRegion: "Могилевская область",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "Country",
+            name: "Беларусь",
+            addressCountry: "BY",
+          },
+          {
+            "@type": "Country",
+            name: "Российская Федерация",
+            addressCountry: "RU",
+          },
+        ],
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: "53.8945",
+          longitude: "30.3307",
+          addressLocality: "Могилев",
+          addressRegion: "Могилевская область",
+          addressCountry: "BY",
+        },
+        priceRange: "$$",
+        openingHoursSpecification: {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+          ],
+          opens: "09:00",
+          closes: "18:00",
+        },
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: "5.0",
+          reviewCount: "50",
+          bestRating: "5",
+          worstRating: "1",
+        },
+      },
+    ],
+    [siteUrl],
   );
 
   const websiteJsonLd = useMemo(
@@ -198,8 +304,117 @@ const Index = () => {
         "query-input": "required name=search_term_string",
       },
     }),
-    [siteUrl]
+    [siteUrl],
   );
+
+  const howToJsonLd = useMemo(
+    () => ({
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      name: "Как заказать проект дома в Могилеве",
+      description:
+        "Пошаговая инструкция по заказу проекта дома у архитектора-конструктора в Могилеве и Могилевской области",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Консультация и обсуждение требований",
+          text: "Свяжитесь с архитектором по телефону или через форму обратной связи. Обсудите ваши пожелания: площадь дома, количество этажей, стиль, бюджет, особенности участка.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Выезд на участок и замеры",
+          text: "Архитектор выезжает на ваш участок для проведения замеров, анализа рельефа, ориентации по сторонам света и существующих коммуникаций.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Разработка эскизного проекта",
+          text: "На основе ваших требований и особенностей участка разрабатывается эскизный проект с планировками, фасадами и основными архитектурными решениями.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Согласование эскиза",
+          text: "Вы просматриваете эскизный проект, вносите корректировки и изменения. После согласования переходим к следующему этапу.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 5,
+          name: "Разработка рабочего проекта",
+          text: "Создается полный рабочий проект с архитектурными и конструктивными решениями, планами, разрезами, спецификациями материалов и всеми необходимыми чертежами.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 6,
+          name: "Согласование проекта",
+          text: "Проект согласовывается в соответствующих инстанциях (исполком, архитектура) для получения разрешения на строительство.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 7,
+          name: "Авторский надзор (опционально)",
+          text: "При необходимости архитектор может осуществлять авторский надзор за строительством для контроля соответствия проекта и консультаций.",
+        },
+      ],
+      totalTime: "PT4W",
+    }),
+    [],
+  );
+
+  const faqItems = [
+    {
+      question: "Где вы находитесь? В каких городах работаете?",
+      answer:
+        "Места проектирования: Могилев и другие регионы Республики Беларусь и РФ. Офис расположен по адресу: пер. 1 Хвойный д. 3, Могилев. Выезжаю на объекты для консультаций и замеров.",
+    },
+    {
+      question: "Какие услуги по проектированию вы предоставляете?",
+      answer:
+        "Я предоставляю полный спектр услуг по проектированию жилых домов: архитектурное проектирование, конструктивное проектирование, разработка индивидуальных проектов, адаптация готовых проектов под ваш участок, консультации по строительству, разработка проектов одноэтажных, двухэтажных и мансардных домов, различных хозяйственных построек(баня, гараж, сарай, беседка, летняя кухня и прочее), а также рекоменструкция существующих строений.",
+    },
+    {
+      question: "Сколько стоит проектирование дома?",
+      answerPlainText:
+        "Индивидуальное проектирование: АР — одноэтажный от 600 р., двухэтажный и мансардный от 640 р.; КР — одноэтажный от 800 р., двухэтажный от 850 р. Дополнительно оплачиваются генплан, хозпостройки, сметы и т.д. Готовые проекты: в каталоге более 600 проектов, со скидкой 50%.",
+      answer: (
+        <>
+          <div>
+            <p className="font-semibold text-foreground mb-2">
+              Индивидуальное проектирование
+            </p>
+            <p className="mb-1">Индивидуальный проект дома — от 580 р.</p>
+            <p className="mb-1">До середины марта действует скидка</p>
+          </div>
+          <div>
+            <p className="font-semibold text-foreground mb-2">
+              Готовые проекты
+            </p>
+            <p>
+              В каталоге более 600 проектов. Готовые проекты идут со скидкой
+              50%.
+            </p>
+          </div>
+        </>
+      ),
+    },
+    {
+      question: "Как проходит процесс проектирования дома?",
+      answer:
+        "Процесс начинается с консультации и обсуждения ваших пожеланий. При необходимости я выезжаю на участок для замеров и анализа условий. Разрабатываю эскизный проект, который согласовываем с вами. После утверждения создаю рабочий проект с архитектурными и конструктивными решениями, планами, разрезами и спецификациями. Длительность процесса зависит от уровня сложности.",
+    },
+    {
+      question: "Можно ли адаптировать готовый проект под мой участок?",
+      answer:
+        "Не каждый проект можно удачно адаптировать под конкретно ваш участок. Однако, учитывая что у нас более 600 готовых проектов в каталоге и возможность индивидуального проектирования, мы обязательно найдем решение. Я могу адаптировать готовый проект под особенности вашего участка: рельеф, размеры, ориентацию по сторонам света, требования местных строительных норм. Если готовый проект не подойдет идеально, разработаю индивидуальный проект по вашим пожеланиям и особенностям участка.",
+    },
+    {
+      question: "Работаете ли вы с заказчиками из других городов?",
+      answer:
+        "Да, я работаю с клиентами из Могилева и других регионов Республики Беларусь и РФ. Для удаленных заказчиков возможна работа через онлайн-консультации и выезды на объект по договоренности.",
+    },
+  ];
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden max-w-full">
@@ -207,32 +422,79 @@ const Index = () => {
       <PageNavigation />
       <SEO
         title="Проектирование Домов в Могилеве | Архитектор-Конструктор"
-        description="Профессиональное проектирование жилых домов в Могилеве и Могилевской области. 20+ лет опыта. Индивидуальные и готовые проекты одноэтажных, двухэтажных и мансардных домов."
+        description="Профессиональное проектирование жилых домов в Могилеве и Могилевской области. С 2006 года. Более 600 реализованных проектов. 20+ лет опыта. Индивидуальные и готовые проекты одноэтажных, двухэтажных и мансардных домов."
         keywords="проект могилев, проектирование могилев, проект дома могилев, архитектор могилев, конструктор Могилев, проектирование домов Могилев, архитектурное проектирование Могилевская область, проектирование жилых домов Могилев, индивидуальное проектирование Могилев, архитектура Могилев, строительство Могилев, проекты домов Могилев, готовые проекты домов Могилевская область"
         url="/"
         canonical="/"
-        jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd]}
+        jsonLd={[jsonLd, localBusinessJsonLd, websiteJsonLd, howToJsonLd]}
       />
       <main id="main-content" role="main" tabIndex={-1}>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <Hero />
-        </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
-          <About />
-        </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
-          <Services />
-        </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
-          <ProjectExamples />
-        </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
-          <RealProjects />
-        </Suspense>
-        <Suspense fallback={<div className="h-96" />}>
-          <Contact />
-        </Suspense>
+        <Hero />
+        <PromoBanner />
+        <ViewportSection id="about" minHeight="40rem">
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
+            <About />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="services" minHeight="40rem">
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
+            <Services />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="project-examples" minHeight="40rem">
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
+            <ProjectExamples />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="real-projects" minHeight="40rem">
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
+            <RealProjects />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="faq" minHeight="28rem">
+          <Suspense
+            fallback={<div className="min-h-[28rem]" aria-hidden="true" />}
+          >
+            <FAQ
+              items={faqItems}
+              title="Часто задаваемые вопросы"
+              description="Ответы на популярные вопросы об услугах проектирования домов в Могилеве и Могилевской области"
+            />
+          </Suspense>
+        </ViewportSection>
+        <ViewportSection id="contact" minHeight="40rem">
+          <Suspense
+            fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
+          >
+            <Contact />
+          </Suspense>
+        </ViewportSection>
       </main>
+
+      {/* Скрытый SEO-блок: E-E-A-T, согласование, авторитет (без визуальных изменений) */}
+      <div className="sr-only" aria-hidden="true">
+        <p>
+          Ваш Проект — Проектирование домов в Могилеве с 2006 года. Более 600
+          реализованных проектов.
+        </p>
+        <p>
+          Согласование проектов в Могилеве. Проект дома для Могилевского
+          облисполкома/горисполкома. Архитектурное бюро Могилев. Конструкторское
+          бюро Могилев.
+        </p>
+        <p>
+          Старейшее частное архитектурное бюро Могилева с опытом работы более 20
+          лет.
+        </p>
+      </div>
 
       {/* Hint перед footer */}
       <div className="bg-accent/10 border-t border-accent/20 py-6">
@@ -248,7 +510,7 @@ const Index = () => {
         </div>
       </div>
 
-      <footer className="bg-primary text-primary-foreground py-8">
+      <footer className="relative bg-primary text-primary-foreground pt-8 pb-16">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left">
@@ -292,6 +554,12 @@ const Index = () => {
             </div>
           </div>
         </div>
+        <p
+          className="absolute bottom-2 right-3 text-[10px] text-primary-foreground/20 font-normal tracking-wide select-none"
+          aria-hidden="true"
+        >
+          v1.3.0
+        </p>
       </footer>
     </div>
   );

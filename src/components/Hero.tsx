@@ -1,7 +1,20 @@
 import { Button } from "@/components/ui/button";
-import heroImage from "@/assets/hero-architecture.jpg";
 import { ArrowRight, Phone, Star, Award } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+
+const base = typeof import.meta.env.BASE_URL === "string" ? import.meta.env.BASE_URL : "/";
+const heroImageUrl = base + "hero-architecture.jpg";
+const heroImageUrlMobile = base + "hero-architecture-mobile.jpg";
+const heroImageUrlWebp = base + "hero-architecture.webp";
+const heroImageUrlWebpMobile = base + "hero-architecture-mobile.webp";
+
+declare global {
+  interface Window {
+    __SKIP_HERO_IMAGE?: boolean;
+  }
+}
+
+const skipHeroImage = typeof window !== "undefined" && window.__SKIP_HERO_IMAGE === true;
 
 const Hero = () => {
   const navigate = useNavigate();
@@ -10,22 +23,34 @@ const Hero = () => {
     <section
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16 scroll-mt-0"
+      style={{ contain: "layout style paint" }}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
-        role="img"
-        aria-label="Архитектурное проектирование домов - профессиональные услуги в Могилеве"
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" />
+      <div className="absolute inset-0 min-h-[100dvh] aspect-[16/9]">
+        {!skipHeroImage && (
+          <picture>
+            <source type="image/webp" media="(max-width: 768px)" srcSet={heroImageUrlWebpMobile} />
+            <source type="image/webp" media="(min-width: 769px)" srcSet={heroImageUrlWebp} />
+            <source media="(max-width: 768px)" srcSet={heroImageUrlMobile} />
+            <img
+              src={heroImageUrl}
+              alt="Архитектурное проектирование домов - профессиональные услуги в Могилеве"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+              width={1920}
+              height={1080}
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/60" aria-hidden="true" />
       </div>
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6 py-20 sm:py-32 w-full max-w-full overflow-x-hidden">
         <div className="max-w-4xl mx-auto w-full">
-          {/* Кто я */}
-          <div className="mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+          {/* Кто я: min-height резервирует место при FOUT — меньше CLS */}
+          <div className="mb-6 sm:mb-8 min-h-[7rem] sm:min-h-[8rem]">
             <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 font-semibold mb-4 break-words">
-              Архитектор-Конструктор • Могилев, Могилевская область
+              Архитектор-Конструктор • Могилев, Могилевская область, Беларусь
             </p>
             
             {/* Рейтинг Google */}
@@ -55,8 +80,8 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Чем занимаюсь */}
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-6 sm:mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000 leading-tight break-words">
+          {/* Чем занимаюсь: min-height резервирует место при смене шрифта (FOUT) — меньше CLS */}
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-primary-foreground mb-6 sm:mb-8 leading-tight break-words min-h-[2.5em] sm:min-h-[1.25em]">
             Проектирование домов
           </h1>
 
@@ -67,8 +92,8 @@ const Hero = () => {
             могилев, архитектор могилев.
           </p>
 
-          {/* Детали */}
-          <div className="mb-10 sm:mb-12 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200 space-y-4 sm:space-y-5">
+          {/* Детали: min-height при FOUT — меньше CLS */}
+          <div className="mb-10 sm:mb-12 space-y-4 sm:space-y-5 min-h-[6.5rem] sm:min-h-[7rem]">
             <div className="space-y-0 leading-snug">
               <p className="text-base sm:text-lg md:text-xl text-primary-foreground/90 font-medium break-words">
                 Более 20 лет опыта в архитектуре и конструировании
@@ -87,8 +112,8 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Что дальше - CTA */}
-          <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300">
+          {/* Что дальше - CTA: резерв высоты при FOUT */}
+          <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center min-h-[4.5rem] sm:min-h-[3.75rem]">
             <a
               href="tel:+375296745773"
               className="inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors bg-accent text-accent-foreground hover:bg-accent/90 shadow-[var(--shadow-elegant)] hover:shadow-[var(--shadow-soft)] hover:scale-105 text-base sm:text-lg px-4 sm:px-8 min-h-[3.25rem] sm:min-h-[3.75rem] w-full sm:w-auto whitespace-normal [&_svg]:shrink-0"

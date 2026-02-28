@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import sitemapPlugin from "./vite-plugin-sitemap";
+import deferCssPlugin from "./vite-plugin-defer-css";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,7 +13,7 @@ export default defineConfig({
     host: "::",
     port: 2000,
   },
-  plugins: [react(), sitemapPlugin()],
+  plugins: [react(), sitemapPlugin(), deferCssPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -24,8 +25,21 @@ export default defineConfig({
     outDir: "dist",
     rollupOptions: {
       output: {
-        // Позволяем Vite автоматически управлять разделением чанков
-        // Оптимизация имен файлов для лучшего кэширования
+        // Выделяем vendor-чанк для кэширования и уменьшения начального парсинга
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            // Только React core в начальном чанке; react-router уходит в чанк App — меньше unused JS
+            if (
+              id.includes("react-dom") ||
+              id.includes("react/") ||
+              id.includes("react\\") ||
+              id.includes("scheduler")
+            ) {
+              return "react-vendor";
+            }
+            // react-router не в react-vendor — подгружается с App
+          }
+        },
         chunkFileNames: "assets/js/[name]-[hash].js",
         entryFileNames: "assets/js/[name]-[hash].js",
         assetFileNames: (assetInfo) => {
