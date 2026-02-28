@@ -123,7 +123,7 @@ const Index = () => {
         "@type": "PostalAddress",
         addressLocality: "Могилев",
         addressRegion: "Могилевская область",
-        streetAddress: "пер. 1 Хвойный д. 3",
+        streetAddress: "Могилев, пер. 1-й Хвойный, д. 3",
         postalCode: "",
         addressCountry: "BY",
         addressCountryName: "Беларусь",
@@ -136,8 +136,8 @@ const Index = () => {
       },
       geo: {
         "@type": "GeoCoordinates",
-        latitude: "53.8945",
-        longitude: "30.3307",
+        latitude: "53.861778",
+        longitude: "30.457444",
         addressLocality: "Могилев",
         addressRegion: "Могилевская область",
         addressCountry: "BY",
@@ -287,7 +287,7 @@ const Index = () => {
                 className="text-[10px] text-primary-foreground/40 mt-3 font-normal tracking-wide"
                 aria-hidden="true"
               >
-                v1.1.1
+                v1.1.2
               </p>
             </div>
           </div>

@@ -265,6 +265,18 @@ const PageNavigation = () => {
               {sections.map((section) => (
                 <button
                   key={section.id}
+                  onPointerDown={(e) => {
+                    if (section.isLocation && e.pointerType === "touch") {
+                      e.preventDefault();
+                      scrollToSection(
+                        section.id,
+                        section.isLocation,
+                        section.isPage,
+                        section.path,
+                        section.isSection
+                      );
+                    }
+                  }}
                   onClick={() =>
                     scrollToSection(
                       section.id,

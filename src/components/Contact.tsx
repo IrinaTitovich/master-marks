@@ -64,20 +64,20 @@ const Contact = () => {
     return () => window.removeEventListener("openLocationMap", handleOpenMap);
   }, []);
 
-  const fullAddress = "пер. 1 Хвойный д. 3, Могилёв, Беларусь";
-  const shortAddress = "пер. 1 Хвойный д. 3, Могилёв";
+  const fullAddress = "Могилев, пер. 1-й Хвойный, д. 3, Беларусь";
+  const shortAddress = "Могилев, пер. 1-й Хвойный, д. 3";
   const encodedAddress = encodeURIComponent(fullAddress);
 
-  // Координаты для карты: пер. 1 Хвойный д. 3, Могилёв
-  const lat = 53.8945;
-  const lon = 30.3307;
+  // Координаты: 53°51'42.4"N 30°27'26.8"E — Могилев, пер. 1-й Хвойный, д. 3
+  const lat = 53.861778;
+  const lon = 30.457444;
 
-  // Ссылки для карт (iframe) — адрес в запросе, чтобы карта открывалась на нужной локации
-  const googleMapUrl = `https://www.google.com/maps?q=${encodedAddress}&output=embed`;
+  // Ссылки для карт (iframe) — координаты для точной точки
+  const googleMapUrl = `https://www.google.com/maps?q=${lat},${lon}&output=embed`;
   const yandexMapUrl = `https://yandex.ru/map-widget/v1/?ll=${lon},${lat}&z=16&pt=${lon},${lat}&l=map`;
 
-  // Ссылки для навигаторов
-  const googleNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+  // Ссылки для навигаторов (координаты для точного открытия точки)
+  const googleNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
   const yandexNavUrl = `yandexnavi://build_route?lat_to=${lat}&lon_to=${lon}`;
 
   // Функция для возврата карты к исходному адресу
@@ -236,7 +236,7 @@ const Contact = () => {
 
           {/* Диалог с картой */}
           <Dialog open={mapOpen} onOpenChange={setMapOpen}>
-            <DialogContent className="fixed inset-0 left-0 top-0 right-0 bottom-0 max-w-none w-auto p-0 flex items-center justify-center translate-x-0 translate-y-0 bg-transparent border-none shadow-none pointer-events-none [&>*]:pointer-events-auto [&>button]:absolute [&>button]:right-4 [&>button]:top-4 [&>button]:z-10 [&>button]:bg-black/70 [&>button]:text-white [&>button]:hover:bg-black/90 [&>button]:rounded-full [&>button]:h-10 [&>button]:w-10">
+            <DialogContent className="fixed inset-0 left-0 top-0 right-0 bottom-0 max-w-none w-auto p-0 flex items-center justify-center translate-x-0 translate-y-0 bg-transparent border-none shadow-none pointer-events-none [&>*]:pointer-events-auto [&>button]:absolute [&>button]:right-4 [&>button]:top-4 [&>button]:z-10 [&>button]:bg-black/70 [&>button]:text-white [&>button]:hover:bg-black/90 [&>button]:rounded-full [&>button]:h-10 [&>button]:w-10 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:p-0">
               <div className="max-w-4xl w-full max-h-[90vh] overflow-auto mx-4 bg-background rounded-lg shadow-lg border p-6 pointer-events-auto">
                 <h3 className="font-serif text-2xl font-bold text-card-foreground mb-2">
                   Могилев, Беларусь
@@ -300,7 +300,7 @@ const Contact = () => {
                         // Если не получилось, открываем веб-версию
                         setTimeout(() => {
                           window.open(
-                            `https://yandex.ru/maps/?pt=30.3307,53.8945&z=15&l=map`,
+                            `https://yandex.ru/maps/?pt=${lon},${lat}&z=16&l=map`,
                             "_blank"
                           );
                         }, 500);
