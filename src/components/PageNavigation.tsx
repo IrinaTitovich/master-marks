@@ -108,7 +108,7 @@ const PageNavigation = () => {
     isLocation?: boolean,
     isPage?: boolean,
     path?: string,
-    isSection?: boolean,
+    isSection?: boolean
   ) => {
     if (isPage && path) {
       // Для страниц переходим по маршруту
@@ -118,26 +118,21 @@ const PageNavigation = () => {
     }
 
     if (isLocation) {
-      // Для локации: если на главной - прокручиваем к контактам и открываем карту, иначе переходим на главную
-      if (location.pathname === "/") {
-        const contactElement = document.getElementById("contact");
-        if (contactElement) {
-          const offset = 80;
-          const elementPosition = contactElement.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
-
-          // Открываем карту через событие
-          setTimeout(() => {
-            window.dispatchEvent(new CustomEvent("openLocationMap"));
-          }, 500);
+      const requestOpenMap = () => {
+        try {
+          sessionStorage.setItem("openLocationMap", "1");
+        } catch {
+          (
+            window as unknown as { __pendingOpenLocationMap?: boolean }
+          ).__pendingOpenLocationMap = true;
         }
+        window.dispatchEvent(new CustomEvent("openLocationMap"));
+      };
+
+      if (location.pathname === "/") {
+        requestOpenMap();
+        setTimeout(requestOpenMap, 800);
       } else {
-        // Переходим на главную и открываем карту
         navigate("/", { state: { scrollToContact: true, openMap: true } });
       }
       setIsOpen(false);
@@ -219,6 +214,7 @@ const PageNavigation = () => {
           <div className="hidden md:flex items-center gap-1 overflow-visible">
             {sections.map((section) => (
               <button
+                type="button"
                 key={section.id}
                 onClick={() =>
                   scrollToSection(
@@ -226,15 +222,15 @@ const PageNavigation = () => {
                     section.isLocation,
                     section.isPage,
                     section.path,
-                    section.isSection,
+                    section.isSection
                   )
                 }
                 className={`relative rounded-lg font-medium transition-all flex items-center gap-1.5 px-3 py-2 text-sm overflow-visible ${
                   activeSection === section.id
                     ? "bg-accent text-accent-foreground"
                     : section.id === "services"
-                      ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
-                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                    ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                    : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                 }`}
               >
                 {section.isLocation && <MapPin className="h-4 w-4" />}
@@ -263,6 +259,7 @@ const PageNavigation = () => {
             <div className="flex flex-col gap-2">
               {sections.map((section) => (
                 <button
+                  type="button"
                   key={section.id}
                   onPointerDown={(e) => {
                     if (section.isLocation && e.pointerType === "touch") {
@@ -282,7 +279,7 @@ const PageNavigation = () => {
                       section.isLocation,
                       section.isPage,
                       section.path,
-                      section.isSection,
+                      section.isSection
                     )
                   }
                   role="menuitem"
@@ -293,8 +290,8 @@ const PageNavigation = () => {
                     activeSection === section.id
                       ? "bg-accent text-accent-foreground"
                       : section.id === "services"
-                        ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
-                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                      ? "text-accent hover:text-accent/80 hover:bg-primary-foreground/10"
+                      : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
                   }`}
                 >
                   {section.isLocation && <MapPin className="h-4 w-4" />}

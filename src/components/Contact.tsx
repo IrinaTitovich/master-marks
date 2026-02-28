@@ -54,11 +54,33 @@ const Contact = () => {
     }
   }, []);
 
-  // Обработчик события для открытия карты из навигации
+  // Открытие карты по клику «Локация» в хедере (событие + sessionStorage на случай lazy-загрузки)
   useEffect(() => {
+    const openMap = () => setMapOpen(true);
+
     const handleOpenMap = () => {
-      setMapOpen(true);
+      try {
+        sessionStorage.removeItem("openLocationMap");
+      } catch {
+        (
+          window as unknown as { __pendingOpenLocationMap?: boolean }
+        ).__pendingOpenLocationMap = false;
+      }
+      openMap();
     };
+
+    try {
+      if (sessionStorage.getItem("openLocationMap") === "1") {
+        sessionStorage.removeItem("openLocationMap");
+        openMap();
+      }
+    } catch {
+      const win = window as unknown as { __pendingOpenLocationMap?: boolean };
+      if (win.__pendingOpenLocationMap) {
+        win.__pendingOpenLocationMap = false;
+        openMap();
+      }
+    }
 
     window.addEventListener("openLocationMap", handleOpenMap);
     return () => window.removeEventListener("openLocationMap", handleOpenMap);
@@ -66,8 +88,8 @@ const Contact = () => {
 
   const addresses = [
     {
-      full: "пер. 1 Хвойный д. 3, Могилёв, Беларусь",
-      short: "пер. 1 Хвойный д. 3, Могилёв",
+      full: "Могилев, пер. 1-й Хвойный, д. 3, Беларусь",
+      short: "Могилев, пер. 1-й Хвойный, д. 3",
       lat: 53.861778,
       lon: 30.457444,
     },
@@ -137,7 +159,8 @@ const Contact = () => {
 
   // Ссылки для навигаторов (координаты для точного открытия точки)
   const googleNavUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lon}`;
-  const yandexNavUrl = `yandexnavi://build_route?lat_to=${lat}&lon_to=${lon}`;
+  // Веб-карты Яндекса с точкой; на мобильных можно нажать «Открыть в приложении»
+  const yandexWebNavUrl = `https://yandex.ru/maps/?pt=${lon},${lat}&z=16&l=map`;
 
   // Функция для возврата карты к исходному адресу
   const resetMap = () => {
@@ -359,22 +382,18 @@ const Contact = () => {
                       Google Maps
                     </Button>
                     <Button
-                      onClick={() => {
-                        // Пытаемся открыть в приложении Яндекс Навигатор
-                        window.location.href = yandexNavUrl;
-                        // Если не получилось, открываем веб-версию
-                        setTimeout(() => {
-                          window.open(
-                            `https://yandex.ru/maps/?pt=${lon},${lat}&z=16&l=map`,
-                            "_blank"
-                          );
-                        }, 500);
-                      }}
+                      asChild
                       className="flex-1 bg-[#FC3F1D] hover:bg-[#E02E0F] text-white font-bold text-base sm:text-lg py-6 sm:py-7 shadow-lg hover:shadow-xl transition-all"
                       size="lg"
                     >
-                      <Navigation className="mr-3 h-6 w-6 sm:h-7 sm:w-7" />
-                      Яндекс Навигатор
+                      <a
+                        href={yandexWebNavUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Navigation className="mr-3 h-6 w-6 sm:h-7 sm:w-7" />
+                        Яндекс Навигатор
+                      </a>
                     </Button>
                   </div>
                 </div>

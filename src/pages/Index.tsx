@@ -44,32 +44,20 @@ const Index = () => {
       return;
     }
 
-    // Прокрутка к секции контактов, если перешли с других страниц
-    if (location.state?.scrollToContact) {
+    // Открытие карты при переходе с других страниц по «Локация»
+    if (location.state?.scrollToContact && location.state?.openMap) {
+      try {
+        sessionStorage.setItem("openLocationMap", "1");
+      } catch {
+        (
+          window as unknown as { __pendingOpenLocationMap?: boolean }
+        ).__pendingOpenLocationMap = true;
+      }
       requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          const contactElement = document.getElementById("contact");
-          if (contactElement) {
-            // Для мобильных устройств используем instant прокрутку для четкости
-            const isMobile = window.innerWidth < 768;
-            const offset = isMobile ? 20 : 80;
-            const elementPosition = contactElement.getBoundingClientRect().top;
-            const offsetPosition =
-              elementPosition + window.pageYOffset - offset;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: isMobile ? "auto" : "smooth", // Instant на мобильных для четкости
-            });
-
-            // Если нужно открыть карту
-            if (location.state?.openMap) {
-              setTimeout(() => {
-                window.dispatchEvent(new CustomEvent("openLocationMap"));
-              }, 500);
-            }
-          }
-        });
+        window.dispatchEvent(new CustomEvent("openLocationMap"));
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent("openLocationMap"));
+        }, 800);
       });
     }
   }, [location.state]);
@@ -128,7 +116,7 @@ const Index = () => {
         addressCountryName: "Беларусь",
       },
     }),
-    [siteUrl],
+    [siteUrl]
   );
 
   const localBusinessJsonLd = useMemo(
@@ -148,7 +136,7 @@ const Index = () => {
           "@type": "PostalAddress",
           addressLocality: "Могилев",
           addressRegion: "Могилевская область",
-          streetAddress: "пер. 1 Хвойный д. 3",
+          streetAddress: "Могилев, пер. 1-й Хвойный, д. 3",
           postalCode: "",
           addressCountry: "BY",
           addressCountryName: "Беларусь",
@@ -173,8 +161,8 @@ const Index = () => {
         ],
         geo: {
           "@type": "GeoCoordinates",
-          latitude: "53.8945",
-          longitude: "30.3307",
+          latitude: "53.861778",
+          longitude: "30.457444",
           addressLocality: "Могилев",
           addressRegion: "Могилевская область",
           addressCountry: "BY",
@@ -287,7 +275,7 @@ const Index = () => {
         },
       },
     ],
-    [siteUrl],
+    [siteUrl]
   );
 
   const websiteJsonLd = useMemo(
@@ -304,7 +292,7 @@ const Index = () => {
         "query-input": "required name=search_term_string",
       },
     }),
-    [siteUrl],
+    [siteUrl]
   );
 
   const howToJsonLd = useMemo(
@@ -360,7 +348,7 @@ const Index = () => {
       ],
       totalTime: "PT4W",
     }),
-    [],
+    []
   );
 
   const faqItems = [
@@ -470,13 +458,17 @@ const Index = () => {
             />
           </Suspense>
         </ViewportSection>
-        <ViewportSection id="contact" minHeight="40rem">
+        <section
+          id="contact"
+          className="w-full min-h-[40rem]"
+          aria-hidden={false}
+        >
           <Suspense
             fallback={<div className="min-h-[40rem]" aria-hidden="true" />}
           >
             <Contact />
           </Suspense>
-        </ViewportSection>
+        </section>
       </main>
 
       {/* Скрытый SEO-блок: E-E-A-T, согласование, авторитет (без визуальных изменений) */}
@@ -554,12 +546,6 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <p
-          className="absolute bottom-2 right-3 text-[10px] text-primary-foreground/20 font-normal tracking-wide select-none"
-          aria-hidden="true"
-        >
-          v1.3.0
-        </p>
       </footer>
     </div>
   );
