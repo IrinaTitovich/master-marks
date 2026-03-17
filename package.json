@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "build:prod": "cross-env VITE_BASE_URL=/ VITE_SITE_URL=https://vashproekt.by vite build",
         "build:dev": "vite build --mode development",
         "lint": "eslint .",
         "preview": "vite preview",
@@ -73,16 +74,17 @@
         "@types/react-dom": "^18.3.7",
         "@vitejs/plugin-react-swc": "^3.11.0",
         "autoprefixer": "^10.4.21",
+        "cross-env": "^10.1.0",
         "eslint": "^9.32.0",
         "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-react-refresh": "^0.4.20",
         "globals": "^15.15.0",
         "lovable-tagger": "^1.1.11",
         "postcss": "^8.5.6",
+        "sharp": "^0.33.5",
         "tailwindcss": "^3.4.17",
         "typescript": "^5.8.3",
         "typescript-eslint": "^8.38.0",
-        "vite": "^5.4.19",
-        "sharp": "^0.33.5"
+        "vite": "^5.4.19"
     }
 }

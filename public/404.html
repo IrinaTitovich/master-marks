@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Проектирование Домов | Архитектор-Конструктор</title>
     <script>
-      // GitHub Pages 404.html workaround for SPA routing
-      // Redirect to index.html with the current path
+      // SPA 404 workaround: detect basePath from the first path segment
+      // Works both on GitHub Pages (/master-marks/) and production (/)
       var path = window.location.pathname;
       var search = window.location.search;
       var hash = window.location.hash;
 
-      var basePath = "/master-marks";
+      var segments = path.replace(/^\//, "").split("/");
+      var firstSeg = segments[0] || "";
+      var knownRoutes = ["services", "projects", "about", "client-guide"];
+      var basePath = (firstSeg && knownRoutes.indexOf(firstSeg) === -1 && firstSeg !== "index.html")
+        ? "/" + firstSeg
+        : "";
       var indexPath = basePath + "/index.html";
 
       var newPath =
@@ -27,7 +32,7 @@
       <h1>Загрузка...</h1>
       <p>
         Если страница не загрузилась,
-        <a href="/master-marks/index.html">перейдите на главную</a>
+        <a href="/">перейдите на главную</a>
       </p>
     </div>
   </body>

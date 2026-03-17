@@ -14,8 +14,8 @@ interface SEOProps {
 const SEO = ({
   title = "Проектирование Домов | Архитектор-Конструктор",
   description = "Профессиональное проектирование жилых домов. Большой опыт в архитектуре и конструировании. Индивидуальный подход к каждому проекту.",
-  keywords = "проект могилев, проектирование могилев, проект дома могилев, архитектор могилев, конструктор, проектирование домов, архитектурное проектирование, проектирование жилых домов, индивидуальное проектирование, архитектура, строительство",
-  image = "/placeholder.svg",
+  keywords = "проект могилев, проектирование могилев, проект дома могилев, архитектор могилев, конструктор, проектирование домов, архитектурное проектирование, проектирование жилых домов, индивидуальное проектирование, архитектура, строительство, заказать проект дома, проект дома, проекты домов, купить проект дома, архитектурное бюро, заказать индивидуальный проект дома, проект дома из блоков, проект дома с террасой, проект дома одноэтажного, проект дома с гаражом, проект дома с мансардой, проект дома 10 на 10, проектировщик Могилев, проект коттеджа, проект коттеджа заказать, проект коттеджа купить, проект дома рб, проект дома со сметой, проект дома 2 этажа, проект дома 1 этаж, проект дома двухэтажного",
+  image = "/hero-architecture.jpg",
   url,
   type = "website",
   canonical,
@@ -33,99 +33,78 @@ const SEO = ({
     : `${window.location.origin}${baseUrl}${image.replace(/^\//, "")}`;
 
   useEffect(() => {
-    // Используем requestIdleCallback для обновления SEO тегов вне критического пути
-    const updateSEO = () => {
-      // Обновляем title
-      document.title = title;
-
-      // Функция для обновления или создания meta тега
-      const updateMetaTag = (
-        name: string,
-        content: string,
-        attribute: string = "name"
-      ) => {
-        let element = document.querySelector(
-          `meta[${attribute}="${name}"]`
-        ) as HTMLMetaElement;
-        if (!element) {
-          element = document.createElement("meta");
-          element.setAttribute(attribute, name);
-          document.head.appendChild(element);
-        }
-        element.setAttribute("content", content);
-      };
-
-      // Функция для обновления или создания link тега
-      const updateLinkTag = (rel: string, href: string) => {
-        let element = document.querySelector(
-          `link[rel="${rel}"]`
-        ) as HTMLLinkElement;
-        if (!element) {
-          element = document.createElement("link");
-          element.setAttribute("rel", rel);
-          document.head.appendChild(element);
-        }
-        element.setAttribute("href", href);
-      };
-
-      // Обновляем основные meta теги
-      updateMetaTag("description", description);
-      updateMetaTag("keywords", keywords);
-      updateMetaTag("author", "Архитектор-Конструктор");
-      updateMetaTag("robots", "index, follow");
-
-      // Open Graph теги
-      updateMetaTag("og:title", title, "property");
-      updateMetaTag("og:description", description, "property");
-      updateMetaTag("og:type", type, "property");
-      updateMetaTag("og:url", fullUrl, "property");
-      updateMetaTag("og:image", imageUrl, "property");
-      updateMetaTag("og:locale", "ru_RU", "property");
-      updateMetaTag(
-        "og:site_name",
-        "Ваш проект - Проектирование домов",
-        "property"
-      );
-
-      // Twitter Card теги
-      updateMetaTag("twitter:card", "summary_large_image");
-      updateMetaTag("twitter:title", title);
-      updateMetaTag("twitter:description", description);
-      updateMetaTag("twitter:image", imageUrl);
-
-      // GEO мета-теги для поисковых систем
-      updateMetaTag("geo.region", "BY-MG", "name");
-      updateMetaTag("geo.placename", "Могилев", "name");
-      updateMetaTag("geo.position", "53.8945;30.3307", "name");
-      updateMetaTag("ICBM", "53.8945, 30.3307", "name");
-
-      // Canonical URL
-      updateLinkTag("canonical", canonicalUrl);
-
-      // Добавляем JSON-LD структурированные данные
-      if (jsonLd) {
-        // Удаляем старые JSON-LD скрипты
-        const oldScripts = document.querySelectorAll(
-          'script[type="application/ld+json"]'
-        );
-        oldScripts.forEach((script) => script.remove());
-
-        // Если jsonLd - массив, создаем отдельный script для каждого объекта
-        const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
-        jsonLdArray.forEach((schema) => {
-          const script = document.createElement("script");
-          script.setAttribute("type", "application/ld+json");
-          script.textContent = JSON.stringify(schema);
-          document.head.appendChild(script);
-        });
+    const updateMetaTag = (
+      name: string,
+      content: string,
+      attribute: string = "name"
+    ) => {
+      let element = document.querySelector(
+        `meta[${attribute}="${name}"]`
+      ) as HTMLMetaElement;
+      if (!element) {
+        element = document.createElement("meta");
+        element.setAttribute(attribute, name);
+        document.head.appendChild(element);
       }
+      element.setAttribute("content", content);
     };
 
-    // Используем requestIdleCallback если доступен, иначе setTimeout
-    if ("requestIdleCallback" in window) {
-      (window as any).requestIdleCallback(updateSEO, { timeout: 2000 });
-    } else {
-      setTimeout(updateSEO, 0);
+    const updateLinkTag = (rel: string, href: string) => {
+      let element = document.querySelector(
+        `link[rel="${rel}"]`
+      ) as HTMLLinkElement;
+      if (!element) {
+        element = document.createElement("link");
+        element.setAttribute("rel", rel);
+        document.head.appendChild(element);
+      }
+      element.setAttribute("href", href);
+    };
+
+    document.title = title;
+
+    updateMetaTag("description", description);
+    updateMetaTag("keywords", keywords);
+    updateMetaTag("author", "Архитектор-Конструктор");
+    updateMetaTag("robots", "index, follow");
+
+    updateMetaTag("og:title", title, "property");
+    updateMetaTag("og:description", description, "property");
+    updateMetaTag("og:type", type, "property");
+    updateMetaTag("og:url", fullUrl, "property");
+    updateMetaTag("og:image", imageUrl, "property");
+    updateMetaTag("og:locale", "ru_RU", "property");
+    updateMetaTag(
+      "og:site_name",
+      "Ваш проект - Проектирование домов",
+      "property"
+    );
+
+    updateMetaTag("twitter:card", "summary_large_image");
+    updateMetaTag("twitter:title", title);
+    updateMetaTag("twitter:description", description);
+    updateMetaTag("twitter:image", imageUrl);
+
+    updateMetaTag("geo.region", "BY-MA", "name");
+    updateMetaTag("geo.placename", "Могилев", "name");
+    updateMetaTag("geo.position", "53.8945;30.3307", "name");
+    updateMetaTag("ICBM", "53.8945, 30.3307", "name");
+
+    updateLinkTag("canonical", canonicalUrl);
+
+    if (jsonLd) {
+      const oldScripts = document.querySelectorAll(
+        'script[type="application/ld+json"]'
+      );
+      oldScripts.forEach((script) => script.remove());
+
+      const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+      jsonLdArray.forEach((schema) => {
+        const script = document.createElement("script");
+        script.setAttribute("type", "application/ld+json");
+        script.textContent = JSON.stringify(schema);
+        document.head.appendChild(script);
+      });
     }
   }, [
     title,
