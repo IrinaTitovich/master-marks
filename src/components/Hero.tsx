@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import VacationAnnouncement from "@/components/VacationAnnouncement";
 import { ArrowRight, Phone, Star, Award } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
@@ -104,6 +105,8 @@ const Hero = () => {
               </span>
             </div>
           </div>
+
+          <VacationAnnouncement />
 
           {/* Что дальше - CTA: резерв высоты при FOUT */}
           <div className="mt-2 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 items-stretch sm:items-center min-h-[4.5rem] sm:min-h-[3.75rem]">
